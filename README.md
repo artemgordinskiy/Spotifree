@@ -7,8 +7,8 @@ SpotiFree is polling Spotify every **0.5** seconds to see if current track has *
 ## Installing
 1. Place SpotiFree in an **Applications** folder
 2. Open **SpotiFree** from your **Applications** folder
-3. (open at login) Find its icon in the Dock and go into contectual menu and select *Options → Open at login* to run at login
-4. (hiding Dock icon) Open **Terminal**, and run *defaults write /Applications/SpotiFree.app/Contents/Info LSUIElement 1*
+3. *(autorun)* Find its icon in the Dock and go into contectual menu and select *Options → Open at login* to run at login
+4. *(hiding the Dock icon)* Open **Terminal**, and run *defaults write /Applications/SpotiFree.app/Contents/Info LSUIElement 1*
 
 ## Origin
 SpotiFree is based on the code I've [found](http://forums.macrumors.com/showthread.php?p=16033608) on MacRumors forums.
