@@ -1,5 +1,6 @@
 -- Setting the "playing" property to the constant returned by Spotify as a "player state" when it's playing.
 property playing : Çconstant ****kPSPÈ
+global currentVolume, currentTrackPopularity, currentTrackDuration, currentTrackPosition
 
 if (isInLoginItems("SpotiFree", ":Applications:SpotiFree.app") = false) then -- Check if SpotiFree is login items.
 	local dialogTitle, dialogMessage, dialogButtonYes, dialogButtonYes, spotifreeAppName, spotifreeAppPath
@@ -27,8 +28,6 @@ end if
 repeat
 	try
 		if (isRunning() and isPlaying()) then -- Is Spotify running? Is it playing?
-			global currentVolume
-			local currentTrackPopularity, currentTrackDuration, currentTrackPosition
 			tell application "Spotify"
 				try
 					-- Get the popularity of a current track and save it in a variable currentTrackPopularity.
@@ -58,32 +57,31 @@ repeat
 					mute()
 					
 					-- Wait until the end of an ad. Then go forward.
-					delay currentDuration - currentPosition + 0.5
+					delay currentTrackDuration - currentTrackPosition + 1
 				end try
 				
 				try
 					repeat
-						local trackPopularity, trackDuration, trackPosition
 						tell application "Spotify"
 							try
 								-- Get the popularity of a current track and save it in a variable currentTrackPopularity.
-								set trackPopularity to popularity of current track
+								set currentTrackPopularity to popularity of current track
 							end try
 							try
 								-- Get the duration of current track and save it in a variable currentTrackDuration.
-								set trackDuration to duration of current track
+								set currentTrackDuration to duration of current track
 							end try
 							try
 								-- Get the current track position and save it in a variable currentTrackPosition.
-								set trackPosition to player position
+								set currentTrackPosition to player position
 							end try
 						end tell
 						
-						if (isAnAd(trackPopularity, trackDuration) = false) then -- Check if current track is not an advertisement.
+						if (isAnAd(currentTrackPopularity, currentTrackDuration) = false) then -- Check if current track is not an advertisement.
 							unmute(currentVolume)
 							exit repeat
 						else
-							delay trackDuration - trackPosition + 0.5
+							delay currentTrackDuration - currentTrackPosition + 1
 						end if
 					end repeat
 				end try
