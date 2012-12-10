@@ -32,8 +32,6 @@ repeat
 				try
 					-- Get the popularity of a current track and save it in a variable currentTrackPopularity.
 					set currentTrackPopularity to popularity of current track
-				end try
-				try
 					-- Get the duration of current track and save it in a variable currentTrackDuration.
 					set currentTrackDuration to duration of current track
 				end try
@@ -46,8 +44,6 @@ repeat
 						try
 							-- Get the current sound volume from Spotify and save it in a variable currentVolume.
 							set currentVolume to sound volume
-						end try
-						try
 							-- Get the current track position and save it in a variable currentTrackPosition.
 							set currentTrackPosition to player position
 						end try
@@ -56,7 +52,7 @@ repeat
 					-- Mute Spotify.
 					mute()
 					
-					-- Wait until the end of an ad. Then go forward.
+					-- Wait until the end of an ad + 1 sec. Then go forward.
 					delay currentTrackDuration - currentTrackPosition + 1
 				end try
 				
@@ -66,22 +62,27 @@ repeat
 							try
 								-- Get the popularity of a current track and save it in a variable currentTrackPopularity.
 								set currentTrackPopularity to popularity of current track
-							end try
-							try
 								-- Get the duration of current track and save it in a variable currentTrackDuration.
 								set currentTrackDuration to duration of current track
-							end try
-							try
 								-- Get the current track position and save it in a variable currentTrackPosition.
 								set currentTrackPosition to player position
+								
+							on error errorNumber
+								-- Checking if Spotify returns "Can’t get current track." error.  It's being thrown when there's no track after an ad.
+								-- Happens when an ad has played after the last song on the playlist.
+								if (errorNumber = -1728) then
+									unmute(currentVolume)
+									exit repeat
+								end if
 							end try
 						end tell
 						
-						if (isAnAd(currentTrackPopularity, currentTrackDuration) = false) then -- Check if current track is not an advertisement.
+						if (isAnAd(currentTrackPopularity, currentTrackDuration)) then -- Check if current track is not an advertisement.
+							-- Wait until the end of an ad + 1 sec. Then go forward.
+							delay currentTrackDuration - currentTrackPosition + 1
+						else
 							unmute(currentVolume)
 							exit repeat
-						else
-							delay currentTrackDuration - currentTrackPosition + 1
 						end if
 					end repeat
 				end try
