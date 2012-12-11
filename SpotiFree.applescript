@@ -13,7 +13,7 @@ if (isInLoginItems("SpotiFree", ":Applications:SpotiFree.app") = false) then -- 
 	
 	-- Run the dialog to a user.
 	set runAtStartupQuestion to (display dialog dialogMessage with title dialogTitle with icon 1 buttons {dialogButtonNo, dialogButtonYes} default button 2)
-	-- Assign the result to the variable runAtStartupAnswer.
+	-- Assign a result to the variable runAtStartupAnswer.
 	set runAtStartupAnswer to the button returned of runAtStartupQuestion
 	-- Check if user agreed.
 	if (runAtStartupAnswer = dialogButtonYes) then
@@ -24,10 +24,10 @@ if (isInLoginItems("SpotiFree", ":Applications:SpotiFree.app") = false) then -- 
 	end if
 end if
 
--- Repeat this entire block every .3 seconds. As set at the end.
 repeat
 	try
-		if (isRunning() and isPlaying()) then -- Is Spotify running? Is it playing?
+		-- Checking if Spotify is running and playing right now.
+		if (isRunning() and isPlaying()) then
 			tell application "Spotify"
 				try
 					-- Get the popularity of a current track and save it in a variable currentTrackPopularity.
@@ -67,30 +67,35 @@ repeat
 								-- Get the current track position and save it in a variable currentTrackPosition.
 								set currentTrackPosition to player position
 								
-							on error errorNumber
+							on error number errorNumber
 								-- Checking if Spotify returns "Can’t get current track." error.  It's being thrown when there's no track after an ad.
-								-- Happens when an ad has played after the last song on the playlist.
+								-- Happens, for instance, when an ad has played after the last song on the playlist.
 								if (errorNumber = -1728) then
-									unmute(currentVolume)
+									-- If it is, unmute Spotify and exit the loop.
+									my unmute(currentVolume)
 									exit repeat
 								end if
 							end try
 						end tell
 						
-						if (isAnAd(currentTrackPopularity, currentTrackDuration)) then -- Check if current track is not an advertisement.
-							-- Wait until the end of an ad + 1 sec. Then go forward.
+						-- Check if current track is an ad. Or if Spotify was paused during an advertisement.
+						if (isAnAd(currentTrackPopularity, currentTrackDuration)) then
+							-- Delay until the end of an ad + 1 sec. 
+							-- If Spotify was paused, or there is a second ad, this loop will continue to repeat.
 							delay currentTrackDuration - currentTrackPosition + 1
 						else
+							-- If there's no more ads, unmute and exit the loop.
 							unmute(currentVolume)
 							exit repeat
 						end if
 					end repeat
 				end try
-				
 			end if
-			
 		end if
 	end try
+	-- This is how fast we are polling Spotify. 
+	-- The only speed at which you will hear no sounds passing through.
+	-- Fortunately, combined with the added load on Spotify, the CPU usage stays well below 1% even on an old dual-core 3.6 GHz processor.
 	delay 0.3
 end repeat
 
@@ -98,6 +103,7 @@ on mute()
 	try
 		tell application "Spotify"
 			try
+				-- This is the only way possible to mute Spotify during an advertisement. Otherwise it pauses when you mute the sound.
 				pause
 				set sound volume to 0
 				play
@@ -107,15 +113,22 @@ on mute()
 end mute
 
 on unmute(volume)
+	local currentVolume
+	set currentVolume to volume
+	
 	tell application "Spotify"
 		try
-			-- Restore the volume to the level it was before muting.
-			set sound volume to volume
+			-- Restore the volume to the level supplied to the parameter.
+			set sound volume to currentVolume
 		end try
 	end tell
 end unmute
 
-on isAnAd(trackPopularity, trackDuration)
+on isAnAd(popularity, duration)
+	local trackPopularity, trackDuration
+	set trackPopularity to popularity
+	set trackDuration to duration
+	
 	try
 		-- If current track's popularity is 0 and its duration is less then 40, then it's almost certainly an ad.
 		if (trackPopularity = 0 and trackDuration < 40) then
@@ -164,12 +177,13 @@ on isRunning()
 end isRunning
 
 on isInLoginItems(appName)
-	local allLoginItems
+	local applicationName, allLoginItems
+	set applicationName to appName
 	try
 		-- Get all apps in Login Items.
 		tell application "System Events" to set allLoginItems to name of every login item as string
 		-- Check if inputted app is in there.
-		if appName is in allLoginItems then
+		if applicationName is in allLoginItems then
 			return true
 		else
 			return false
@@ -178,10 +192,13 @@ on isInLoginItems(appName)
 end isInLoginItems
 
 on addToLoginItems(appName, appPath)
-	local posixAppPath
+	local applicationName, applicationPath, posixAppPath
+	set applicationName to appName
+	set applicationPath to appPath
+	
 	try
-		-- Get the POSIX (Portable Operating System Interface) path of inputted appPath.
-		set posixAppPath to POSIX path of alias appPath
+		-- Translate a supplied application path to a POSIX standard (e.g. "/Applications/SpotiFree.app" to ":Applications:SpotiFree.app").
+		set posixAppPath to POSIX path of alias applicationPath
 		tell application "System Events"
 			try
 				-- Add inputted app to the Login Items.
