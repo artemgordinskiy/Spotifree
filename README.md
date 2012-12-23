@@ -2,7 +2,7 @@
 Spotifree is a free OS X app that automatically detects and mutes Spotify audio ads. Hence making your music listening experience much more peaceful and enjoyable experience.
 
 ## Installing
-1. Download **Spotifree** in a DMG image [here](https://github.com/ArtemGordinsky/SpotiFree/blob/master/SpotiFree.dmg?raw=true).
+1. Download **Spotifree** in a DMG image [here](https://github.com/ArtemGordinsky/SpotiFree/blob/master/SpotiFree.dmg?raw=true) (direct link).
 2. Move it to the **Applications** folder, run, and enjoy your ad-free music listening experience :)
 
 	On the first run, **Spotifree** will ask you if you want it to run automatically at login. If you agree, the app will be added to the login items. From this moment, **Spotifree** will mute all **Spotify** ads it detects (all of them, usually). Don't worry though, it will not impact your Mac's performance and you'll never notice it running.
