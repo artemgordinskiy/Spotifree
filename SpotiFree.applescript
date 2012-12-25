@@ -153,22 +153,17 @@ on isRunning()
 end isRunning
 
 on isInLoginItems(appName)
-	local applicationName, allLoginItems
-	set applicationName to appName
 	try
-		-- Get all apps in Login Items.
 		tell application "System Events"
-			set allLoginItems to name of every login item as string
+			if login item appName exists then
+				return true
+			else
+				return false
+			end if
 		end tell
 	on error
 		return false
 	end try
-	-- Check if inputted app is in there.
-	if applicationName is in allLoginItems then
-		return true
-	else
-		return false
-	end if
 end isInLoginItems
 
 on addToLoginItems(appName, appPath)
