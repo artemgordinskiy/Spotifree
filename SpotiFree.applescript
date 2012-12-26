@@ -1,27 +1,26 @@
 -- Setting the "playing" property to the constant returned by Spotify as a "player state" when it's playing.
-property playing : Çconstant ****kPSPÈ
+property playing : ?constant ****kPSP?
 global currentVolume
 
-if (isInLoginItems("SpotiFree", ":Applications:SpotiFree.app") = false) then -- Check if SpotiFree is login items.
-	local dialogTitle, dialogMessage, dialogButtonYes, dialogButtonYes, spotifreeAppName, spotifreeAppPath
-	set spotifreeAppName to "SpotiFree"
-	set spotifreeAppPath to ":Applications:SpotiFree.app"
-	set dialogTitle to "Open SpotiFree at login"
-	set dialogMessage to "Do you want SpotiFree to run automatically on startup? You'll never notice it, seriously."
-	set dialogButtonNo to "No, thanks"
-	set dialogButtonYes to "OK"
-	
-	-- Run the dialog to a user.
-	set runAtStartupQuestion to (display dialog dialogMessage with title dialogTitle with icon 1 buttons {dialogButtonNo, dialogButtonYes} default button 2)
-	-- Assign a result to the variable runAtStartupAnswer.
-	set runAtStartupAnswer to the button returned of runAtStartupQuestion
+-- Check if Spotifree is being run the first time and is in Login Items.
+if (isTheFirstRun() = true and isInLoginItems() = false) then
+	-- Tell the user how Spotifree runs and ask if he wants Spotifree to run automatically on startup.
+	-- Assign a result to the variable 'userAnswer'.
+	set userAnswer to the button returned of (display dialog "Hi, thanks for installing Spotifree!" & ?
+		return & "Just so you know, Spotifree has no interface yet, and will work silently in the background." & return & return ?
+		& "BTW, do you want it to run automatically on startup?" with title ?
+		"You are awesome!" with icon 1 buttons {"No, thanks", "OK"} default button 2)
 	-- Check if user agreed.
-	if (runAtStartupAnswer = dialogButtonYes) then
+	if (userAnswer = "OK") then
 		try
-			-- Add SpotiFree to the Login Items.
-			my addToLoginItems(spotifreeAppName, spotifreeAppPath)
+			-- Add Spotifree to the Login Items.
+			my addToLoginItems()
 		end try
 	end if
+	try
+		-- Save in the preferences that Spotifree has already ran.
+		do shell script "defaults write com.ArtemGordinsky.Spotifree 'hasRanBefore' 'true'"
+	end try
 end if
 
 repeat
@@ -32,26 +31,24 @@ repeat
 				-- Mute Spotify.
 				mute()
 			end try
-			-- Wait until the end of an ad + 1 sec. Then go forward.
-			delay untilTheEndOfTrack()
-			
 			repeat
 				try
 					-- Check if current track is an ad. Or if Spotify was paused during an advertisement.
 					if (isAnAd()) then
-						-- Delay until the end of an ad + 1 sec. 
 						-- If Spotify was paused, or there is a second ad, this loop will continue to repeat.
-						delay untilTheEndOfTrack()
 					else
-						-- If there's no more ads, unmute and exit the loop.
+						-- If there's no more ads, pause for .5 seconds to let Spotify respond.
+						-- Then, unmute and exit the loop.
+						delay 0.5
 						unmute()
 						exit repeat
 					end if
 				end try
+				delay 0.3
 			end repeat
 		end if
 	end try
-	-- This is how fast we are polling Spotify. 
+	-- This is how fast we are polling Spotify.
 	-- The only speed at which you will hear no sounds passing through.
 	-- Fortunately, combined with the added load on Spotify, the CPU usage stays well below 1% even on an old dual-core 3.6 GHz processor.
 	delay 0.3
@@ -101,21 +98,6 @@ on isAnAd()
 	end if
 end isAnAd
 
-on untilTheEndOfTrack()
-	local currentTrackDuration, currentTrackPosition
-	try
-		tell application "Spotify"
-			-- Get the duration of current track and save it in a variable currentTrackDuration.
-			set currentTrackDuration to duration of current track
-			-- Get the current track position and save it in a variable currentTrackPosition.
-			set currentTrackPosition to player position
-		end tell
-	on error
-		return
-	end try
-	return currentTrackDuration - currentTrackPosition + 1.5
-end untilTheEndOfTrack
-
 on isPlaying()
 	local playerState
 	try
@@ -145,38 +127,37 @@ on isRunning()
 		return false
 	end try
 	-- Check the variable spotifyProcesses, to see is Spotify running.
-	if spotifyProcesses ­ 0 then
+	if spotifyProcesses â‰  0 then
 		return true
 	else
 		return false
 	end if
 end isRunning
 
-on isInLoginItems(appName)
+on addToLoginItems()
 	try
 		tell application "System Events"
-			if login item appName exists then
-				return true
-			else
-				return false
-			end if
-		end tell
-	on error
-		return false
-	end try
-end isInLoginItems
-
-on addToLoginItems(appName, appPath)
-	local applicationName, applicationPath, posixAppPath
-	set applicationName to appName
-	-- Translate a supplied application path to a POSIX standard (e.g. "/Applications/SpotiFree.app" to ":Applications:SpotiFree.app").
-	set applicationPath to POSIX path of alias appPath
-	try
-		tell application "System Events"
-			-- Add inputted app to the Login Items.
-			make login item at end with properties {path:applicationPath, hidden:true}
+			-- Add Spotifree to the Login Items.
+			make login item at end with properties {name:"Spotifree", path:"/Applications/Spotifree.app", hidden:true}
 		end tell
 	on error
 		return
 	end try
 end addToLoginItems
+
+on isTheFirstRun()
+	try
+		-- Get the value of the key 'hasRanBefore' in the file "~/Library/Preferences/com.ArtemGordinsky.Spotifree"
+		set hasRanBefore to do shell script "defaults read com.ArtemGordinsky.Spotifree 'hasRanBefore'"
+	on error
+		-- If the file not there yet, an error is going to be thrown. So it's the first run, probably.
+		-- We are going to return 'true' even if it was some other error. Not a big deal, after all.
+		return true
+	end try
+
+	if (hasRanBefore â‰  "true") then
+		return true
+	else
+		return false
+	end if
+end isTheFirstRun
