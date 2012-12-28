@@ -1,14 +1,14 @@
 -- Setting the "playing" property to the constant returned by Spotify as a "player state" when it's playing.
-property playing : ?constant ****kPSP?
+property playing : Çconstant ****kPSPÈ
 global currentVolume
 
 -- Check if Spotifree is being run the first time and is in Login Items.
-if (isTheFirstRun() = true and isInLoginItems() = false) then
+if (my isTheFirstRun() = true and my isInLoginItems() = false) then
 	-- Tell the user how Spotifree runs and ask if he wants Spotifree to run automatically on startup.
 	-- Assign a result to the variable 'userAnswer'.
-	set userAnswer to the button returned of (display dialog "Hi, thanks for installing Spotifree!" & ?
-		return & "Just so you know, Spotifree has no interface yet, and will work silently in the background." & return & return ?
-		& "BTW, do you want it to run automatically on startup?" with title ?
+	set userAnswer to the button returned of (display dialog "Hi, thanks for installing Spotifree!" & Â
+		return & "Just so you know, Spotifree has no interface yet, and will work silently in the background." & return & return Â
+		& "BTW, do you want it to run automatically on startup?" with title Â
 		"You are awesome!" with icon 1 buttons {"No, thanks", "OK"} default button 2)
 	-- Check if user agreed.
 	if (userAnswer = "OK") then
@@ -127,7 +127,7 @@ on isRunning()
 		return false
 	end try
 	-- Check the variable spotifyProcesses, to see is Spotify running.
-	if spotifyProcesses â‰  0 then
+	if spotifyProcesses ­ 0 then
 		return true
 	else
 		return false
@@ -154,10 +154,25 @@ on isTheFirstRun()
 		-- We are going to return 'true' even if it was some other error. Not a big deal, after all.
 		return true
 	end try
-
-	if (hasRanBefore â‰  "true") then
+	
+	if (hasRanBefore ­ "true") then
 		return true
 	else
 		return false
 	end if
 end isTheFirstRun
+
+on isInLoginItems()
+	try
+		-- Ask 'System Events' is 'Spotifree' is in 'Login Items'.
+		tell application "System Events"
+			if login item "Spotifree" exists then
+				return true
+			else
+				return false
+			end if
+		end tell
+	on error
+		return false
+	end try
+end isInLoginItems
