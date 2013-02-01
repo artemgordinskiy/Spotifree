@@ -91,7 +91,7 @@ on isAnAd()
 		return false
 	end try
 	-- If current track's popularity is 0 and its duration is 40 seconds or less, then it's almost certainly an ad.
-	if (currentTrackPopularity = 0 and currentTrackDuration <= 40) then
+	if (currentTrackPopularity = 0 and currentTrackDuration ² 40) then
 		return true
 	else
 		return false
@@ -154,7 +154,7 @@ on isTheFirstRun()
 		-- We are going to return 'true' even if it was some other error. Not a big deal, after all.
 		return true
 	end try
-
+	
 	if (hasRanBefore ­ "true") then
 		return true
 	else
