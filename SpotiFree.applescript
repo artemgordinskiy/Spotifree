@@ -170,7 +170,7 @@ end addToLoginItems
 
 on isTheFirstRun()
     local isPrefFileExists, prefFilePath
-    set prefFilePath to "~/Library/Preferences/com.ArtemGordinsky.Spotifree"
+    set prefFilePath to "~/Library/Preferences/com.ArtemGordinsky.Spotifree.plist"
     try
         tell application "System Events"
             if exists file prefFilePath then
