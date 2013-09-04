@@ -1,5 +1,7 @@
 property debug : false
 property currentVolume : null
+property idleTime: 0.3
+
 
 if (isTheFirstRun() and not isInLoginItems()) then
     set userAnswer to the button returned of (display dialog "Hi, thanks for installing Spotifree!" & ¬
@@ -17,16 +19,17 @@ if (isTheFirstRun() and not isInLoginItems()) then
     end try
 end if
 
-repeat
+on idle
     try
         -- Adding a 5 seconds timeout instead of default 2 min. Prevents long unresponsiveness of the app.
         with timeout of (5) seconds
             if (isRunning() and isPlaying() and isAnAd()) then
                 try
                     mute()
+					set idleTime to 0.3
                 end try
                 repeat
-                    delay 0.3
+                    set idleTime to 0.3
                     try
                         if (isRunning() and not isAnAd()) then
                             -- Have to delay a little bit, because Spotify may tell us about the next track too early,
@@ -39,7 +42,7 @@ repeat
                 end repeat
             else
                 -- Delaying, to get less of the crashing "connection is invalid" errors.
-                delay 1
+                set idleTime to 1
             end if
         end timeout
     on error errorMessage number errorNumber
@@ -48,8 +51,8 @@ repeat
     -- This is how fast we are polling Spotify.
     -- The only speed at which you will hear almost no sounds passing through.
     -- Fortunately, even combined with the added load on Spotify, the CPU usage is rather miniscule.
-    delay 0.3
-end repeat
+    return idleTime
+end idle
 
 on mute()
     try
