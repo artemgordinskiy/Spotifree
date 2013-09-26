@@ -199,25 +199,15 @@ on isInLoginItems()
     end try
 end isInLoginItems
 
-on log_message(message)
+on log_error(error_number, error_message, diag_message)
     local content
-    set content to (return & ¬
-        "-----------------------------------------------------------" & ¬
-        return & my dateAndTime() & return & message & return ¬
-        & "-----------------------------------------------------------" & return)
-    set log_file to ("Mountain Lion:Users:Mephistopelus:Developer:The Stuff:AppleScript:SpotiFree:Spotifree_log.txt")
-    my write_to_file(content, log_file, true)
-end log_message
-
-on log_error(error_number, error_message, _where)
-    local content
-    if (debug) then
-        set content to (return & "-----------------------------------------------------------" & ¬
+    if (debug = true) then
+        set content to (return & "" & ¬
             return & my dateAndTime() & return & "Error number: " & error_number ¬
             & return & "Error message: " & error_message & return & ¬
-            "Where: " & _where & return ¬
-            & "-----------------------------------------------------------" & return)
-        set log_file to ("Mountain Lion:Users:Mephistopelus:Developer:The Stuff:AppleScript:SpotiFree:Spotifree_log.txt")
+            "Diagnostic message: " & diag_message & return ¬
+            & "" & return)
+        set log_file to (((path to desktop folder) as text) & "Spotifree_log.txt")
         my write_to_file(content, log_file, true)
     end if
 end log_error
