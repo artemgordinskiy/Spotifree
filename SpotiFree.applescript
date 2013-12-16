@@ -2,6 +2,8 @@ property debug : false
 property currentVolume : null
 property idleTime: 0.3
 
+-- Open Spotify when Spotifree opens
+tell application "Spotify" to activate
 
 if (isTheFirstRun() and not isInLoginItems()) then
     set userAnswer to the button returned of (display dialog "Hi, thanks for installing Spotifree!" & ¬
@@ -23,26 +25,31 @@ on idle
     try
         -- Adding a 5 seconds timeout instead of default 2 min. Prevents long unresponsiveness of the app.
         with timeout of (5) seconds
-            if (isRunning() and isPlaying() and isAnAd()) then
-                try
-                    mute()
-					set idleTime to 0.3
-                end try
-                repeat
-                    set idleTime to 0.3
+            if (isRunning()) then
+                if (isPlaying() and isAnAd()) then
                     try
-                        if (isRunning() and not isAnAd()) then
-                            -- Have to delay a little bit, because Spotify may tell us about the next track too early,
-                            -- and a user may to hear the last half-second of an ad.
-                            delay 0.8
-                            unmute()
-                            exit repeat
-                        end if
+                        mute()
+                        set idleTime to 0.3
                     end try
-                end repeat
+                    repeat
+                        set idleTime to 0.3
+                        try
+                            if (isRunning() and not isAnAd()) then
+                                -- Have to delay a little bit, because Spotify may tell us about the next track too early,
+                                -- and a user may to hear the last half-second of an ad.
+                                delay 0.8
+                                unmute()
+                                exit repeat
+                            end if
+                        end try
+                    end repeat
+                else
+                    -- Delaying, to get less of the crashing "connection is invalid" errors.
+                    set idleTime to 1
+                end if
             else
-                -- Delaying, to get less of the crashing "connection is invalid" errors.
-                set idleTime to 1
+                -- Spotify has closed, so quit Spotifree too
+                quit
             end if
         end timeout
     on error errorMessage number errorNumber
