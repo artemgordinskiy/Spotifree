@@ -1,3 +1,6 @@
+# Important
+One of the awesome Spotifree users has completely rewritten the app in Cocoa & Objective-C! It's much more efficient, stable and finally has an interface :) Please get it here: http://spotifree.gordinskiy.com
+
 # Spotifree
 Spotifree is a free OS X app that automatically detects and mutes Spotify audio ads.
 
