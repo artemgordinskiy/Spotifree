@@ -18,6 +18,7 @@
 		943164F9186C3724005277EA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943164D8186C3724005277EA /* Cocoa.framework */; };
 		94316501186C3724005277EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 943164FF186C3724005277EA /* InfoPlist.strings */; };
 		94316503186C3724005277EA /* SpotiFreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94316502186C3724005277EA /* SpotiFreeTests.m */; };
+		94611BF7186C479900378530 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 94611BF6186C479900378530 /* README.md */; };
 		94624825186C378700810C69 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94624824186C378700810C69 /* Icon.icns */; };
 		94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94624828186C38E500810C69 /* AppleScriptCmds.plist */; };
 		9462482C186C38F000810C69 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462482B186C38F000810C69 /* AppData.m */; };
@@ -72,6 +73,7 @@
 		943164FE186C3724005277EA /* SpotiFreeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpotiFreeTests-Info.plist"; sourceTree = "<group>"; };
 		94316500186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94316502186C3724005277EA /* SpotiFreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotiFreeTests.m; sourceTree = "<group>"; };
+		94611BF6186C479900378530 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		94624824186C378700810C69 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		94624826186C380500810C69 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		94624828186C38E500810C69 /* AppleScriptCmds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppleScriptCmds.plist; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		943164CC186C3724005277EA = {
 			isa = PBXGroup;
 			children = (
+				94611BF6186C479900378530 /* README.md */,
 				94624824186C378700810C69 /* Icon.icns */,
 				943164DE186C3724005277EA /* SpotiFree */,
 				943164FC186C3724005277EA /* SpotiFreeTests */,
@@ -312,6 +315,7 @@
 				943164E9186C3724005277EA /* Credits.rtf in Resources */,
 				94624831186C394500810C69 /* License.txt in Resources */,
 				94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */,
+				94611BF7186C479900378530 /* README.md in Resources */,
 				943164EF186C3724005277EA /* MainMenu.xib in Resources */,
 				94624825186C378700810C69 /* Icon.icns in Resources */,
 			);
@@ -468,7 +472,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Eneas/Documents/Programmierung/SpotiFree,
+					"\"$(SRCROOT)/\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
@@ -485,7 +489,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Eneas/Documents/Programmierung/SpotiFree,
+					"\"$(SRCROOT)/\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
