@@ -146,7 +146,7 @@
 }
 
 - (BOOL)isMusicPlaying {
-    return [self isRunning] && [self isPlaying] && [self isAnAd];
+    return [self isRunning] && [self isPlaying] && ![self isAnAd];
 }
 
 - (void)dealloc {
