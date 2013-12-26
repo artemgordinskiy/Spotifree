@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>addLoginItem</key>
+	<string>
+        tell application &quot;System Events&quot;
+        make login item at end of login items with properties {name:&quot;Spotifree&quot;, path:&quot;%@&quot;, hidden:true}
+        end tell
+    </string>
+	<key>removeLoginItem</key>
+	<string>
+        tell application &quot;System Events&quot;
+        get the name of every login item
+        if login item &quot;Spotifree&quot; exists then
+        delete login item &quot;Spotifree&quot;
+        end if
+        end tell
+    </string>
+	<key>updateLoginItemState</key>
+	<string>
+        tell application &quot;System Events&quot;
+        if login item &quot;Spotifree&quot; exists then
+        return true
+        else
+        return false
+        end if
+        end tell
+    </string>
+</dict>
+</plist>
