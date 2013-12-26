@@ -55,7 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		943164D5186C3724005277EA /* SpotiFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotiFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		943164D5186C3724005277EA /* Spotifree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotifree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943164D8186C3724005277EA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		943164DB186C3724005277EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		943164DC186C3724005277EA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -128,7 +128,7 @@
 		943164D6186C3724005277EA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				943164D5186C3724005277EA /* SpotiFree.app */,
+				943164D5186C3724005277EA /* Spotifree.app */,
 				943164F6186C3724005277EA /* SpotiFreeTests.xctest */,
 			);
 			name = Products;
@@ -250,7 +250,7 @@
 			);
 			name = SpotiFree;
 			productName = SpotiFree;
-			productReference = 943164D5186C3724005277EA /* SpotiFree.app */;
+			productReference = 943164D5186C3724005277EA /* Spotifree.app */;
 			productType = "com.apple.product-type.application";
 		};
 		943164F5186C3724005277EA /* SpotiFreeTests */ = {
@@ -478,7 +478,7 @@
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
 				INFOPLIST_FILE = "SpotiFree/SpotiFree-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Spotifree;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -495,7 +495,7 @@
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
 				INFOPLIST_FILE = "SpotiFree/SpotiFree-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Spotifree;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

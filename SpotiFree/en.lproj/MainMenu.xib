@@ -20,7 +20,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="f2f-Gr-21g"/>
-                <menuItem title="About SpotiFree" id="aBA-bl-LWc">
+                <menuItem title="About Spotifree" id="aBA-bl-LWc">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="aboutItemPushed:" target="tNn-uN-YjJ" id="TdG-1X-Y6M"/>
@@ -52,7 +52,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="DUn-qf-wsu"/>
-                <menuItem title="Quit SpotiFree" keyEquivalent="q" id="Mma-Se-B4t">
+                <menuItem title="Quit Spotifree" keyEquivalent="q" id="Mma-Se-B4t">
                     <connections>
                         <action selector="terminate:" target="-1" id="lda-4T-bhe"/>
                     </connections>
