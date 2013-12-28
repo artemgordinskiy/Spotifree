@@ -18,13 +18,11 @@
 
 @interface SpotifyController () {
     NSInteger _currentVolume;
-    id _observer;
 }
 
 @property (strong) SpotifyApplication *spotify;
 @property (strong) AppData *appData;
 @property (strong) NSTimer *timer;
-@property (strong) NSTask *task;
 
 @property (assign) BOOL shouldRun;
 
@@ -46,14 +44,9 @@
         self.appData = [AppData sharedData];
         
         self.shouldRun = YES;
-        __unsafe_unretained typeof(self) weakSelf = self;
-        _observer = [[[NSWorkspace sharedWorkspace] notificationCenter] addObserverForName:NSWorkspaceDidLaunchApplicationNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            if (!weakSelf.shouldRun && weakSelf.spotify.isRunning)
-                weakSelf.shouldRun = YES;
-        }];
-        weakSelf = nil;
-        
         [self addObserver:self forKeyPath:@"shouldRun" options:NSKeyValueObservingOptionOld context:nil];
+        
+        [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged) name:@"com.spotify.client.PlaybackStateChanged" object:nil];
     }
     return self;
 }
@@ -75,9 +68,19 @@
     }
 }
 
+- (void)playbackStateChanged {
+    if (self.shouldRun && ![self isPlaying]) {
+        self.shouldRun = NO;
+    } else if ((!self.shouldRun) && [self isPlaying]) {
+        self.shouldRun = YES;
+    }
+}
+
 #pragma mark -
 #pragma mark Public Methods
 - (void)startService {
+    [self playbackStateChanged];
+    
     if (self.shouldRun)
         self.timer = TIMER_CHECK_AD;
 }
@@ -85,10 +88,7 @@
 #pragma mark -
 #pragma mark Timer Methods
 - (void)checkForAd {
-    if (![self isRunning]) {
-        self.shouldRun = NO;
-    }
-    if ([self isAnAdPlaying]) {
+    if ([self isAnAd]) {
         [self.timer invalidate];
         [self mute];
         self.timer = TIMER_CHECK_MUSIC;
@@ -96,7 +96,7 @@
 }
 
 - (void)checkForMusic {
-    if ([self isMusicPlaying]) {
+    if (![self isAnAd]) {
         [self.timer invalidate];
         [self unmute];
         if (self.shouldRun)
@@ -129,23 +129,15 @@
 }
 
 - (BOOL)isPlaying {
-    return self.spotify.playerState == SpotifyEPlSPlaying;
+    return [self isRunning] && self.spotify.playerState == SpotifyEPlSPlaying;
 }
 
 - (BOOL)isRunning {
     return self.spotify.isRunning;
 }
 
-- (BOOL)isAnAdPlaying {
-    return [self isRunning] && [self isPlaying] && [self isAnAd];
-}
-
-- (BOOL)isMusicPlaying {
-    return [self isRunning] && [self isPlaying] && ![self isAnAd];
-}
-
 - (void)dealloc {
-    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:_observer];
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPath:@"shouldRun"];
 }
 
