@@ -122,15 +122,10 @@
 }
 
 - (BOOL)isAnAd {
-    NSInteger currentTrackPopularity, currentTrackDuration;
+    NSInteger currentTrackNumber;
+    currentTrackNumber = self.spotify.currentTrack.trackNumber;
     
-    currentTrackPopularity = self.spotify.currentTrack.popularity;
-    currentTrackDuration = self.spotify.currentTrack.duration;
-    
-    if (currentTrackPopularity == 0 && currentTrackDuration <= 40) {
-        return YES;
-    }
-    return NO;
+    return currentTrackNumber == 0 ? YES : NO;
 }
 
 - (BOOL)isPlaying {
