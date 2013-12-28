@@ -239,6 +239,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotiFree" */;
 			buildPhases = (
+				949E2075186E42D6005F76C1 /* ShellScript */,
 				943164D1186C3724005277EA /* Sources */,
 				943164D2186C3724005277EA /* Frameworks */,
 				943164D3186C3724005277EA /* Resources */,
@@ -330,6 +331,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		949E2075186E42D6005F76C1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Check whether Sparkle.framework exists\nif [ ! -d \"$SRCROOT/Sparkle.framework/\" ]; then\n\n    #Download\n    echo \"Downloading Sparkle. This may take a while.\"\n    curl --silent \"http://sparkle.andymatuschak.org/files/Sparkle%201.5b6.zip\" > \"$SRCROOT/Sparkle.zip\"\n\n    #Organize\n    unzip -q \"$SRCROOT/Sparkle.zip\" -d \"$SRCROOT/Sparkle/\"\n    mv \"$SRCROOT/Sparkle/Sparkle.framework\" \"$SRCROOT/Sparkle.framework\"\n\n    #Cleanup\n    rm -rf \"$SRCROOT/Sparkle/\"\n    rm \"$SRCROOT/Sparkle.zip\"\n    echo \"Done\"\n\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		943164D1186C3724005277EA /* Sources */ = {

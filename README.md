@@ -10,7 +10,29 @@ On the first run, **Spotifree** will ask you if you want it to run automatically
 ## How it works
 **Spotifree** is polling Spotify every **.8** seconds to see if current track has **0 popularity** (as all ads do) and is  **40 seconds or less in length** (and all Spotify ads are). If it is, Spotify is muted for a duration of an ad. When an ad is over, the volume is set to the way it was before.
 
-## How to build
+## Building
+The first build may take a while because the **Sparkle Framework** will be downloaded automatically by this run script:
+
+    #Check whether Sparkle.framework exists
+    if [ ! -d "$SRCROOT/Sparkle.framework/" ]; then
+    
+        #Download
+        echo "Downloading Sparkle. This may take a while."
+        curl --silent "http://sparkle.andymatuschak.org/files/Sparkle%201.5b6.zip" > "$SRCROOT/Sparkle.zip"
+        
+        #Organize
+        unzip -q "$SRCROOT/Sparkle.zip" -d "$SRCROOT/Sparkle/"
+        mv "$SRCROOT/Sparkle/Sparkle.framework" "$SRCROOT/Sparkle.framework"
+        
+        #Cleanup
+        rm -rf "$SRCROOT/Sparkle/"
+        rm "$SRCROOT/Sparkle.zip" 
+        echo "Done"
+        
+    fi
+
+If this doesn't work for you, do it manually:
+
 1. Download **Sparkle** from [the website](http://sparkle.andymatuschak.org).
 2. Go to the unzipped **Sparkle** folder.
 3. Copy "Sparkle.framework" to your project folder.
