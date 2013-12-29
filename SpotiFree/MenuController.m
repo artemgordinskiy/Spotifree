@@ -29,7 +29,9 @@
 - (void)awakeFromNib {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
-    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIcon"]];
+    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActive"]];
+    [self.statusItem setAlternateImage:[NSImage imageNamed:@"statusBarIconHighlighted"]];
+    
     [self.statusItem setMenu:self.statusMenu];
     
     [self.statusItem setHighlightMode:YES];
@@ -83,8 +85,11 @@
     }
 }
 
+#pragma mark -
+#pragma SpotifyControllerDelegate
 - (void)activeStateShouldGetUpdated:(BOOL)isActive {
     [self.statusMenu.itemArray[0] setTitle:isActive ? @"Active" : @"Inactive"];
+    [self.statusItem setImage:isActive ? [NSImage imageNamed:@"statusBarIconActive"] : [NSImage imageNamed:@"statusBarIconInactive"]];
 }
 
 #pragma mark -

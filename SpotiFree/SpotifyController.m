@@ -53,18 +53,16 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"shouldRun"]) {
-        if (self.shouldRun != [change[NSKeyValueChangeOldKey] boolValue]) {
-            if (self.shouldRun) {
-                if (self.timer)
-                    [self.timer invalidate];
-                self.timer = TIMER_CHECK_AD;
-            } else {
-                if (self.timer)
-                    [self.timer invalidate];
-            }
-            if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
-                [self.delegate activeStateShouldGetUpdated:self.shouldRun];
+        if (self.shouldRun) {
+            if (self.timer)
+                [self.timer invalidate];
+            self.timer = TIMER_CHECK_AD;
+        } else {
+            if (self.timer)
+                [self.timer invalidate];
         }
+        if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+            [self.delegate activeStateShouldGetUpdated:self.shouldRun];
     }
 }
 
