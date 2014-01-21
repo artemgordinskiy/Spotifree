@@ -12,9 +12,13 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <customObject id="494" customClass="AppDelegate"/>
+        <customObject id="494" customClass="AppDelegate">
+            <connections>
+                <outlet property="menuController" destination="tNn-uN-YjJ" id="z1t-6C-q63"/>
+            </connections>
+        </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <menu title="StatusMenu" autoenablesItems="NO" id="koj-en-MeX">
+        <menu title="StatusMenu" id="koj-en-MeX">
             <items>
                 <menuItem title="Active" enabled="NO" id="bJe-eM-xic">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -37,6 +41,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleLoginItem:" target="tNn-uN-YjJ" id="Wvd-gA-gYn"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Hide Menu Bar Icon" id="YvX-4q-qoG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="hideMenuBarIconClicked:" target="tNn-uN-YjJ" id="6uu-yC-a78"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Check For Updates Automatically" id="yQg-dT-hnD">

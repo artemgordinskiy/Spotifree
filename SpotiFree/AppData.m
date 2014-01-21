@@ -15,7 +15,8 @@
 @end
 
 @implementation AppData
-@synthesize isFirstRun = _isFirstRun;
+@synthesize isFirstRun = _isFirstRun,
+            isInLoginItems = _isInLoginItems;
 
 #pragma mark -
 #pragma mark Initialisation of the singleton
@@ -34,6 +35,11 @@
     if (self) {
         self.appleScriptCmds = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AppleScriptCmds" ofType:@"plist"]];
         [self updateLoginItemState];
+        
+        if (self.isInLoginItems && ![self isLoginItemPathCorrect]) {
+            [self removeLoginItem];
+            [self addLoginItem];
+        }
     }
     return self;
 }
@@ -53,12 +59,28 @@
 - (void)updateLoginItemState {
     NSAppleScript *script = [[NSAppleScript alloc] initWithSource:self.appleScriptCmds[@"updateLoginItemState"]];
     NSAppleEventDescriptor *desc = [script executeAndReturnError:nil];
-    self.isInLoginItems = [desc booleanValue];
+    _isInLoginItems = [desc booleanValue];
+}
+
+- (BOOL)isLoginItemPathCorrect {
+    NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:self.appleScriptCmds[@"isLoginItemPathCorrect"], [[NSBundle mainBundle] bundlePath]]];
+    NSAppleEventDescriptor *desc = [script executeAndReturnError:nil];
+    return [desc booleanValue];
 }
 
 - (void)toggleLoginItem {
-    self.isInLoginItems ? [self removeLoginItem] : [self addLoginItem];
+    _isInLoginItems ? [self removeLoginItem] : [self addLoginItem];
     [self updateLoginItemState];
+}
+
+- (BOOL)isInLoginItems {
+    return _isInLoginItems;
+}
+
+- (void)setIsInLoginItems:(BOOL)isInLoginItems {
+    if (isInLoginItems != _isInLoginItems) {
+        [self toggleLoginItem];
+    }
 }
 
 #pragma mark -

@@ -27,27 +27,19 @@
 #pragma mark -
 #pragma mark Startup
 - (void)awakeFromNib {
-    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    BOOL hideMenuBarIcon = [[NSUserDefaults standardUserDefaults] boolForKey:@"hideMenuBarIcon"];
+    if (!hideMenuBarIcon) {
+        [self setUpMenu];
+    }
     
-    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActive"]];
-    [self.statusItem setAlternateImage:[NSImage imageNamed:@"statusBarIconHighlighted"]];
-    
-    [self.statusItem setMenu:self.statusMenu];
-    
-    [self.statusItem setHighlightMode:YES];
-        
     self.appData = [AppData sharedData];
-    [self.appData addObserver:self forKeyPath:@"isInLoginItems" options:NSKeyValueObservingOptionInitial context:nil];
-    
-    [[SUUpdater sharedUpdater] addObserver:self forKeyPath:@"automaticallyDownloadsUpdates" options:NSKeyValueObservingOptionInitial context:nil];
-    [[SUUpdater sharedUpdater] addObserver:self forKeyPath:@"automaticallyChecksForUpdates" options:NSKeyValueObservingOptionInitial context:nil];
     
     if ([self.appData isFirstRun]) {
         [self.appData firstRunExecuted];
         
         if (!self.appData.isInLoginItems) {
             NSAlert *alert = [NSAlert alertWithMessageText:@"Do you want Spotifree to run automatically on login?" defaultButton:@"OK" alternateButton:@"No, thanks" otherButton:nil informativeTextWithFormat:@""];
-            [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+            [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"firstRunAlert"];
         }
     }
     
@@ -56,38 +48,36 @@
     [self.spotify startService];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"isInLoginItems"]) {
-        if (self.appData.isInLoginItems) {
-            [[self.statusMenu itemWithTitle:@"Run At Login"] setState:1];
-        } else {
-            [[self.statusMenu itemWithTitle:@"Run At Login"] setState:0];
-        }
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(toggleLoginItem:)) {
+        menuItem.state = self.appData.isInLoginItems;
     }
+    if (menuItem.action == @selector(toggleAutomaticallyChecksForUpdates:)) {
+        menuItem.state = [SUUpdater sharedUpdater].automaticallyChecksForUpdates;
+    }
+    if (menuItem.action == @selector(toggleAutomaticallyDownloadsUpdates:)) {
+        menuItem.state = [SUUpdater sharedUpdater].automaticallyDownloadsUpdates;
+        return [SUUpdater sharedUpdater].automaticallyChecksForUpdates;
+    }
+    return YES;
+}
+
+- (void)setUpMenu {
+    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
-    if ([keyPath isEqualToString:@"automaticallyChecksForUpdates"]) {
-        if ([SUUpdater sharedUpdater].automaticallyChecksForUpdates) {
-            [[self.statusMenu itemWithTitle:@"Check For Updates Automatically"] setState:1];
-            [[self.statusMenu itemWithTitle:@"Download Updates Automatically"] setEnabled:YES];
-        } else {
-            [[self.statusMenu itemWithTitle:@"Check For Updates Automatically"] setState:0];
-            [[self.statusMenu itemWithTitle:@"Download Updates Automatically"] setEnabled:NO];
-            [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:NO];
-        }
-    }
+    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActive"]];
+    [self.statusItem setAlternateImage:[NSImage imageNamed:@"statusBarIconHighlighted"]];
     
-    if ([keyPath isEqualToString:@"automaticallyDownloadsUpdates"]) {
-        if ([SUUpdater sharedUpdater].automaticallyDownloadsUpdates) {
-            [[self.statusMenu itemWithTitle:@"Download Updates Automatically"] setState:1];
-        } else {
-            [[self.statusMenu itemWithTitle:@"Download Updates Automatically"] setState:0];
-        }
-    }
+    [self.statusItem setMenu:self.statusMenu];
+    
+    [self.statusItem setHighlightMode:YES];
 }
 
 #pragma mark -
 #pragma SpotifyControllerDelegate
 - (void)activeStateShouldGetUpdated:(BOOL)isActive {
+    if (!self.statusItem)
+        return;
     [self.statusMenu.itemArray[0] setTitle:isActive ? @"Active" : @"Inactive"];
     [self.statusItem setImage:isActive ? [NSImage imageNamed:@"statusBarIconActive"] : [NSImage imageNamed:@"statusBarIconInactive"]];
 }
@@ -96,7 +86,18 @@
 #pragma mark NSAlertModalDelegate
 - (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == 1) {
-        [self.appData toggleLoginItem];
+        if (strcmp(contextInfo, "firstRunAlert") == 0) {
+            [self.appData toggleLoginItem];
+        }
+        
+        if (strcmp(contextInfo, "hideIconAlert") == 0) {
+            [self.appData setIsInLoginItems:alert.suppressionButton.state];
+            
+            [[NSStatusBar systemStatusBar] removeStatusItem:self.statusItem];
+            self.statusItem = nil;
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideMenuBarIcon"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
 }
 
@@ -108,11 +109,25 @@
 }
 
 - (IBAction)toggleLoginItem:(NSMenuItem *)sender {
-    [self.appData toggleLoginItem];
+    self.appData.isInLoginItems = !self.appData.isInLoginItems;
+}
+
+- (IBAction)hideMenuBarIconClicked:(NSMenuItem *)sender {
+    NSAlert *alert = [NSAlert alertWithMessageText:@"To show the icon again, simply launch Spotifree from Dock or Finder" defaultButton:@"OK" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@""];
+    
+    alert.suppressionButton.state = self.appData.isInLoginItems;
+    if (!self.appData.isInLoginItems) {
+        alert.messageText = [alert.messageText stringByAppendingString:@"\n\nIf you want to make the app truly invisible, we suggest also allowing it to launch at login"];
+        alert.suppressionButton.title = @"Run at login";
+        [alert setShowsSuppressionButton:YES];
+    }
+    
+    [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"hideIconAlert"];
 }
 
 - (IBAction)toggleAutomaticallyChecksForUpdates:(NSMenuItem *)sender {
     [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:![SUUpdater sharedUpdater].automaticallyChecksForUpdates];
+    [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:NO];
 }
 
 - (IBAction)toggleAutomaticallyDownloadsUpdates:(NSMenuItem *)sender {
@@ -120,13 +135,13 @@
 }
 
 #pragma mark -
-#pragma mark Dealloc
-- (void)dealloc {
-    [self.appData removeObserver:self forKeyPath:@"isInLoginItems"];
-    [[SUUpdater sharedUpdater] removeObserver:self forKeyPath:@"automaticallyDownloadsUpdates"];
-    [[SUUpdater sharedUpdater] removeObserver:self forKeyPath:@"automaticallyChecksForUpdates"];
+#pragma mark Public Methods
+- (void)showMenuBarIconIfNeeded {
+    if (!self.statusItem) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hideMenuBarIcon"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self setUpMenu];
+    }
 }
-
-
 
 @end

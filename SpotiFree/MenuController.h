@@ -10,4 +10,6 @@
 
 @interface MenuController : NSObject
 
+- (void)showMenuBarIconIfNeeded;
+
 @end

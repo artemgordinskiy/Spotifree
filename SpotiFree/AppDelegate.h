@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  SpotiFree
 //
-//  Created by Eneas Rotterdam on 21.12.13.
+//  Created by Eneas on 21.12.13.
 //  Copyright (c) 2013 Eneas. All rights reserved.
 //
 

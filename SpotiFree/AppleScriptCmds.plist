@@ -27,5 +27,11 @@
         end if
         end tell
     </string>
+    <key>isLoginItemPathCorrect</key>
+    <string>
+        tell application &quot;System Events&quot;
+        return path of login item &quot;Spotifree&quot; is equal to &quot;%@&quot;
+        end tell
+    </string>
 </dict>
 </plist>
