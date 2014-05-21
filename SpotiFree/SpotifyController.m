@@ -109,6 +109,13 @@
     [self.spotify pause];
     [self.spotify setSoundVolume:0];
     [self.spotify play];
+
+	NSUserNotification *notification = [[NSUserNotification alloc] init];
+	[notification setTitle:@"SpotiFree"];
+	[notification setInformativeText:[NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds...", (long)self.spotify.currentTrack.duration]];
+	[notification setSoundName:nil];
+
+	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (void)unmute {
