@@ -16,6 +16,7 @@
 
 @property (unsafe_unretained) IBOutlet NSMenu *statusMenu;
 @property (strong) NSStatusItem *statusItem;
+@property (unsafe_unretained) IBOutlet NSMenuItem *statusMenuItem;
 
 @property (strong) SpotifyController *spotify;
 @property (strong) AppData *appData;
@@ -142,6 +143,14 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self setUpMenu];
     }
+}
+
+- (void)setShowingAd:(BOOL)flag {
+	if (flag) {
+		[self.statusMenuItem setTitle:@"Blocking Ad"];
+	} else {
+		[self.statusMenuItem setTitle:@"Active"];
+	}
 }
 
 @end

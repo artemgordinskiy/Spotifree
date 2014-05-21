@@ -7,11 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "MenuController.h"
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate>
-
-@property (unsafe_unretained) IBOutlet MenuController *menuController;
 
 @end
 

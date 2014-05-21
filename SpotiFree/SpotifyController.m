@@ -9,6 +9,7 @@
 #import "SpotifyController.h"
 #import "Spotify.h"
 #import "AppData.h"
+#import "AppDelegate.h"
 
 #define SPOTIFY_BUNDLE_IDENTIFIER @"com.spotify.client"
 
@@ -90,6 +91,8 @@
         [self.timer invalidate];
         [self mute];
         self.timer = TIMER_CHECK_MUSIC;
+
+		[[(AppDelegate*)[[NSApplication sharedApplication] delegate] menuController] setShowingAd:YES];
     }
 }
 
@@ -99,6 +102,8 @@
         [self unmute];
         if (self.shouldRun)
             self.timer = TIMER_CHECK_AD;
+
+		[[(AppDelegate*)[[NSApplication sharedApplication] delegate] menuController] setShowingAd:NO];
     }
 }
 
