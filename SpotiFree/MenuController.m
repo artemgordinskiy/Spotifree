@@ -82,7 +82,7 @@
 - (void)activeStateShouldGetUpdated:(BOOL)isActive {
     if (!self.statusItem)
         return;
-    [self.statusMenu.itemArray[0] setTitle:isActive ? @"Active" : @"Inactive"];
+    [self.statusMenuItem setTitle:isActive ? @"Active" : @"Inactive"];
     [self.statusItem setImage:isActive ? [NSImage imageNamed:@"statusBarIconActive"] : [NSImage imageNamed:@"statusBarIconInactive"]];
 }
 
