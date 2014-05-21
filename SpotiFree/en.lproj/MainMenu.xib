@@ -61,6 +61,13 @@
                         <action selector="toggleAutomaticallyDownloadsUpdates:" target="tNn-uN-YjJ" id="08e-4K-adh"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="awL-eA-9WH"/>
+                <menuItem title="Notify when Ad is Blocked" tag="-1" id="fPN-hf-z7p">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleShowNotificationsOnAdBlock:" target="tNn-uN-YjJ" id="onC-WA-GP7"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="DUn-qf-wsu"/>
                 <menuItem title="Quit Spotifree" keyEquivalent="q" id="Mma-Se-B4t">
                     <connections>

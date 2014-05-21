@@ -16,6 +16,7 @@
 
 @property (unsafe_unretained) IBOutlet NSMenu *statusMenu;
 @property (strong) NSStatusItem *statusItem;
+
 @property (unsafe_unretained) IBOutlet NSMenuItem *statusMenuItem;
 
 @property (strong) SpotifyController *spotify;
@@ -47,6 +48,8 @@
     self.spotify = [SpotifyController spotifyController];
     self.spotify.delegate = self;
     [self.spotify startService];
+
+	[[self.statusMenu itemWithTag:-1] setState:(self.appData.shouldShowNotifications ? NSOnState : NSOffState)];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
@@ -133,6 +136,11 @@
 
 - (IBAction)toggleAutomaticallyDownloadsUpdates:(NSMenuItem *)sender {
     [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:![SUUpdater sharedUpdater].automaticallyDownloadsUpdates];
+}
+
+- (IBAction)toggleShowNotificationsOnAdBlock:(id)sender {
+	BOOL tickStatus = [self.appData toggleShowNotifications];
+	[(NSMenuItem*)sender setState:(tickStatus ? NSOnState : NSOffState)];
 }
 
 #pragma mark -

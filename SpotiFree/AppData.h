@@ -15,6 +15,9 @@
 - (void)firstRunExecuted;
 - (void)toggleLoginItem;
 
+- (BOOL)toggleShowNotifications;
+- (BOOL)shouldShowNotifications;
+
 @property (assign) BOOL isInLoginItems;
 @property (assign, readonly) BOOL isFirstRun;
 
