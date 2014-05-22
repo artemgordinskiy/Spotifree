@@ -79,11 +79,33 @@
 
 #pragma mark -
 #pragma SpotifyControllerDelegate
-- (void)activeStateShouldGetUpdated:(BOOL)isActive {
+- (void)activeStateShouldGetUpdated:(SFSpotifyState)state {
     if (!self.statusItem)
         return;
-    [self.statusMenuItem setTitle:isActive ? @"Active" : @"Inactive"];
-    [self.statusItem setImage:isActive ? [NSImage imageNamed:@"statusBarIconActive"] : [NSImage imageNamed:@"statusBarIconInactive"]];
+
+	NSString *label;
+	NSImage *icon;
+
+	switch (state) {
+		case kSFSpotifyStateActive:
+			label = @"Active";
+			icon = [NSImage imageNamed:@"statusBarIconActive"];
+			break;
+		case kSFSpotifyStateInactive:
+			label = @"Inactive";
+			icon = [NSImage imageNamed:@"statusBarIconInactive"];
+			break;
+		case kSFSpotifyStateBlockingAd:
+			label = @"Blocking Ad";
+			icon = [NSImage imageNamed:@"statusBarIconBlockingAd"];
+			break;
+
+		default:
+			break;
+	}
+
+	[self.statusMenuItem setTitle:label];
+	[self.statusItem setImage:icon];
 }
 
 #pragma mark -
@@ -151,14 +173,6 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self setUpMenu];
     }
-}
-
-- (void)setShowingAd:(BOOL)flag {
-	if (flag) {
-		[self.statusMenuItem setTitle:@"Blocking Ad"];
-	} else {
-		[self.statusMenuItem setTitle:@"Active"];
-	}
 }
 
 @end

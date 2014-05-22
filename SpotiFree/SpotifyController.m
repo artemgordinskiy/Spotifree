@@ -63,7 +63,7 @@
                 [self.timer invalidate];
         }
         if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
-            [self.delegate activeStateShouldGetUpdated:self.shouldRun];
+            [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
     }
 }
 
@@ -92,7 +92,8 @@
         [self mute];
         self.timer = TIMER_CHECK_MUSIC;
 
-		[[(AppDelegate*)[[NSApplication sharedApplication] delegate] menuController] setShowingAd:YES];
+		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+            [self.delegate activeStateShouldGetUpdated:kSFSpotifyStateBlockingAd];
     }
 }
 
@@ -103,7 +104,8 @@
         if (self.shouldRun)
             self.timer = TIMER_CHECK_AD;
 
-		[[(AppDelegate*)[[NSApplication sharedApplication] delegate] menuController] setShowingAd:NO];
+		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+            [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
     }
 }
 

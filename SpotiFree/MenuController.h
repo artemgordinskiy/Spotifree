@@ -12,6 +12,4 @@
 
 - (void)showMenuBarIconIfNeeded;
 
-- (void)setShowingAd:(BOOL)flag;
-
 @end

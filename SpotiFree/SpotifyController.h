@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, SFSpotifyState) {
+	kSFSpotifyStateActive,
+	kSFSpotifyStateInactive,
+	kSFSpotifyStateBlockingAd
+};
+
 @protocol SpotifyControllerDelegate <NSObject>
 
 @optional
-- (void)activeStateShouldGetUpdated:(BOOL)isActive;
+- (void)activeStateShouldGetUpdated:(SFSpotifyState)state;
 
 @end
 
