@@ -54,6 +54,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15908823193B83CF009F2C99 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		15908824193B83CF009F2C99 /* SpotiFree_Black.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Black.ai; sourceTree = "<group>"; };
+		15908825193B83CF009F2C99 /* SpotiFree_Black.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Black.svg; sourceTree = "<group>"; };
+		15908826193B83CF009F2C99 /* SpotiFree_Color.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Color.ai; sourceTree = "<group>"; };
+		15908827193B83CF009F2C99 /* SpotiFree_Color.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Color.svg; sourceTree = "<group>"; };
 		943164D5186C3724005277EA /* Spotifree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotifree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943164D8186C3724005277EA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		943164DB186C3724005277EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -111,6 +116,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15908822193B83CF009F2C99 /* SVG Icons */ = {
+			isa = PBXGroup;
+			children = (
+				15908823193B83CF009F2C99 /* README.md */,
+				15908824193B83CF009F2C99 /* SpotiFree_Black.ai */,
+				15908825193B83CF009F2C99 /* SpotiFree_Black.svg */,
+				15908826193B83CF009F2C99 /* SpotiFree_Color.ai */,
+				15908827193B83CF009F2C99 /* SpotiFree_Color.svg */,
+			);
+			path = "SVG Icons";
+			sourceTree = SOURCE_ROOT;
+		};
 		943164CC186C3724005277EA = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +191,7 @@
 		943164DF186C3724005277EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				15908822193B83CF009F2C99 /* SVG Icons */,
 				9462482D186C392100810C69 /* Sparkle Key */,
 				943164E0186C3724005277EA /* SpotiFree-Info.plist */,
 				943164E1186C3724005277EA /* InfoPlist.strings */,
