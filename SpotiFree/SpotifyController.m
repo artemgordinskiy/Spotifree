@@ -9,6 +9,7 @@
 #import "SpotifyController.h"
 #import "Spotify.h"
 #import "AppData.h"
+#import "AppDelegate.h"
 
 #define SPOTIFY_BUNDLE_IDENTIFIER @"com.spotify.client"
 
@@ -62,7 +63,7 @@
                 [self.timer invalidate];
         }
         if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
-            [self.delegate activeStateShouldGetUpdated:self.shouldRun];
+            [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
     }
 }
 
@@ -90,6 +91,9 @@
         [self.timer invalidate];
         [self mute];
         self.timer = TIMER_CHECK_MUSIC;
+
+		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+            [self.delegate activeStateShouldGetUpdated:kSFSpotifyStateBlockingAd];
     }
 }
 
@@ -99,6 +103,9 @@
         [self unmute];
         if (self.shouldRun)
             self.timer = TIMER_CHECK_AD;
+
+		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+            [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
     }
 }
 
@@ -109,6 +116,15 @@
     [self.spotify pause];
     [self.spotify setSoundVolume:0];
     [self.spotify play];
+
+	if (self.appData.shouldShowNotifications) {
+		NSUserNotification *notification = [[NSUserNotification alloc] init];
+		[notification setTitle:@"SpotiFree"];
+		[notification setInformativeText:[NSString stringWithFormat:@"A Spotify Ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
+		[notification setSoundName:nil];
+
+		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+	}
 }
 
 - (void)unmute {

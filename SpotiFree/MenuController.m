@@ -17,6 +17,8 @@
 @property (unsafe_unretained) IBOutlet NSMenu *statusMenu;
 @property (strong) NSStatusItem *statusItem;
 
+@property (unsafe_unretained) IBOutlet NSMenuItem *statusMenuItem;
+
 @property (strong) SpotifyController *spotify;
 @property (strong) AppData *appData;
 
@@ -46,6 +48,8 @@
     self.spotify = [SpotifyController spotifyController];
     self.spotify.delegate = self;
     [self.spotify startService];
+
+	[[self.statusMenu itemWithTag:-1] setState:(self.appData.shouldShowNotifications ? NSOnState : NSOffState)];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
@@ -75,11 +79,33 @@
 
 #pragma mark -
 #pragma SpotifyControllerDelegate
-- (void)activeStateShouldGetUpdated:(BOOL)isActive {
+- (void)activeStateShouldGetUpdated:(SFSpotifyState)state {
     if (!self.statusItem)
         return;
-    [self.statusMenu.itemArray[0] setTitle:isActive ? @"Active" : @"Inactive"];
-    [self.statusItem setImage:isActive ? [NSImage imageNamed:@"statusBarIconActive"] : [NSImage imageNamed:@"statusBarIconInactive"]];
+
+	NSString *label;
+	NSImage *icon;
+
+	switch (state) {
+		case kSFSpotifyStateActive:
+			label = @"Active";
+			icon = [NSImage imageNamed:@"statusBarIconActive"];
+			break;
+		case kSFSpotifyStateInactive:
+			label = @"Inactive";
+			icon = [NSImage imageNamed:@"statusBarIconInactive"];
+			break;
+		case kSFSpotifyStateBlockingAd:
+			label = @"Blocking Ad";
+			icon = [NSImage imageNamed:@"statusBarIconBlockingAd"];
+			break;
+
+		default:
+			break;
+	}
+
+	[self.statusMenuItem setTitle:label];
+	[self.statusItem setImage:icon];
 }
 
 #pragma mark -
@@ -132,6 +158,11 @@
 
 - (IBAction)toggleAutomaticallyDownloadsUpdates:(NSMenuItem *)sender {
     [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:![SUUpdater sharedUpdater].automaticallyDownloadsUpdates];
+}
+
+- (IBAction)toggleShowNotificationsOnAdBlock:(id)sender {
+	BOOL tickStatus = [self.appData toggleShowNotifications];
+	[(NSMenuItem*)sender setState:(tickStatus ? NSOnState : NSOffState)];
 }
 
 #pragma mark -

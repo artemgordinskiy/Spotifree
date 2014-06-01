@@ -9,6 +9,7 @@
 #import "AppData.h"
 
 #define KEY_HAS_RAN_BEFORE @"SFHasRanBefore"
+#define KEY_SHOW_NOTIFICATIONS @"SFShowNotifications"
 
 @interface AppData ()
 @property (strong) NSDictionary *appleScriptCmds;
@@ -81,6 +82,20 @@
     if (isInLoginItems != _isInLoginItems) {
         [self toggleLoginItem];
     }
+}
+
+#pragma mark - Toggle Notifications
+
+- (BOOL)toggleShowNotifications
+{
+	BOOL showNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:KEY_SHOW_NOTIFICATIONS];
+	[[NSUserDefaults standardUserDefaults] setBool:!showNotifications forKey:KEY_SHOW_NOTIFICATIONS];
+	return !showNotifications;
+}
+
+- (BOOL)shouldShowNotifications
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:KEY_SHOW_NOTIFICATIONS];
 }
 
 #pragma mark -
