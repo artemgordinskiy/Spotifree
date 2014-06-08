@@ -168,11 +168,13 @@
 #pragma mark -
 #pragma mark Public Methods
 - (void)showMenuBarIconIfNeeded {
-    if (!self.statusItem) {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hideMenuBarIcon"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self setUpMenu];
+    if (self.statusItem) {
+        return;
     }
+
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hideMenuBarIcon"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self setUpMenu];
 }
 
 @end
