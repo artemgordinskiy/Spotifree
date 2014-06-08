@@ -40,6 +40,7 @@
 - (id)init
 {
     self = [super init];
+
     if (self) {
         self.spotify = [SBApplication applicationWithBundleIdentifier:SPOTIFY_BUNDLE_IDENTIFIER];
         self.appData = [AppData sharedData];
@@ -49,6 +50,7 @@
         
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged) name:@"com.spotify.client.PlaybackStateChanged" object:nil];
     }
+
     return self;
 }
 
@@ -59,11 +61,16 @@
                 [self.timer invalidate];
             self.timer = TIMER_CHECK_AD;
         } else {
-            if (self.timer)
+            if (self.timer) {
+                [self.timer fire];
+                    
                 [self.timer invalidate];
+            }
         }
-        if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+
+        if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
             [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
+        }
     }
 }
 
@@ -80,8 +87,9 @@
 - (void)startService {
     [self playbackStateChanged];
     
-    if (self.shouldRun)
+    if (self.shouldRun) {
         self.timer = TIMER_CHECK_AD;
+    }
 }
 
 #pragma mark -
@@ -92,20 +100,26 @@
         [self mute];
         self.timer = TIMER_CHECK_MUSIC;
 
-		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
+		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
             [self.delegate activeStateShouldGetUpdated:kSFSpotifyStateBlockingAd];
+        }
     }
 }
 
 - (void)checkForMusic {
-    if (![self isAnAd]) {
-        [self.timer invalidate];
-        [self unmute];
-        if (self.shouldRun)
-            self.timer = TIMER_CHECK_AD;
+    if ([self isAnAd]) {
+        return;
+    }
+    
+    [self.timer invalidate];
+    [self unmute];
 
-		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)])
-            [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
+    if (self.shouldRun) {
+        self.timer = TIMER_CHECK_AD;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
+        [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
     }
 }
 
@@ -136,10 +150,10 @@
 }
 
 - (BOOL)isAnAd {
-    NSInteger currentTrackNumber;
-    currentTrackNumber = self.spotify.currentTrack.trackNumber;
+    NSInteger currentTrackNumber = self.spotify.currentTrack.trackNumber;
+    NSString * currentTrackUrl = self.spotify.currentTrack.spotifyUrl;
     
-    return currentTrackNumber == 0 ? YES : NO;
+    return currentTrackNumber == 0 && [currentTrackUrl hasPrefix:@"spotify:track"];
 }
 
 - (BOOL)isPlaying {
