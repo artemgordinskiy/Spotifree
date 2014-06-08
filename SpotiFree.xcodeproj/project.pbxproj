@@ -19,7 +19,6 @@
 		94316501186C3724005277EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 943164FF186C3724005277EA /* InfoPlist.strings */; };
 		94316503186C3724005277EA /* SpotiFreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94316502186C3724005277EA /* SpotiFreeTests.m */; };
 		94611BF7186C479900378530 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 94611BF6186C479900378530 /* README.md */; };
-		94624825186C378700810C69 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94624824186C378700810C69 /* Icon.icns */; };
 		94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94624828186C38E500810C69 /* AppleScriptCmds.plist */; };
 		9462482C186C38F000810C69 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462482B186C38F000810C69 /* AppData.m */; };
 		9462482F186C393400810C69 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 9462482E186C393400810C69 /* dsa_pub.pem */; };
@@ -55,6 +54,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15908823193B83CF009F2C99 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		15908824193B83CF009F2C99 /* SpotiFree_Black.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Black.ai; sourceTree = "<group>"; };
+		15908825193B83CF009F2C99 /* SpotiFree_Black.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Black.svg; sourceTree = "<group>"; };
+		15908826193B83CF009F2C99 /* SpotiFree_Color.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Color.ai; sourceTree = "<group>"; };
+		15908827193B83CF009F2C99 /* SpotiFree_Color.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Color.svg; sourceTree = "<group>"; };
 		943164D5186C3724005277EA /* Spotifree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotifree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943164D8186C3724005277EA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		943164DB186C3724005277EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -74,7 +78,6 @@
 		94316500186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94316502186C3724005277EA /* SpotiFreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotiFreeTests.m; sourceTree = "<group>"; };
 		94611BF6186C479900378530 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		94624824186C378700810C69 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		94624826186C380500810C69 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		94624828186C38E500810C69 /* AppleScriptCmds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppleScriptCmds.plist; sourceTree = "<group>"; };
 		9462482A186C38F000810C69 /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
@@ -113,11 +116,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15908822193B83CF009F2C99 /* SVG Icons */ = {
+			isa = PBXGroup;
+			children = (
+				15908823193B83CF009F2C99 /* README.md */,
+				15908824193B83CF009F2C99 /* SpotiFree_Black.ai */,
+				15908825193B83CF009F2C99 /* SpotiFree_Black.svg */,
+				15908826193B83CF009F2C99 /* SpotiFree_Color.ai */,
+				15908827193B83CF009F2C99 /* SpotiFree_Color.svg */,
+			);
+			path = "SVG Icons";
+			sourceTree = SOURCE_ROOT;
+		};
 		943164CC186C3724005277EA = {
 			isa = PBXGroup;
 			children = (
 				94611BF6186C479900378530 /* README.md */,
-				94624824186C378700810C69 /* Icon.icns */,
 				943164DE186C3724005277EA /* SpotiFree */,
 				943164FC186C3724005277EA /* SpotiFreeTests */,
 				943164D7186C3724005277EA /* Frameworks */,
@@ -177,6 +191,7 @@
 		943164DF186C3724005277EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				15908822193B83CF009F2C99 /* SVG Icons */,
 				9462482D186C392100810C69 /* Sparkle Key */,
 				943164E0186C3724005277EA /* SpotiFree-Info.plist */,
 				943164E1186C3724005277EA /* InfoPlist.strings */,
@@ -318,7 +333,6 @@
 				94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */,
 				94611BF7186C479900378530 /* README.md in Resources */,
 				943164EF186C3724005277EA /* MainMenu.xib in Resources */,
-				94624825186C378700810C69 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +500,7 @@
 		94316507186C3724005277EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -503,6 +518,7 @@
 		94316508186C3724005277EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
