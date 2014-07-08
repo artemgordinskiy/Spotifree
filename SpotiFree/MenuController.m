@@ -69,8 +69,8 @@
 - (void)setUpMenu {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
-    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActive"]];
-    [self.statusItem setAlternateImage:[NSImage imageNamed:@"statusBarIconHighlighted"]];
+    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActiveTemplate"]];
+    [self.statusItem setAlternateImage:[NSImage imageNamed:@"statusBarIconHighlightedTemplate"]];
     
     [self.statusItem setMenu:self.statusMenu];
     
@@ -89,15 +89,15 @@
 	switch (state) {
 		case kSFSpotifyStateActive:
 			label = @"Active";
-			icon = [NSImage imageNamed:@"statusBarIconActive"];
+			icon = [NSImage imageNamed:@"statusBarIconActiveTemplate"];
 			break;
 		case kSFSpotifyStateInactive:
 			label = @"Inactive";
-			icon = [NSImage imageNamed:@"statusBarIconInactive"];
+			icon = [NSImage imageNamed:@"statusBarIconInactiveTemplate"];
 			break;
 		case kSFSpotifyStateBlockingAd:
 			label = @"Blocking Ad";
-			icon = [NSImage imageNamed:@"statusBarIconBlockingAd"];
+			icon = [NSImage imageNamed:@"statusBarIconBlockingAdTemplate"];
 			break;
 
 		default:
