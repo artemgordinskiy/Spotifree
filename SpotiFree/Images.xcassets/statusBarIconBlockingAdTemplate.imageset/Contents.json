@@ -6,12 +6,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "inverted.png"
+      "filename" : "blocking_ad.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "inverted@2x.png"
+      "filename" : "blocking_ad@2x.png"
     }
   ],
   "info" : {
