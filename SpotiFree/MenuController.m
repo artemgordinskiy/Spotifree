@@ -70,8 +70,7 @@
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
     [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActiveTemplate"]];
-    [self.statusItem setAlternateImage:[NSImage imageNamed:@"statusBarIconHighlightedTemplate"]];
-    
+
     [self.statusItem setMenu:self.statusMenu];
     
     [self.statusItem setHighlightMode:YES];
