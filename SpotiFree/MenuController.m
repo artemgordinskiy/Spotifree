@@ -69,7 +69,11 @@
 - (void)setUpMenu {
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
-    [self.statusItem setImage:[NSImage imageNamed:@"statusBarIconActiveTemplate"]];
+    NSImage *image = [NSImage imageNamed:@"statusBarIconActiveTemplate"];
+    
+    [image setTemplate: YES];
+    
+    [self.statusItem setImage: image];
 
     [self.statusItem setMenu:self.statusMenu];
     
