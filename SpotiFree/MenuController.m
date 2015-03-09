@@ -87,18 +87,22 @@
     NSString *spotifyResourceFolder = [[[[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.spotify.client"] path] stringByAppendingString:@"/Contents/Resources/"];
     NSString *rightFile = [spotifyResourceFolder stringByAppendingString:@"Spotify.sdef"];
     
-    if (![manager fileExistsAtPath:rightFile]) {
-        NSString *wrongFile = [spotifyResourceFolder stringByAppendingString:@"applescript/Spotify.sdef"];
-        [manager copyItemAtPath:wrongFile toPath:rightFile error:nil];
+    if ([manager fileExistsAtPath:rightFile])
+        return;
+    
+    NSString *wrongFile = [spotifyResourceFolder stringByAppendingString:@"applescript/Spotify.sdef"];
+    [manager copyItemAtPath:wrongFile toPath:rightFile error:nil];
+    
+    NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
+    
+    if (spotify) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Restarting Spotify" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Spotify needs to be restarted after fixing the scripting definition file of Spotify 1.0.1"];
+        [alert beginSheetModalForWindow:nil modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [spotify terminate];
         
-        NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
-        
-        if (spotify) {
-            [spotify terminate];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[NSWorkspace sharedWorkspace] launchApplication:@"Spotify"];
-            });
-        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSWorkspace sharedWorkspace] launchApplication:@"Spotify"];
+        });
     }
 }
 

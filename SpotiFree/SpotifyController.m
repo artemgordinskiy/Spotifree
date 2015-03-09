@@ -13,7 +13,7 @@
 
 #define SPOTIFY_BUNDLE_IDENTIFIER @"com.spotify.client"
 
-#define IDLE_TIME 0.4
+#define IDLE_TIME 0.5
 #define TIMER_CHECK_AD [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForAd) userInfo:nil repeats:YES]
 #define TIMER_CHECK_MUSIC [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForMusic) userInfo:nil repeats:YES]
 
@@ -131,8 +131,8 @@
 
 	if (self.appData.shouldShowNotifications) {
 		NSUserNotification *notification = [[NSUserNotification alloc] init];
-		[notification setTitle:@"SpotiFree"];
-		[notification setInformativeText:[NSString stringWithFormat:@"A Spotify Ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
+		[notification setTitle:@"Spotifree"];
+		[notification setInformativeText:[NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
 		[notification setSoundName:nil];
 
 		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
