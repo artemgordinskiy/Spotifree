@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="494" customClass="AppDelegate">
             <connections>
                 <outlet property="menuController" destination="tNn-uN-YjJ" id="z1t-6C-q63"/>
@@ -30,11 +30,31 @@
                         <action selector="aboutItemPushed:" target="tNn-uN-YjJ" id="TdG-1X-Y6M"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Check For Updates..." id="Jid-kZ-kIm">
+                <menuItem title="Updates" id="J8i-tu-W5K">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="checkForUpdates:" target="be6-Wd-Plc" id="qMX-tb-lhh"/>
-                    </connections>
+                    <menu key="submenu" title="Updates" id="N5r-xW-8BH">
+                        <items>
+                            <menuItem title="Check For Updates..." id="Jid-kZ-kIm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdates:" target="be6-Wd-Plc" id="qMX-tb-lhh"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="5RB-Qt-7nj"/>
+                            <menuItem title="Check Automatically" id="yQg-dT-hnD">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleAutomaticallyChecksForUpdates:" target="tNn-uN-YjJ" id="glW-rg-Tzf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Download Automatically" id="54h-vn-jYm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleAutomaticallyDownloadsUpdates:" target="tNn-uN-YjJ" id="08e-4K-adh"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Hn0-oo-8qy"/>
                 <menuItem title="Run At Login" id="4AH-U5-7WK">
@@ -43,32 +63,19 @@
                         <action selector="toggleLoginItem:" target="tNn-uN-YjJ" id="Wvd-gA-gYn"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Hide Menu Bar Icon" id="YvX-4q-qoG">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="hideMenuBarIconClicked:" target="tNn-uN-YjJ" id="6uu-yC-a78"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Check For Updates Automatically" id="yQg-dT-hnD">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="toggleAutomaticallyChecksForUpdates:" target="tNn-uN-YjJ" id="glW-rg-Tzf"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Download Updates Automatically" id="54h-vn-jYm">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="toggleAutomaticallyDownloadsUpdates:" target="tNn-uN-YjJ" id="08e-4K-adh"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="awL-eA-9WH"/>
-                <menuItem title="Notify when Ad is Blocked" tag="-1" id="fPN-hf-z7p">
+                <menuItem title="Notifications" tag="-1" id="fPN-hf-z7p">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="toggleShowNotificationsOnAdBlock:" target="tNn-uN-YjJ" id="onC-WA-GP7"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="DUn-qf-wsu"/>
+                <menuItem title="Hide Icon" id="YvX-4q-qoG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="hideMenuBarIconClicked:" target="tNn-uN-YjJ" id="6uu-yC-a78"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Quit Spotifree" keyEquivalent="q" id="Mma-Se-B4t">
                     <connections>
                         <action selector="terminate:" target="-1" id="lda-4T-bhe"/>

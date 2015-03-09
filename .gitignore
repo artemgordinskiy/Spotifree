@@ -22,6 +22,4 @@ DerivedData
 # CocoaPods
 Pods
 
-# Sparkle Framework
-Sparkle.framework/
 *.pem

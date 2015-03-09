@@ -45,6 +45,8 @@
         }
     }
     
+    [self fixWrongLocationOfScriptingDefinitionFileIfNeeded];
+    
     self.spotify = [SpotifyController spotifyController];
     self.spotify.delegate = self;
     [self.spotify startService];
@@ -80,6 +82,26 @@
     [self.statusItem setHighlightMode:YES];
 }
 
+- (void)fixWrongLocationOfScriptingDefinitionFileIfNeeded {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString *spotifyResourceFolder = [[[[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.spotify.client"] path] stringByAppendingString:@"/Contents/Resources/"];
+    NSString *rightFile = [spotifyResourceFolder stringByAppendingString:@"Spotify.sdef"];
+    
+    if (![manager fileExistsAtPath:rightFile]) {
+        NSString *wrongFile = [spotifyResourceFolder stringByAppendingString:@"applescript/Spotify.sdef"];
+        [manager copyItemAtPath:wrongFile toPath:rightFile error:nil];
+        
+        NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
+        
+        if (spotify) {
+            [spotify terminate];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSWorkspace sharedWorkspace] launchApplication:@"Spotify"];
+            });
+        }
+    }
+}
+
 #pragma mark -
 #pragma SpotifyControllerDelegate
 - (void)activeStateShouldGetUpdated:(SFSpotifyState)state {
@@ -99,7 +121,7 @@
 			icon = [NSImage imageNamed:@"statusBarIconInactiveTemplate"];
 			break;
 		case kSFSpotifyStateBlockingAd:
-			label = @"Blocking Ad";
+			label = @"Muting Ad";
 			icon = [NSImage imageNamed:@"statusBarIconBlockingAdTemplate"];
 			break;
 
