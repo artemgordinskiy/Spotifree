@@ -103,7 +103,7 @@
     NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
     
     if (spotify) {
-        NSAlert *alert = [NSAlert alertWithMessageText:@"Fixed Spotify 1.x" defaultButton:@"Restart" alternateButton:@"Later" otherButton:nil informativeTextWithFormat:@"Spotify needs to be restarted for the fix to take effect"];
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Spotify restart required" defaultButton:@"OK" alternateButton:@"I'll do it myself" otherButton:nil informativeTextWithFormat:@"Sorry to interrupt, but your Spotify app must be restarted to work with Spotifree. You can do it now or later, manually, if you'd rather enjoy that last McDonald's ad."];
         [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"fixAlert"];
     }
 }
