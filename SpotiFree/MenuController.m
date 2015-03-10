@@ -22,6 +22,7 @@
 @property (strong) SpotifyController *spotify;
 @property (strong) AppData *appData;
 
+
 @end
 
 @implementation MenuController
@@ -46,6 +47,13 @@
     }
     
     [self fixWrongLocationOfScriptingDefinitionFileIfNeeded];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserverForName:NSWorkspaceDidLaunchApplicationNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        if ([note.userInfo[@"NSApplicationName"] isEqualToString:@"Spotify"]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self fixWrongLocationOfScriptingDefinitionFileIfNeeded];
+            });
+        }
+    }];
     
     self.spotify = [SpotifyController spotifyController];
     self.spotify.delegate = self;
