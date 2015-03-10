@@ -22,7 +22,6 @@
 @property (strong) SpotifyController *spotify;
 @property (strong) AppData *appData;
 
-
 @end
 
 @implementation MenuController
@@ -104,13 +103,8 @@
     NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
     
     if (spotify) {
-        NSAlert *alert = [NSAlert alertWithMessageText:@"Restarting Spotify" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Spotify needs to be restarted after fixing the scripting definition file of Spotify 1.0.1"];
-        [alert beginSheetModalForWindow:nil modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [spotify terminate];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[NSWorkspace sharedWorkspace] launchApplication:@"Spotify"];
-        });
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Fixed Spotify 1.x" defaultButton:@"Restart" alternateButton:@"Later" otherButton:nil informativeTextWithFormat:@"Spotify needs to be restarted for the fix to take effect"];
+        [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"fixAlert"];
     }
 }
 
@@ -160,6 +154,14 @@
             self.statusItem = nil;
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideMenuBarIcon"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        if (strcmp(contextInfo, "fixAlert") == 0) {
+            NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
+            [spotify terminate];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSWorkspace sharedWorkspace] launchApplication:@"Spotify"];
+            });
         }
     }
 }
