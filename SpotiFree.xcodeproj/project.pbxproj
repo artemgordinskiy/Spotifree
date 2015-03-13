@@ -27,7 +27,7 @@
 		94624839186C397200810C69 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94624838186C397200810C69 /* MenuController.m */; };
 		94624845186C3A4E00810C69 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94624844186C3A4E00810C69 /* ScriptingBridge.framework */; };
 		946D9AD51AAD04650042704B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; };
-		946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -504,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",

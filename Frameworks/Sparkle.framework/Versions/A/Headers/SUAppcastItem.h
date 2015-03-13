@@ -9,33 +9,53 @@
 #ifndef SUAPPCASTITEM_H
 #define SUAPPCASTITEM_H
 
-#include "SUExport.h"
+@interface SUAppcastItem : NSObject
+{
+@private
+	NSString *title;
+	NSDate *date;
+	NSString *itemDescription;
+	
+	NSURL *releaseNotesURL;
+	
+	NSString *DSASignature;	
+	NSString *minimumSystemVersion;
+    NSString *maximumSystemVersion;
+	
+	NSURL *fileURL;
+	NSString *versionString;
+	NSString *displayVersionString;
 
-SU_EXPORT @interface SUAppcastItem : NSObject
+	NSDictionary *deltaUpdates;
+
+	NSDictionary *propertiesDictionary;
+
+	NSURL *infoURL;	// UK 2007-08-31
+}
 @property (copy, readonly) NSString *title;
 @property (copy, readonly) NSDate *date;
 @property (copy, readonly) NSString *itemDescription;
-@property (strong, readonly) NSURL *releaseNotesURL;
+@property (retain, readonly) NSURL *releaseNotesURL;
 @property (copy, readonly) NSString *DSASignature;
 @property (copy, readonly) NSString *minimumSystemVersion;
 @property (copy, readonly) NSString *maximumSystemVersion;
-@property (strong, readonly) NSURL *fileURL;
+@property (retain, readonly) NSURL *fileURL;
 @property (copy, readonly) NSString *versionString;
 @property (copy, readonly) NSString *displayVersionString;
 @property (copy, readonly) NSDictionary *deltaUpdates;
-@property (strong, readonly) NSURL *infoURL;
+@property (retain, readonly) NSURL *infoURL;
 
 // Initializes with data from a dictionary provided by the RSS class.
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
-- (instancetype)initWithDictionary:(NSDictionary *)dict failureReason:(NSString **)error;
+- (instancetype)initWithDictionary:(NSDictionary *)dict failureReason:(NSString**)error;
 
-@property (getter=isDeltaUpdate, readonly) BOOL deltaUpdate;
-@property (getter=isCriticalUpdate, readonly) BOOL criticalUpdate;
+- (BOOL)isDeltaUpdate;
+- (BOOL)isCriticalUpdate;
 
 // Returns the dictionary provided in initWithDictionary; this might be useful later for extensions.
-@property (readonly, copy) NSDictionary *propertiesDictionary;
+- (NSDictionary *)propertiesDictionary;
 
-- (NSURL *)infoURL;
+- (NSURL *)infoURL;						// UK 2007-08-31
 
 @end
 
