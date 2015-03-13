@@ -25,9 +25,9 @@
 		94624831186C394500810C69 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 94624830186C394500810C69 /* License.txt */; };
 		94624836186C396600810C69 /* SpotifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94624835186C396600810C69 /* SpotifyController.m */; };
 		94624839186C397200810C69 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94624838186C397200810C69 /* MenuController.m */; };
-		9462483B186C39A500810C69 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9462483A186C39A500810C69 /* Sparkle.framework */; };
-		9462483D186C39BC00810C69 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9462483A186C39A500810C69 /* Sparkle.framework */; };
 		94624845186C3A4E00810C69 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94624844186C3A4E00810C69 /* ScriptingBridge.framework */; };
+		946D9AD51AAD04650042704B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; };
+		946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9462483D186C39BC00810C69 /* Sparkle.framework in CopyFiles */,
+				946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,8 +89,8 @@
 		94624835186C396600810C69 /* SpotifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyController.m; sourceTree = "<group>"; };
 		94624837186C397200810C69 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
 		94624838186C397200810C69 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
-		9462483A186C39A500810C69 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		94624844186C3A4E00810C69 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		946D9AD41AAD04650042704B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +99,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94624845186C3A4E00810C69 /* ScriptingBridge.framework in Frameworks */,
+				946D9AD51AAD04650042704B /* Sparkle.framework in Frameworks */,
 				943164D9186C3724005277EA /* Cocoa.framework in Frameworks */,
-				9462483B186C39A500810C69 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +151,8 @@
 		943164D7186C3724005277EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				946D9AD41AAD04650042704B /* Sparkle.framework */,
 				94624844186C3A4E00810C69 /* ScriptingBridge.framework */,
-				9462483A186C39A500810C69 /* Sparkle.framework */,
 				943164D8186C3724005277EA /* Cocoa.framework */,
 				943164F7186C3724005277EA /* XCTest.framework */,
 				943164DA186C3724005277EA /* Other Frameworks */,
@@ -254,7 +254,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotiFree" */;
 			buildPhases = (
-				949E2075186E42D6005F76C1 /* ShellScript */,
 				943164D1186C3724005277EA /* Sources */,
 				943164D2186C3724005277EA /* Frameworks */,
 				943164D3186C3724005277EA /* Resources */,
@@ -293,7 +292,7 @@
 		943164CD186C3724005277EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Eneas;
 				TargetAttributes = {
 					943164F5186C3724005277EA = {
@@ -345,22 +344,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		949E2075186E42D6005F76C1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#Check whether Sparkle.framework exists\nif [ ! -d \"$SRCROOT/Sparkle.framework/\" ]; then\n\n    #Download\n    echo \"Downloading Sparkle. This may take a while.\"\n    curl --silent \"http://sparkle.andymatuschak.org/files/Sparkle%201.5b6.zip\" > \"$SRCROOT/Sparkle.zip\"\n\n    #Organize\n    unzip -q \"$SRCROOT/Sparkle.zip\" -d \"$SRCROOT/Sparkle/\"\n    mv \"$SRCROOT/Sparkle/Sparkle.framework\" \"$SRCROOT/Sparkle.framework\"\n\n    #Cleanup\n    rm -rf \"$SRCROOT/Sparkle/\"\n    rm \"$SRCROOT/Sparkle.zip\"\n    echo \"Done\"\n\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		943164D1186C3724005277EA /* Sources */ = {
@@ -504,11 +487,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/\"",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
 				INFOPLIST_FILE = "SpotiFree/SpotiFree-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Spotifree;
 				WRAPPER_EXTENSION = app;
@@ -522,11 +506,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/\"",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
 				INFOPLIST_FILE = "SpotiFree/SpotiFree-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Spotifree;
 				WRAPPER_EXTENSION = app;

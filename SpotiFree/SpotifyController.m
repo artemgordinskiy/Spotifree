@@ -13,7 +13,7 @@
 
 #define SPOTIFY_BUNDLE_IDENTIFIER @"com.spotify.client"
 
-#define IDLE_TIME 0.3
+#define IDLE_TIME 0.5
 #define TIMER_CHECK_AD [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForAd) userInfo:nil repeats:YES]
 #define TIMER_CHECK_MUSIC [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForMusic) userInfo:nil repeats:YES]
 
@@ -62,8 +62,6 @@
             self.timer = TIMER_CHECK_AD;
         } else {
             if (self.timer) {
-                [self.timer fire];
-                    
                 [self.timer invalidate];
             }
         }
@@ -133,8 +131,8 @@
 
 	if (self.appData.shouldShowNotifications) {
 		NSUserNotification *notification = [[NSUserNotification alloc] init];
-		[notification setTitle:@"SpotiFree"];
-		[notification setInformativeText:[NSString stringWithFormat:@"A Spotify Ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
+		[notification setTitle:@"Spotifree"];
+		[notification setInformativeText:[NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
 		[notification setSoundName:nil];
 
 		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
@@ -142,18 +140,11 @@
 }
 
 - (void)unmute {
-    double delayInSeconds = 0.8;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.spotify setSoundVolume:_currentVolume];
-    });
+    [self.spotify setSoundVolume:_currentVolume];
 }
 
 - (BOOL)isAnAd {
-    NSInteger currentTrackNumber = self.spotify.currentTrack.trackNumber;
-    NSString * currentTrackUrl = self.spotify.currentTrack.spotifyUrl;
-    
-    return currentTrackNumber == 0 && [currentTrackUrl hasPrefix:@"spotify:track"];
+    return [self.spotify.currentTrack.spotifyUrl hasPrefix:@"spotify:ad"];
 }
 
 - (BOOL)isPlaying {
