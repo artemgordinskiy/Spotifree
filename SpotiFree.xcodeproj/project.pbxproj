@@ -16,8 +16,6 @@
 		943164F1186C3724005277EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 943164F0186C3724005277EA /* Images.xcassets */; };
 		943164F8186C3724005277EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943164F7186C3724005277EA /* XCTest.framework */; };
 		943164F9186C3724005277EA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943164D8186C3724005277EA /* Cocoa.framework */; };
-		94316501186C3724005277EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 943164FF186C3724005277EA /* InfoPlist.strings */; };
-		94316503186C3724005277EA /* SpotiFreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94316502186C3724005277EA /* SpotiFreeTests.m */; };
 		94611BF7186C479900378530 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 94611BF6186C479900378530 /* README.md */; };
 		94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94624828186C38E500810C69 /* AppleScriptCmds.plist */; };
 		9462482C186C38F000810C69 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462482B186C38F000810C69 /* AppData.m */; };
@@ -27,7 +25,7 @@
 		94624839186C397200810C69 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94624838186C397200810C69 /* MenuController.m */; };
 		94624845186C3A4E00810C69 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94624844186C3A4E00810C69 /* ScriptingBridge.framework */; };
 		946D9AD51AAD04650042704B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; };
-		946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,19 +62,16 @@
 		943164DB186C3724005277EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		943164DC186C3724005277EA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		943164DD186C3724005277EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		943164E0186C3724005277EA /* SpotiFree-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpotiFree-Info.plist"; sourceTree = "<group>"; };
+		943164E0186C3724005277EA /* Spotifree-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Spotifree-Info.plist"; sourceTree = "<group>"; };
 		943164E2186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		943164E4186C3724005277EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		943164E6186C3724005277EA /* SpotiFree-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotiFree-Prefix.pch"; sourceTree = "<group>"; };
+		943164E6186C3724005277EA /* Spotifree-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotifree-Prefix.pch"; sourceTree = "<group>"; };
 		943164E8186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		943164EA186C3724005277EA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		943164EB186C3724005277EA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		943164F0186C3724005277EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		943164F6186C3724005277EA /* SpotiFreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotiFreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		943164F6186C3724005277EA /* SpotifreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotifreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		943164F7186C3724005277EA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		943164FE186C3724005277EA /* SpotiFreeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpotiFreeTests-Info.plist"; sourceTree = "<group>"; };
-		94316500186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		94316502186C3724005277EA /* SpotiFreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotiFreeTests.m; sourceTree = "<group>"; };
 		94611BF6186C479900378530 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		94624826186C380500810C69 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		94624828186C38E500810C69 /* AppleScriptCmds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppleScriptCmds.plist; sourceTree = "<group>"; };
@@ -132,8 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				94611BF6186C479900378530 /* README.md */,
-				943164DE186C3724005277EA /* SpotiFree */,
-				943164FC186C3724005277EA /* SpotiFreeTests */,
+				943164DE186C3724005277EA /* Spotifree */,
 				943164D7186C3724005277EA /* Frameworks */,
 				943164D6186C3724005277EA /* Products */,
 			);
@@ -143,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				943164D5186C3724005277EA /* Spotifree.app */,
-				943164F6186C3724005277EA /* SpotiFreeTests.xctest */,
+				943164F6186C3724005277EA /* SpotifreeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,7 +164,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		943164DE186C3724005277EA /* SpotiFree */ = {
+		943164DE186C3724005277EA /* Spotifree */ = {
 			isa = PBXGroup;
 			children = (
 				94624832186C394D00810C69 /* Header */,
@@ -185,6 +179,7 @@
 				943164F0186C3724005277EA /* Images.xcassets */,
 				943164DF186C3724005277EA /* Supporting Files */,
 			);
+			name = Spotifree;
 			path = SpotiFree;
 			sourceTree = "<group>";
 		};
@@ -193,30 +188,12 @@
 			children = (
 				15908822193B83CF009F2C99 /* SVG Icons */,
 				9462482D186C392100810C69 /* Sparkle Key */,
-				943164E0186C3724005277EA /* SpotiFree-Info.plist */,
+				943164E0186C3724005277EA /* Spotifree-Info.plist */,
 				943164E1186C3724005277EA /* InfoPlist.strings */,
 				943164E4186C3724005277EA /* main.m */,
-				943164E6186C3724005277EA /* SpotiFree-Prefix.pch */,
+				943164E6186C3724005277EA /* Spotifree-Prefix.pch */,
 				943164E7186C3724005277EA /* Credits.rtf */,
 				94624830186C394500810C69 /* License.txt */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		943164FC186C3724005277EA /* SpotiFreeTests */ = {
-			isa = PBXGroup;
-			children = (
-				94316502186C3724005277EA /* SpotiFreeTests.m */,
-				943164FD186C3724005277EA /* Supporting Files */,
-			);
-			path = SpotiFreeTests;
-			sourceTree = "<group>";
-		};
-		943164FD186C3724005277EA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				943164FE186C3724005277EA /* SpotiFreeTests-Info.plist */,
-				943164FF186C3724005277EA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -250,9 +227,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		943164D4186C3724005277EA /* SpotiFree */ = {
+		943164D4186C3724005277EA /* Spotifree */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotiFree" */;
+			buildConfigurationList = 94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "Spotifree" */;
 			buildPhases = (
 				943164D1186C3724005277EA /* Sources */,
 				943164D2186C3724005277EA /* Frameworks */,
@@ -263,14 +240,14 @@
 			);
 			dependencies = (
 			);
-			name = SpotiFree;
+			name = Spotifree;
 			productName = SpotiFree;
 			productReference = 943164D5186C3724005277EA /* Spotifree.app */;
 			productType = "com.apple.product-type.application";
 		};
-		943164F5186C3724005277EA /* SpotiFreeTests */ = {
+		943164F5186C3724005277EA /* SpotifreeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94316509186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotiFreeTests" */;
+			buildConfigurationList = 94316509186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotifreeTests" */;
 			buildPhases = (
 				943164F2186C3724005277EA /* Sources */,
 				943164F3186C3724005277EA /* Frameworks */,
@@ -281,9 +258,9 @@
 			dependencies = (
 				943164FB186C3724005277EA /* PBXTargetDependency */,
 			);
-			name = SpotiFreeTests;
+			name = SpotifreeTests;
 			productName = SpotiFreeTests;
-			productReference = 943164F6186C3724005277EA /* SpotiFreeTests.xctest */;
+			productReference = 943164F6186C3724005277EA /* SpotifreeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -292,7 +269,7 @@
 		943164CD186C3724005277EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = Eneas;
 				TargetAttributes = {
 					943164F5186C3724005277EA = {
@@ -300,7 +277,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 943164D0186C3724005277EA /* Build configuration list for PBXProject "SpotiFree" */;
+			buildConfigurationList = 943164D0186C3724005277EA /* Build configuration list for PBXProject "Spotifree" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -313,8 +290,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				943164D4186C3724005277EA /* SpotiFree */,
-				943164F5186C3724005277EA /* SpotiFreeTests */,
+				943164D4186C3724005277EA /* Spotifree */,
+				943164F5186C3724005277EA /* SpotifreeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -339,7 +316,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94316501186C3724005277EA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,7 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94316503186C3724005277EA /* SpotiFreeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +346,7 @@
 /* Begin PBXTargetDependency section */
 		943164FB186C3724005277EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 943164D4186C3724005277EA /* SpotiFree */;
+			target = 943164D4186C3724005277EA /* Spotifree */;
 			targetProxy = 943164FA186C3724005277EA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -399,14 +374,6 @@
 				94624826186C380500810C69 /* en */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		943164FF186C3724005277EA /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94316500186C3724005277EA /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -443,7 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -475,7 +442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -490,8 +457,8 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
-				INFOPLIST_FILE = "SpotiFree/SpotiFree-Info.plist";
+				GCC_PREFIX_HEADER = "SpotiFree/Spotifree-Prefix.pch";
+				INFOPLIST_FILE = "SpotiFree/Spotifree-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Spotifree;
@@ -510,8 +477,8 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
-				INFOPLIST_FILE = "SpotiFree/SpotiFree-Info.plist";
+				GCC_PREFIX_HEADER = "SpotiFree/Spotifree-Prefix.pch";
+				INFOPLIST_FILE = "SpotiFree/Spotifree-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Spotifree;
@@ -534,8 +501,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "SpotiFreeTests/SpotiFreeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "SpotiFreeTests/SpotifreeTests-Info.plist";
+				PRODUCT_NAME = SpotifreeTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -552,8 +519,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpotiFree/SpotiFree-Prefix.pch";
-				INFOPLIST_FILE = "SpotiFreeTests/SpotiFreeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "SpotiFreeTests/SpotifreeTests-Info.plist";
+				PRODUCT_NAME = SpotifreeTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -562,7 +529,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		943164D0186C3724005277EA /* Build configuration list for PBXProject "SpotiFree" */ = {
+		943164D0186C3724005277EA /* Build configuration list for PBXProject "Spotifree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94316504186C3724005277EA /* Debug */,
@@ -571,7 +538,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotiFree" */ = {
+		94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "Spotifree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94316507186C3724005277EA /* Debug */,
@@ -580,7 +547,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94316509186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotiFreeTests" */ = {
+		94316509186C3724005277EA /* Build configuration list for PBXNativeTarget "SpotifreeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9431650A186C3724005277EA /* Debug */,
