@@ -125,15 +125,15 @@
 
 	switch (state) {
 		case kSFSpotifyStateActive:
-			label = @"Active";
+			label = @"Spotify is playing";
 			icon = [NSImage imageNamed:@"statusBarIconActiveTemplate"];
 			break;
 		case kSFSpotifyStateInactive:
-			label = @"Inactive";
+			label = @"Spotify is not playing";
 			icon = [NSImage imageNamed:@"statusBarIconInactiveTemplate"];
 			break;
 		case kSFSpotifyStateBlockingAd:
-			label = @"Muting Ad";
+			label = @"Muting an ad";
 			icon = [NSImage imageNamed:@"statusBarIconBlockingAdTemplate"];
 			break;
 
