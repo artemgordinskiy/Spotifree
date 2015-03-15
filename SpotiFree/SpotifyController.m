@@ -144,15 +144,45 @@
 }
 
 - (BOOL)isAnAd {
-    return [self.spotify.currentTrack.spotifyUrl hasPrefix:@"spotify:ad"];
+    bool isAnAd;
+    
+    @try {
+        isAnAd = [self.spotify.currentTrack.spotifyUrl hasPrefix:@"spotify:ad"];
+    }
+    @catch (NSException *exception) {
+        isAnAd = false;
+        NSLog(@"Cannot check if current Spotify track is an ad: %@", exception.reason);
+    }
+    
+    return isAnAd;
 }
 
 - (BOOL)isPlaying {
-    return [self isRunning] && self.spotify.playerState == SpotifyEPlSPlaying;
+    bool isPlaying;
+    
+    @try {
+        isPlaying = [self isRunning] && self.spotify.playerState == SpotifyEPlSPlaying;
+    }
+    @catch (NSException *exception) {
+        isPlaying = false;
+        NSLog(@"Cannot check if Spotify is playing: %@", exception.reason);
+    }
+    
+    return isPlaying;
 }
 
 - (BOOL)isRunning {
-    return self.spotify.isRunning;
+    bool isRunning;
+    
+    @try {
+        isRunning = self.spotify.isRunning;
+    }
+    @catch (NSException *exception) {
+        isRunning = false;
+        NSLog(@"Cannot check if Spotify is running: %@", exception.reason);
+    }
+    
+    return isRunning;
 }
 
 - (void)dealloc {
