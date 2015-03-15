@@ -98,10 +98,16 @@
         return;
     
     NSString *wrongFile = [spotifyResourceFolder stringByAppendingString:@"applescript/Spotify.sdef"];
-    [manager copyItemAtPath:wrongFile toPath:rightFile error:nil];
+    
+    if ([manager fileExistsAtPath:wrongFile]) {
+        [manager copyItemAtPath:wrongFile toPath:rightFile error:nil];
+    } else {
+        NSAlert *missingAppleScriptDefinitionFileAlert = [NSAlert alertWithMessageText:@"This Spotify version is incompatible with Spotifree" defaultButton:@"Download" alternateButton:@"No, thanks" otherButton:nil informativeTextWithFormat:@"Sorry, but your Spotify app is incompatible with Spotifree. Press \"Download\" to get the latest compatible Spotify version and then restart Spotifree."];
+        [missingAppleScriptDefinitionFileAlert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"missingAppleScriptDefinitionFileAlert"];
+        return;
+    }
     
     NSRunningApplication *spotify = [[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.spotify.client"] firstObject];
-    
     if (spotify) {
         NSAlert *alert = [NSAlert alertWithMessageText:@"Spotify restart required" defaultButton:@"OK" alternateButton:@"I'll do it myself" otherButton:nil informativeTextWithFormat:@"Sorry to interrupt, but your Spotify app must be restarted to work with Spotifree. You can do it now or later, manually, if you'd rather enjoy that last McDonald's ad."];
         [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"fixAlert"];
@@ -162,6 +168,10 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [[NSWorkspace sharedWorkspace] launchApplication:@"Spotify"];
             });
+        }
+        
+        if (strcmp(contextInfo, "missingAppleScriptDefinitionFileAlert") == 0) {
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://spotifree.gordinskiy.com/files/Spotify-1.0.1.zip"]];
         }
     }
 }
