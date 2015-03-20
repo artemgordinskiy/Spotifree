@@ -15,7 +15,6 @@
 
 #define IDLE_TIME 0.5
 #define TIMER_CHECK_AD [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForAd) userInfo:nil repeats:YES]
-#define TIMER_CHECK_MUSIC [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForMusic) userInfo:nil repeats:YES]
 
 @interface SpotifyController () {
     NSInteger _currentVolume;
@@ -26,6 +25,7 @@
 @property (strong) NSTimer *timer;
 
 @property (assign) BOOL shouldRun;
+@property (assign) BOOL muted;
 
 @end
 
@@ -47,6 +47,8 @@
         
         self.shouldRun = YES;
         [self addObserver:self forKeyPath:@"shouldRun" options:NSKeyValueObservingOptionOld context:nil];
+        
+        self.muted = NO;
         
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged) name:@"com.spotify.client.PlaybackStateChanged" object:nil];
     }
@@ -78,6 +80,8 @@
     } else if ((!self.shouldRun) && [self isPlaying]) {
         self.shouldRun = YES;
     }
+    
+    [self checkForMusic];
 }
 
 #pragma mark -
@@ -96,7 +100,6 @@
     if ([self isAnAd]) {
         [self.timer invalidate];
         [self mute];
-        self.timer = TIMER_CHECK_MUSIC;
 
 		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
             [self.delegate activeStateShouldGetUpdated:kSFSpotifyStateBlockingAd];
@@ -105,11 +108,10 @@
 }
 
 - (void)checkForMusic {
-    if ([self isAnAd]) {
+    if (!self.muted || [self isAnAd]) {
         return;
     }
     
-    [self.timer invalidate];
     [self unmute];
 
     if (self.shouldRun) {
@@ -124,6 +126,8 @@
 #pragma mark -
 #pragma mark Player Control Methods
 - (void)mute {
+    self.muted = YES;
+    
     _currentVolume = self.spotify.soundVolume;
     [self.spotify pause];
     [self.spotify setSoundVolume:0];
@@ -140,17 +144,19 @@
 }
 
 - (void)unmute {
+    self.muted = NO;
+
     [self.spotify setSoundVolume:_currentVolume];
 }
 
 - (BOOL)isAnAd {
-    bool isAnAd;
+    BOOL isAnAd;
     
     @try {
         isAnAd = [self.spotify.currentTrack.spotifyUrl hasPrefix:@"spotify:ad"];
     }
     @catch (NSException *exception) {
-        isAnAd = false;
+        isAnAd = NO;
         NSLog(@"Cannot check if current Spotify track is an ad: %@", exception.reason);
     }
     
@@ -158,13 +164,13 @@
 }
 
 - (BOOL)isPlaying {
-    bool isPlaying;
+    BOOL isPlaying;
     
     @try {
         isPlaying = [self isRunning] && self.spotify.playerState == SpotifyEPlSPlaying;
     }
     @catch (NSException *exception) {
-        isPlaying = false;
+        isPlaying = NO;
         NSLog(@"Cannot check if Spotify is playing: %@", exception.reason);
     }
     
@@ -172,13 +178,13 @@
 }
 
 - (BOOL)isRunning {
-    bool isRunning;
+    BOOL isRunning;
     
     @try {
         isRunning = self.spotify.isRunning;
     }
     @catch (NSException *exception) {
-        isRunning = false;
+        isRunning = NO;
         NSLog(@"Cannot check if Spotify is running: %@", exception.reason);
     }
     
