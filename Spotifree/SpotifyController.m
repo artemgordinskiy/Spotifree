@@ -14,7 +14,7 @@
 #define SPOTIFY_BUNDLE_IDENTIFIER @"com.spotify.client"
 
 #define IDLE_TIME 0.5
-#define TIMER_CHECK_AD [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkForAd) userInfo:nil repeats:YES]
+#define TIMER [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkCurrentTrack) userInfo:nil repeats:YES]
 
 @interface SpotifyController () {
     NSInteger _currentVolume;
@@ -25,7 +25,8 @@
 @property (strong) NSTimer *timer;
 
 @property (assign) BOOL shouldRun;
-@property (assign) BOOL muted;
+@property (assign) BOOL isMuted;
+@property (assign) BOOL isInTheProcessOfMuting;
 
 @end
 
@@ -46,9 +47,9 @@
         self.appData = [AppData sharedData];
         
         self.shouldRun = YES;
+        self.isMuted = NO;
         [self addObserver:self forKeyPath:@"shouldRun" options:NSKeyValueObservingOptionOld context:nil];
         
-        self.muted = NO;
         
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged) name:@"com.spotify.client.PlaybackStateChanged" object:nil];
     }
@@ -58,16 +59,12 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"shouldRun"]) {
+        [self.timer invalidate];
+        
         if (self.shouldRun) {
-            if (self.timer)
-                [self.timer invalidate];
-            self.timer = TIMER_CHECK_AD;
-        } else {
-            if (self.timer) {
-                [self.timer invalidate];
-            }
+            self.timer = TIMER;
         }
-
+        
         if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
             [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
         }
@@ -75,13 +72,12 @@
 }
 
 - (void)playbackStateChanged {
-    if (self.shouldRun && ![self isPlaying]) {
-        self.shouldRun = NO;
-    } else if ((!self.shouldRun) && [self isPlaying]) {
-        self.shouldRun = YES;
+    if (self.isInTheProcessOfMuting) {
+        return;
     }
     
-    [self checkForMusic];
+    self.shouldRun = [self isPlaying];
+    [self checkCurrentTrack];
 }
 
 #pragma mark -
@@ -90,70 +86,70 @@
     [self playbackStateChanged];
     
     if (self.shouldRun) {
-        self.timer = TIMER_CHECK_AD;
+        self.timer = TIMER;
+    } else {
+        [self.timer invalidate];
     }
 }
 
 #pragma mark -
 #pragma mark Timer Methods
-- (void)checkForAd {
-    if ([self isAnAd]) {
-        [self.timer invalidate];
-        [self mute];
-
-		if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
-            [self.delegate activeStateShouldGetUpdated:kSFSpotifyStateBlockingAd];
-        }
-    }
-}
-
-- (void)checkForMusic {
-    if (!self.muted || [self isAnAd]) {
+- (void)checkCurrentTrack {
+    // prevent relaunching Spotify on quit and muting it when it's not playing anything
+    if (![self isPlaying]) {
+        self.shouldRun = NO;
         return;
     }
     
-    [self unmute];
-
-    if (self.shouldRun) {
-        self.timer = TIMER_CHECK_AD;
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
-        [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
+    if ([self isAnAd]) {
+        if (!self.isMuted) {
+            [self mute];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
+            [self.delegate activeStateShouldGetUpdated:kSFSpotifyStateBlockingAd];
+        }
+    } else {
+        if (self.isMuted) {
+            [self unmute];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
+            [self.delegate activeStateShouldGetUpdated:(self.shouldRun ? kSFSpotifyStateActive : kSFSpotifyStateInactive)];
+        }
     }
 }
 
 #pragma mark -
 #pragma mark Player Control Methods
+
 - (void)mute {
-    self.muted = YES;
-    
+    self.isInTheProcessOfMuting = YES;
     _currentVolume = self.spotify.soundVolume;
     [self.spotify pause];
-    [self.spotify setSoundVolume:0];
+    [self.spotify setSoundVolume: 0];
     [self.spotify play];
 
 	if (self.appData.shouldShowNotifications) {
-		NSUserNotification *notification = [[NSUserNotification alloc] init];
-		[notification setTitle:@"Spotifree"];
-		[notification setInformativeText:[NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
-		[notification setSoundName:nil];
-
-		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        [self displayNotification: [NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
 	}
+    
+    self.isMuted = YES;
+    self.isInTheProcessOfMuting = NO;
 }
 
 - (void)unmute {
-    self.muted = NO;
-
     [self.spotify setSoundVolume:_currentVolume];
+    self.isMuted = NO;
 }
 
 - (BOOL)isAnAd {
     BOOL isAnAd;
-    
+    NSInteger currentTrackNumber = self.spotify.currentTrack.trackNumber;
+    NSString * currentTrackUrl = self.spotify.currentTrack.spotifyUrl;
+
     @try {
-        isAnAd = [self.spotify.currentTrack.spotifyUrl hasPrefix:@"spotify:ad"];
+        isAnAd = ([currentTrackUrl hasPrefix:@"spotify:ad"] || currentTrackNumber == 0);
     }
     @catch (NSException *exception) {
         isAnAd = NO;
@@ -167,7 +163,7 @@
     BOOL isPlaying;
     
     @try {
-        isPlaying = [self isRunning] && self.spotify.playerState == SpotifyEPlSPlaying;
+        isPlaying = ([self isRunning] && self.spotify.playerState == SpotifyEPlSPlaying);
     }
     @catch (NSException *exception) {
         isPlaying = NO;
@@ -189,6 +185,15 @@
     }
     
     return isRunning;
+}
+
+- (void)displayNotification:(NSString*)content {
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    [notification setTitle:@"Spotifree"];
+    [notification setInformativeText:content];
+    [notification setSoundName:nil];
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (void)dealloc {

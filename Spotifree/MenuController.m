@@ -117,8 +117,9 @@
 #pragma mark -
 #pragma SpotifyControllerDelegate
 - (void)activeStateShouldGetUpdated:(SFSpotifyState)state {
-    if (!self.statusItem)
+    if (!self.statusItem) {
         return;
+    }
 
 	NSString *label;
 	NSImage *icon;

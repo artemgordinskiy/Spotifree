@@ -226,7 +226,7 @@
 		943164CD186C3724005277EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Eneas;
 			};
 			buildConfigurationList = 943164D0186C3724005277EA /* Build configuration list for PBXProject "Spotifree" */;
