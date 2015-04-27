@@ -172,7 +172,7 @@
         }
         
         if (strcmp(contextInfo, "missingAppleScriptDefinitionFileAlert") == 0) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://spotifree.gordinskiy.com/files/Spotify-1.0.1.zip"]];
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://gordinskiy.com/files/Spotify.zip"]];
         }
     }
 }
