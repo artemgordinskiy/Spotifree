@@ -149,7 +149,7 @@
     NSString * currentTrackUrl = self.spotify.currentTrack.spotifyUrl;
 
     @try {
-        isAnAd = ([currentTrackUrl hasPrefix:@"spotify:ad"] || currentTrackNumber == 0);
+        isAnAd = ([currentTrackUrl hasPrefix:@"spotify:ad"] || (currentTrackNumber == 0 && ![currentTrackUrl hasPrefix:@"spotify:local"]));
     }
     @catch (NSException *exception) {
         isAnAd = NO;
