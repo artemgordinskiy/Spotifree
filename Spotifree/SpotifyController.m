@@ -131,7 +131,7 @@
     [self.spotify play];
 
 	if (self.appData.shouldShowNotifications) {
-        [self displayNotification: [NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration]];
+        [self displayNotification: [NSString stringWithFormat:@"A Spotify ad was detected! Music will be back in about %ld seconds…", (long)self.spotify.currentTrack.duration/1000]];
 	}
     
     self.isMuted = YES;
