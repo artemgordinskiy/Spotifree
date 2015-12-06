@@ -16,6 +16,8 @@
 #define IDLE_TIME 0.3
 #define TIMER [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkCurrentTrack) userInfo:nil repeats:YES]
 
+#define POST_AD_TRANSITION_DELAY 0.3
+
 @interface SpotifyController () {
     NSInteger _currentVolume;
 }
@@ -111,7 +113,7 @@
         }
     } else {
         if (self.isMuted) {
-            [self unmute];
+            [self unmuteAfterDelay];
         }
         
         if ([self.delegate respondsToSelector:@selector(activeStateShouldGetUpdated:)]) {
@@ -137,6 +139,10 @@
     
     self.isMuted = YES;
     self.isInTheProcessOfMuting = NO;
+}
+
+- (void)unmuteAfterDelay {
+    [NSTimer scheduledTimerWithTimeInterval:POST_AD_TRANSITION_DELAY target:self selector:@selector(unmute) userInfo:nil repeats:NO];
 }
 
 - (void)unmute {
