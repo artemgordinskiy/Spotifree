@@ -40,6 +40,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04BB37981C147DE000681532 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		04BB37991C147DE000681532 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04BB379A1C147DE000681532 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = fr; path = fr.lproj/Credits.rtf; sourceTree = "<group>"; };
 		15908823193B83CF009F2C99 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		15908824193B83CF009F2C99 /* SpotiFree_Black.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Black.ai; sourceTree = "<group>"; };
 		15908825193B83CF009F2C99 /* SpotiFree_Black.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Black.svg; sourceTree = "<group>"; };
@@ -236,6 +239,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 943164CC186C3724005277EA;
 			productRefGroup = 943164D6186C3724005277EA /* Products */;
@@ -285,6 +289,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				943164E2186C3724005277EA /* en */,
+				04BB37991C147DE000681532 /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				943164E8186C3724005277EA /* en */,
+				04BB379A1C147DE000681532 /* fr */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				94624826186C380500810C69 /* en */,
+				04BB37981C147DE000681532 /* fr */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
