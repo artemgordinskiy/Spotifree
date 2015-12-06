@@ -155,6 +155,12 @@
     [alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:"hideIconAlert"];
 }
 
+- (IBAction)donateLinkClicked:(NSMenuItem *)sender {
+    NSString *donateUrl = @"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UG7ECWW2QNWBJ&lc=US&item_name=Donation%20for%20the%20development%20of%20Spotifree%20app&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
+    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: donateUrl]];
+}
+
 - (IBAction)toggleAutomaticallyChecksForUpdates:(NSMenuItem *)sender {
     [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:![SUUpdater sharedUpdater].automaticallyChecksForUpdates];
     [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:NO];
