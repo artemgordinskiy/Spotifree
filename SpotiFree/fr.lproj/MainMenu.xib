@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment version="0.0" identifier="macosx"/>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
     </dependencies>
     <objects>
@@ -25,12 +25,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="7"/>
-                <menuItem title="À propos de Spotifree" id="8">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="aboutItemPushed:" target="21" id="32"/>
-                    </connections>
-                </menuItem>
                 <menuItem title="Mises à jour" id="9">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Mises à jour" id="10">
@@ -57,6 +51,12 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Masquer l'icône" id="19">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="hideMenuBarIconClicked:" target="21" id="31"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="15"/>
                 <menuItem title="Démarrer à la connexion" id="16">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -71,19 +71,25 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="18"/>
-                <menuItem title="Masquer l'icône" id="19">
+                <menuItem title="À propos de Spotifree" id="8">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="hideMenuBarIconClicked:" target="21" id="31"/>
+                        <action selector="aboutItemPushed:" target="21" id="32"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Quitter Spotifree" keyEquivalent="q" id="20">
+                <menuItem title="Donner" id="7Uo-Td-TQY">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="donateLinkClicked:" target="21" id="lBj-Ic-3fE"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Quitter" keyEquivalent="q" id="20">
                     <connections>
                         <action selector="terminate:" target="-1" id="30"/>
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="138" y="173.5"/>
+            <point key="canvasLocation" x="217" y="247.5"/>
         </menu>
         <customObject id="21" customClass="MenuController">
             <connections>
