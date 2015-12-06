@@ -229,7 +229,7 @@
 		943164CD186C3724005277EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Eneas;
 			};
 			buildConfigurationList = 943164D0186C3724005277EA /* Build configuration list for PBXProject "Spotifree" */;
@@ -331,6 +331,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -347,7 +348,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -397,6 +398,7 @@
 				INFOPLIST_FILE = "SpotiFree/Spotifree-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.eneas.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Spotifree;
 				WRAPPER_EXTENSION = app;
 			};
@@ -417,6 +419,7 @@
 				INFOPLIST_FILE = "SpotiFree/Spotifree-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.eneas.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Spotifree;
 				WRAPPER_EXTENSION = app;
 			};

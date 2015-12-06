@@ -5,13 +5,17 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "blocking_ad.png"
+      "filename" : "blocking_ad.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "blocking_ad@2x.png"
+      "filename" : "blocking_ad@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
