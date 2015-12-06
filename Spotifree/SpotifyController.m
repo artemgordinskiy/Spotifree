@@ -13,7 +13,7 @@
 
 #define SPOTIFY_BUNDLE_IDENTIFIER @"com.spotify.client"
 
-#define IDLE_TIME 0.5
+#define IDLE_TIME 0.3
 #define TIMER [NSTimer scheduledTimerWithTimeInterval:IDLE_TIME target:self selector:@selector(checkCurrentTrack) userInfo:nil repeats:YES]
 
 @interface SpotifyController () {
