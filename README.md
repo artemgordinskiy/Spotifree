@@ -10,6 +10,9 @@ On the first run, **Spotifree** will ask you if you want it to run automatically
 ## How it works
 **Spotifree** is polling Spotify every **.5** seconds to see if the prefix of the current track URL is **spotify:ad** (as in all ads). If it is, Spotify is muted for a duration of an ad. When an ad is over, the volume is set to the way it was before.
 
+## Supported Versions
+*1.0.20.94.g8f8543b3*
+
 #### Thanks
 Thanks Chris Ferrara from MacRumors forums, for the original idea and the proof-of-concept script.  
 Thanks [Eneas](https://github.com/E-n-e-a-s), for turning that brittle AppleScript into a robust native application.  
