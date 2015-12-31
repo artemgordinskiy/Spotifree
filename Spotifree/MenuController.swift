@@ -145,7 +145,7 @@ class MenuController : NSObject, SpotifyManagerDelegate {
                 label = NSLocalizedString("MENU_POLLING", comment: "Spotify state: Polling")
                 icon = NSImage(named: "statusBarIconActiveTemplate")
             case .kSFSpotifreeStateInactive:
-                label = NSLocalizedString("MENU_NOT_INACTIVE", comment: "Spotify state: Inactive")
+                label = NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive")
                 icon = NSImage(named: "statusBarIconInactiveTemplate")
             }
             
