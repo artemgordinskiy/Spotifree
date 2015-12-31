@@ -15,9 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var spotifyManger : SpotifyManager!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        spotifyManger = SpotifyManager()
         menuController = MenuController()
-        spotifyManger.delegate = menuController
+        spotifyManger = SpotifyManager(delegate: menuController)
     }
 
     func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

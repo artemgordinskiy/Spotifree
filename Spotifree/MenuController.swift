@@ -141,8 +141,12 @@ class MenuController : NSObject, SpotifyManagerDelegate {
             case .kSFSpotifreeStateMuting:
                 label = "Muting Ad"
                 icon = NSImage(named: "statusBarIconBlockingAdTemplate")
-            default:
-                break
+            case .kSFSpotifreeStatePolling:
+                label = "Polling"
+                icon = NSImage(named: "statusBarIconActiveTemplate")
+            case .kSFSpotifreeStateNotPolling:
+                label = "Not Polling"
+                icon = NSImage(named: "statusBarIconInactiveTemplate")
             }
             
             _statusItem.image = icon

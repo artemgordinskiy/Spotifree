@@ -10,6 +10,7 @@ import Cocoa
 
 let KEY_MENU_BAR_ICON_HIDDEN = "SFMenuBarIconHidden"
 let KEY_SHOW_NOTIFICATIONS = "SFShowNotifications"
+let KEY_POLLING_RATE = "SFPollingRate"
 
 class DataManager : NSObject {
     static let sharedData = DataManager()
@@ -24,6 +25,13 @@ class DataManager : NSObject {
             removeLoginItem()
             addLoginItem()
         }
+        
+        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3]
+        NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
+    }
+    
+    func pollingRate() -> Double {
+        return NSUserDefaults.standardUserDefaults().doubleForKey(KEY_POLLING_RATE)
     }
     
     func isMenuBarIconHidden() -> Bool {

@@ -11,8 +11,9 @@ import ScriptingBridge
 
 enum SFSpotifreeState {
     case kSFSpotifreeStateActive
-    case kSFSpotifreeStateInactive
     case kSFSpotifreeStateMuting
+    case kSFSpotifreeStatePolling
+    case kSFSpotifreeStateNotPolling
 }
 
 protocol SpotifyManagerDelegate {
@@ -23,32 +24,77 @@ extension SpotifyManagerDelegate {
     func spotifreeStateChanged(state: SFSpotifreeState) {}
 }
 
+let kPatchFileURL = "https://raw.githubusercontent.com/ArtemGordinsky/Spotifree/swift/Spotifree/Patches.plist"
+
 class SpotifyManager: NSObject {
     var delegate : SpotifyManagerDelegate?
     
-    private let spotify : SpotifyApplication?
+    private let spotify : SpotifyApplication!
     
     private var isMuted : Bool
     private var oldVolume : Int
+    
+    private var pollingMode : Bool
+    private var timer : NSTimer?
+    
+    convenience init(delegate : SpotifyManagerDelegate) {
+        self.init()
+        
+        self.delegate = delegate
+        
+        if pollingMode {
+            if NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").count != 0 && spotify.playerState! == .Playing {
+                startPolling()
+            } else {
+                self.delegate!.spotifreeStateChanged(.kSFSpotifreeStateNotPolling)
+            }
+        }
+    }
     
     override init() {
         spotify = SBApplication(bundleIdentifier: "com.spotify.client")
         isMuted = false;
         oldVolume = 75;
         
+        pollingMode = false
+        
         super.init()
         
-        fixSpotifyIfNeeded()
-        NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "playbackStateChanged", name: "com.spotify.client.PlaybackStateChanged", object: nil);
+        updatePatchFile()
+        NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "playbackStateChanged:", name: "com.spotify.client.PlaybackStateChanged", object: nil);
     }
     
-    func playbackStateChanged() {
-        checkForAd()
+    func playbackStateChanged(notification : NSNotification) {
+        if pollingMode {
+            let state = notification.userInfo!["Player State"] as! String
+            switch state {
+            case "Paused", "Stopped":
+                stopPolling()
+            case "Playing":
+                startPolling()
+            default:
+                break
+            }
+        }
     }
     
     func checkForAd() {
-        if let isAd = spotify?.currentTrack!.id!().hasPrefix("spotify:ad") {
-            isAd ? mute() : unmute()
+        let isAd = spotify.currentTrack!.id!().hasPrefix("spotify:ad")
+        isAd ? mute() : unmute()
+    }
+    
+    func startPolling() {
+        if (timer != nil) {return}
+        timer = NSTimer.scheduledTimerWithTimeInterval(DataManager.sharedData.pollingRate(), target: self, selector: "checkForAd", userInfo: nil, repeats: true)
+        timer!.fire()
+        delegate?.spotifreeStateChanged(.kSFSpotifreeStatePolling)
+    }
+    
+    func stopPolling() {
+        if let _timer = timer {
+            _timer.invalidate()
+            timer = nil
+            delegate?.spotifreeStateChanged(.kSFSpotifreeStateNotPolling)
         }
     }
     
@@ -56,15 +102,15 @@ class SpotifyManager: NSObject {
         if isMuted {return}
         
         isMuted = true
-        oldVolume = (spotify?.soundVolume)!
+        oldVolume = (spotify.soundVolume)!
         
-        spotify?.pause!()
-        spotify?.setSoundVolume!(0);
-        spotify?.play!()
+        spotify.pause!()
+        spotify.setSoundVolume!(0);
+        spotify.play!()
         
         if DataManager.sharedData.shouldShowNofifications() {
             var duration = 0
-            duration = (spotify?.currentTrack!.duration)! / 1000
+            duration = spotify.currentTrack!.duration! / 1000
             displayNotificationWithText(String(format: "A Spotify ad was detected! Music will be back in about %i seconds…", duration))
         }
         
@@ -75,8 +121,8 @@ class SpotifyManager: NSObject {
         if !isMuted {return}
         
         isMuted = false
-        spotify?.setSoundVolume!(oldVolume)
-        delegate?.spotifreeStateChanged(.kSFSpotifreeStateActive)
+        spotify.setSoundVolume!(oldVolume)
+        delegate?.spotifreeStateChanged(pollingMode ? .kSFSpotifreeStatePolling : .kSFSpotifreeStateActive)
     }
     
     func displayNotificationWithText(text : String) {
@@ -86,6 +132,30 @@ class SpotifyManager: NSObject {
         notification.soundName = nil
         
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
+    }
+    
+    func updatePatchFile() {
+        fixSpotifyIfNeeded()
+        let request = NSURLRequest(URL: NSURL(string: kPatchFileURL)!)
+        NSURLConnection .sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            if (error == nil) {
+                do {
+                    let localFilePath = NSBundle.mainBundle().pathForResource("Patches", ofType: "plist")!
+                    let localPatchInfo = NSDictionary(contentsOfFile: localFilePath)!
+                    
+                    let onlinePatchInfo = try NSPropertyListSerialization.propertyListWithData(data!, options: .Immutable, format: nil) as! NSDictionary
+                    
+                    if (!localPatchInfo.isEqualToDictionary(onlinePatchInfo as! [NSObject : AnyObject])) {
+                        onlinePatchInfo.writeToFile(localFilePath, atomically: true)
+                        print("Patch data file updated")
+                    }
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+        
+            self.fixSpotifyIfNeeded()
+        }
     }
     
     func fixSpotifyIfNeeded() {
@@ -100,6 +170,9 @@ class SpotifyManager: NSObject {
                     do {
                         let manager = NSFileManager.defaultManager()
                         let backupFile = spotifyFolder.stringByAppendingString("SpotifyBackup")
+                        if manager.fileExistsAtPath(backupFile) {
+                            try manager.removeItemAtPath(backupFile)
+                        }
                         try manager.copyItemAtPath(originalFile, toPath: backupFile)
                         
                         let spotifyData = NSMutableData(contentsOfFile: originalFile)!
@@ -136,12 +209,13 @@ class SpotifyManager: NSObject {
                                 });
                             }
                         }
-                    } catch {
-                        runModalQuitAlertWithText("Something went wrong patching Spotify", andInformativeText: "Sometimes restarting Spotify helps")
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                        pollingMode = true
                     }
                 }
             } else {
-                runModalQuitAlertWithText("Spotify version not supported", andInformativeText: "")
+                pollingMode = true
             }
         } else {
             runModalQuitAlertWithText("Spotify not found" , andInformativeText: "Try again after installing Spotify\n(Preferably to \"/Applications/Spotify.app\")")
