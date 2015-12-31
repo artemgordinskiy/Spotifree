@@ -17,8 +17,9 @@
 		944D3A4A1C32039000FC3324 /* Spotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A491C32039000FC3324 /* Spotify.swift */; };
 		944D3A4C1C3203A600FC3324 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944D3A4B1C3203A600FC3324 /* ScriptingBridge.framework */; };
 		944D3A4F1C32061900FC3324 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A4E1C32061900FC3324 /* MenuController.swift */; };
-		945871DA1C32E1B1000335B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945871D81C32E1B1000335B2 /* Main.storyboard */; };
 		946F4C751C321A6D00E784DA /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 946F4C741C321A6D00E784DA /* Credits.rtf */; };
+		9475F5A71C35490C009F1736 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9475F5A61C35490C009F1736 /* Main.storyboard */; };
+		9475F5AA1C35514B009F1736 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9475F5AC1C35514B009F1736 /* Localizable.strings */; };
 		949A3E9D1C32CC4400D85C57 /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */; };
 		94CA85E81C34031A00173312 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CA85E71C34031A00173312 /* Sparkle.framework */; };
 		94CA85E91C3404F500173312 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 94CA85E71C34031A00173312 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -52,8 +53,10 @@
 		944D3A491C32039000FC3324 /* Spotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spotify.swift; sourceTree = "<group>"; };
 		944D3A4B1C3203A600FC3324 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		944D3A4E1C32061900FC3324 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
-		945871D91C32E1B1000335B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		946F4C741C321A6D00E784DA /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		9475F5A61C35490C009F1736 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9475F5AB1C35514B009F1736 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9475F5AD1C35514F009F1736 /* de */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
 		94CA85E71C34031A00173312 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,7 +114,8 @@
 				944D3A4E1C32061900FC3324 /* MenuController.swift */,
 				943B7B3D1C34159000B87F53 /* HashExtensions.swift */,
 				943B7B411C34172A00B87F53 /* Spotifree-Bridging-Header.h */,
-				945871D81C32E1B1000335B2 /* Main.storyboard */,
+				9475F5AC1C35514B009F1736 /* Localizable.strings */,
+				9475F5A61C35490C009F1736 /* Main.storyboard */,
 				9400F6841C32E5F900A5D61A /* Resources */,
 			);
 			path = Spotifree;
@@ -168,7 +172,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				de,
 			);
 			mainGroup = 944D3A2D1C32028D00FC3324;
 			productRefGroup = 944D3A371C32028D00FC3324 /* Products */;
@@ -185,12 +189,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9475F5A71C35490C009F1736 /* Main.storyboard in Resources */,
 				9400F68A1C32E93B00A5D61A /* dsa_pub.pem in Resources */,
 				944D3A3E1C32028D00FC3324 /* Assets.xcassets in Resources */,
+				9475F5AA1C35514B009F1736 /* Localizable.strings in Resources */,
 				9400F68E1C32EF4800A5D61A /* AppleScriptCmds.plist in Resources */,
 				943B7B3C1C34148600B87F53 /* Patches.plist in Resources */,
 				946F4C751C321A6D00E784DA /* Credits.rtf in Resources */,
-				945871DA1C32E1B1000335B2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,12 +218,13 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		945871D81C32E1B1000335B2 /* Main.storyboard */ = {
+		9475F5AC1C35514B009F1736 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				945871D91C32E1B1000335B2 /* Base */,
+				9475F5AB1C35514B009F1736 /* en */,
+				9475F5AD1C35514F009F1736 /* de */,
 			);
-			name = Main.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -13,7 +13,7 @@ enum SFSpotifreeState {
     case kSFSpotifreeStateActive
     case kSFSpotifreeStateMuting
     case kSFSpotifreeStatePolling
-    case kSFSpotifreeStateNotPolling
+    case kSFSpotifreeStateInactive
 }
 
 protocol SpotifyManagerDelegate {
@@ -46,7 +46,7 @@ class SpotifyManager: NSObject {
             if NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").count != 0 && spotify.playerState! == .Playing {
                 startPolling()
             } else {
-                self.delegate!.spotifreeStateChanged(.kSFSpotifreeStateNotPolling)
+                self.delegate!.spotifreeStateChanged(.kSFSpotifreeStateInactive)
             }
         }
     }
@@ -96,7 +96,7 @@ class SpotifyManager: NSObject {
         if let _timer = timer {
             _timer.invalidate()
             timer = nil
-            delegate?.spotifreeStateChanged(.kSFSpotifreeStateNotPolling)
+            delegate?.spotifreeStateChanged(.kSFSpotifreeStateInactive)
         }
     }
     
@@ -113,7 +113,7 @@ class SpotifyManager: NSObject {
         if DataManager.sharedData.shouldShowNofifications() {
             var duration = 0
             duration = spotify.currentTrack!.duration! / 1000
-            displayNotificationWithText(String(format: "A Spotify ad was detected! Music will be back in about %i seconds…", duration))
+            displayNotificationWithText(String(format: NSLocalizedString("NOTIFICATION_AD_DETECTED", comment: "Notification: A Spotify ad was detected! Music will be back in about %i seconds…"), duration))
         }
         
         delegate?.spotifreeStateChanged(.kSFSpotifreeStateMuting)
@@ -200,10 +200,10 @@ class SpotifyManager: NSObject {
                         
                         if let app = NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").first {
                             let alert = NSAlert()
-                            alert.messageText = "Spotify restart required"
-                            alert.informativeText = "Sorry to interrupt, but your Spotify app must be restarted to work with Spotifree. You can do it now or later, manually, if you'd rather enjoy that last McDonald's ad."
-                            alert.addButtonWithTitle("OK")
-                            alert.addButtonWithTitle("I'll do it myself")
+                            alert.messageText = NSLocalizedString("ALERT_SPOTIFY_RESTART", comment: "Alert: Spotify restart required")
+                            alert.informativeText = NSLocalizedString("ALERT_SPOTIFY_RESTART_INFO", comment: "Alert info: Sorry to interrupt, but your Spotify app must be restarted to work with Spotifree. You can do it now or later, manually, if you'd rather enjoy that last McDonald's ad.")
+                            alert.addButtonWithTitle(NSLocalizedString("OK", comment: "General: OK"))
+                            alert.addButtonWithTitle(NSLocalizedString("ALERT_SPOTIFY_RESTART_BY_MYSELF_BUTTON", comment: "Button: I'll do it myself"))
                             if NSAlertFirstButtonReturn == alert.runModal() {
                                 app.terminate()
                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
@@ -220,7 +220,7 @@ class SpotifyManager: NSObject {
                 pollingMode = true
             }
         } else {
-            runModalQuitAlertWithText("Spotify not found" , andInformativeText: "Try again after installing Spotify\n(Preferably to \"/Applications/Spotify.app\")")
+            runModalQuitAlertWithText(NSLocalizedString("ALERT_SPOTIFY_NOT_FOUND", comment: "Alert: Spotify not found") , andInformativeText: NSLocalizedString("ALERT_SPOTIFY_NOT_FOUND_INFO", comment: "Alert info: Try again after installing Spotify\n(Preferably to \"/Applications/Spotify.app\")"))
         }
     }
     
@@ -228,7 +228,7 @@ class SpotifyManager: NSObject {
         let alert = NSAlert()
         alert.messageText = text
         alert.informativeText = informative
-        let button = alert.addButtonWithTitle("Quit")
+        let button = alert.addButtonWithTitle(NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"))
         button.action = "terminate:"
         button.target = NSApplication.sharedApplication();
         alert.runModal()

@@ -22,26 +22,26 @@ class MenuController : NSObject, SpotifyManagerDelegate {
     
     func setUpMenu() {
         let statusMenu = NSMenu(title: "Spotifree")
-        statusMenu.addItemWithTitle("Active", action: nil, keyEquivalent: "")?.tag = 1
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_ACTIVE", comment: "Spotify state: Active"), action: nil, keyEquivalent: "")?.tag = 1
         statusMenu.addItem(NSMenuItem.separatorItem())
         
         let updateMenu = NSMenu()
-        updateMenu.addItemWithTitle("Check For Updates...", action: "checkForUpdates:", keyEquivalent: "")?.target = SUUpdater.sharedUpdater()
+        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_CHECK_FOR_UPDATES", comment:"Menu: Check For Updates..."), action: "checkForUpdates:", keyEquivalent: "")?.target = SUUpdater.sharedUpdater()
         updateMenu.addItem(NSMenuItem.separatorItem())
-        updateMenu.addItemWithTitle("Check Automatically", action: "toggleAutomaticallyCheckForUpdates", keyEquivalent: "")!.target = self
-        updateMenu.addItemWithTitle("Download Automatically", action: "toggleAutomaticallyDownloadUpdates", keyEquivalent: "")!.target = self
-        let updateItem = NSMenuItem(title:"Updates", action: nil, keyEquivalent: "")
+        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_CHECK_AUTOMATICALLY", comment: "Menu: Check Automatically"), action: "toggleAutomaticallyCheckForUpdates", keyEquivalent: "")!.target = self
+        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_DOWNLOAD_AUTOMATICALLY", comment: "Menu: Download automatically"), action: "toggleAutomaticallyDownloadUpdates", keyEquivalent: "")!.target = self
+        let updateItem = NSMenuItem(title:NSLocalizedString("MENU_UPDATES", comment: "Menu: Updates"), action: nil, keyEquivalent: "")
         updateItem.submenu = updateMenu;
         
         statusMenu.addItem(updateItem);
-        statusMenu.addItemWithTitle("Hide Icon", action: "hideIconClicked", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_HIDE_ICON", comment: "Menu: Hide Icon"), action: "hideIconClicked", keyEquivalent: "")!.target = self
         statusMenu.addItem(NSMenuItem.separatorItem())
-        statusMenu.addItemWithTitle("Run At Login", action: "toggleLoginItem", keyEquivalent: "")!.target = self
-        statusMenu.addItemWithTitle("Notifications", action: "toggleNotifications", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_RUN_AT_LOGIN", comment: "Menu: Run At Login"), action: "toggleLoginItem", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_NOTIFICATIONS", comment: "Menu: Notifications"), action: "toggleNotifications", keyEquivalent: "")!.target = self
         statusMenu.addItem(NSMenuItem.separatorItem())
-        statusMenu.addItemWithTitle("Donate", action: "donateLinkClicked", keyEquivalent: "")!.target = self
-        statusMenu.addItemWithTitle("About", action: "aboutItemClicked", keyEquivalent: "")!.target = self
-        statusMenu.addItemWithTitle("Quit", action: "terminate:", keyEquivalent: "q")!.keyEquivalentModifierMask = Int(NSEventModifierFlags.CommandKeyMask.rawValue);
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_DONATE", comment: "Menu: Donate"), action: "donateLinkClicked", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_ABOUT", comment: "Menu: About"), action: "aboutItemClicked", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"), action: "terminate:", keyEquivalent: "q")!.keyEquivalentModifierMask = Int(NSEventModifierFlags.CommandKeyMask.rawValue);
         statusMenu.addItem(NSMenuItem.separatorItem())
         
         statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
@@ -69,14 +69,14 @@ class MenuController : NSObject, SpotifyManagerDelegate {
     
     func hideIconClicked() {
         let alert = NSAlert()
-        alert.messageText = "To show the icon again, simply launch Spotifree from Dock or Finder"
-        alert.addButtonWithTitle("OK")
-        alert.addButtonWithTitle("Cancel")
+        alert.messageText = NSLocalizedString("ALERT_HIDE_ICON_INFO", comment: "Alert info: To show the icon again, simply launch Spotifree from Dock or Finder")
+        alert.addButtonWithTitle(NSLocalizedString("OK", comment: "General: OK"))
+        alert.addButtonWithTitle(NSLocalizedString("CANCEL", comment: "General: Cancel"))
         
         if !DataManager.sharedData.isInLoginItems() {
-            alert.messageText.appendContentsOf("\n\nIf you want to make the app truly invisible, we suggest also allowing it to launch at login")
+            alert.informativeText = NSLocalizedString("ALERT_HIDE_ICON_LAUNCH_AT_LOGIN_INFO", comment: "Alert info: If you want to make the app truly invisible, we suggest also allowing it to launch at login")
             alert.showsSuppressionButton = true
-            alert.suppressionButton?.title = "Run At Login"
+            alert.suppressionButton?.title = NSLocalizedString("MENU_RUN_AT_LOGIN", comment: "Menu: Run At Login")
             alert.suppressionButton?.state = NSOffState
         }
         
@@ -136,16 +136,16 @@ class MenuController : NSObject, SpotifyManagerDelegate {
             
             switch state {
             case .kSFSpotifreeStateActive:
-                label = "Active"
+                label = NSLocalizedString("MENU_ACTIVE", comment: "Spotify state: Active")
                 icon = NSImage(named: "statusBarIconActiveTemplate")
             case .kSFSpotifreeStateMuting:
-                label = "Muting Ad"
+                label = NSLocalizedString("MENU_MUTING_AD", comment: "Spotify state: Muting Ad")
                 icon = NSImage(named: "statusBarIconBlockingAdTemplate")
             case .kSFSpotifreeStatePolling:
-                label = "Polling"
+                label = NSLocalizedString("MENU_POLLING", comment: "Spotify state: Polling")
                 icon = NSImage(named: "statusBarIconActiveTemplate")
-            case .kSFSpotifreeStateNotPolling:
-                label = "Not Polling"
+            case .kSFSpotifreeStateInactive:
+                label = NSLocalizedString("MENU_NOT_INACTIVE", comment: "Spotify state: Inactive")
                 icon = NSImage(named: "statusBarIconInactiveTemplate")
             }
             
