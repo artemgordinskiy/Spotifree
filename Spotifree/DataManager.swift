@@ -28,6 +28,10 @@ class DataManager : NSObject {
         
         let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3]
         NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
+        
+        if !NSUserDefaults.standardUserDefaults().boolForKey("SUHasLaunchedBefore") {
+            addLoginItem()
+        }
     }
     
     func pollingRate() -> Double {
