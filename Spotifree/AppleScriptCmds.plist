@@ -17,7 +17,7 @@
         end if
         end tell
     </string>
-	<key>updateLoginItemState</key>
+	<key>isInLoginItems</key>
 	<string>
         tell application &quot;System Events&quot;
         if login item &quot;Spotifree&quot; exists then

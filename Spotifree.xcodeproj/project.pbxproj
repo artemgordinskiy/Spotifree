@@ -7,320 +7,230 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		943164D9186C3724005277EA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943164D8186C3724005277EA /* Cocoa.framework */; };
-		943164E3186C3724005277EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 943164E1186C3724005277EA /* InfoPlist.strings */; };
-		943164E5186C3724005277EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 943164E4186C3724005277EA /* main.m */; };
-		943164E9186C3724005277EA /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 943164E7186C3724005277EA /* Credits.rtf */; };
-		943164EC186C3724005277EA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 943164EB186C3724005277EA /* AppDelegate.m */; };
-		943164EF186C3724005277EA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943164ED186C3724005277EA /* MainMenu.xib */; };
-		943164F1186C3724005277EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 943164F0186C3724005277EA /* Images.xcassets */; };
-		94611BF7186C479900378530 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 94611BF6186C479900378530 /* README.md */; };
-		94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94624828186C38E500810C69 /* AppleScriptCmds.plist */; };
-		9462482C186C38F000810C69 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462482B186C38F000810C69 /* AppData.m */; };
-		9462482F186C393400810C69 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 9462482E186C393400810C69 /* dsa_pub.pem */; };
-		94624831186C394500810C69 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 94624830186C394500810C69 /* License.txt */; };
-		94624836186C396600810C69 /* SpotifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94624835186C396600810C69 /* SpotifyController.m */; };
-		94624839186C397200810C69 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94624838186C397200810C69 /* MenuController.m */; };
-		94624845186C3A4E00810C69 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94624844186C3A4E00810C69 /* ScriptingBridge.framework */; };
-		946D9AD51AAD04650042704B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; };
-		946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 946D9AD41AAD04650042704B /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9400F68A1C32E93B00A5D61A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 9400F6891C32E93B00A5D61A /* dsa_pub.pem */; };
+		9400F68C1C32EF1500A5D61A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9400F68B1C32EF1500A5D61A /* DataManager.swift */; };
+		9400F68E1C32EF4800A5D61A /* AppleScriptCmds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9400F68D1C32EF4800A5D61A /* AppleScriptCmds.plist */; };
+		943B7B3C1C34148600B87F53 /* Patches.plist in Resources */ = {isa = PBXBuildFile; fileRef = 943B7B3B1C34148600B87F53 /* Patches.plist */; };
+		943B7B3E1C34159000B87F53 /* HashExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B7B3D1C34159000B87F53 /* HashExtensions.swift */; };
+		944D3A3A1C32028D00FC3324 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A391C32028D00FC3324 /* AppDelegate.swift */; };
+		944D3A3E1C32028D00FC3324 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944D3A3D1C32028D00FC3324 /* Assets.xcassets */; };
+		944D3A4A1C32039000FC3324 /* Spotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A491C32039000FC3324 /* Spotify.swift */; };
+		944D3A4C1C3203A600FC3324 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944D3A4B1C3203A600FC3324 /* ScriptingBridge.framework */; };
+		944D3A4F1C32061900FC3324 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A4E1C32061900FC3324 /* MenuController.swift */; };
+		945871DA1C32E1B1000335B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945871D81C32E1B1000335B2 /* Main.storyboard */; };
+		946F4C751C321A6D00E784DA /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 946F4C741C321A6D00E784DA /* Credits.rtf */; };
+		949A3E9D1C32CC4400D85C57 /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */; };
+		94CA85E81C34031A00173312 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CA85E71C34031A00173312 /* Sparkle.framework */; };
+		94CA85E91C3404F500173312 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 94CA85E71C34031A00173312 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9462483C186C39B200810C69 /* CopyFiles */ = {
+		9400F6871C32E6C400A5D61A /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				946D9AD61AAD05760042704B /* Sparkle.framework in CopyFiles */,
+				94CA85E91C3404F500173312 /* Sparkle.framework in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		04BB37981C147DE000681532 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		04BB37991C147DE000681532 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		04BB379A1C147DE000681532 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = fr; path = fr.lproj/Credits.rtf; sourceTree = "<group>"; };
-		15908823193B83CF009F2C99 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		15908824193B83CF009F2C99 /* SpotiFree_Black.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Black.ai; sourceTree = "<group>"; };
-		15908825193B83CF009F2C99 /* SpotiFree_Black.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Black.svg; sourceTree = "<group>"; };
-		15908826193B83CF009F2C99 /* SpotiFree_Color.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpotiFree_Color.ai; sourceTree = "<group>"; };
-		15908827193B83CF009F2C99 /* SpotiFree_Color.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SpotiFree_Color.svg; sourceTree = "<group>"; };
-		943164D5186C3724005277EA /* Spotifree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotifree.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		943164D8186C3724005277EA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		943164DB186C3724005277EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		943164DC186C3724005277EA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		943164DD186C3724005277EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		943164E0186C3724005277EA /* Spotifree-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Spotifree-Info.plist"; sourceTree = "<group>"; };
-		943164E2186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		943164E4186C3724005277EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		943164E6186C3724005277EA /* Spotifree-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotifree-Prefix.pch"; sourceTree = "<group>"; };
-		943164E8186C3724005277EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		943164EA186C3724005277EA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		943164EB186C3724005277EA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		943164F0186C3724005277EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		94611BF6186C479900378530 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		94624826186C380500810C69 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		94624828186C38E500810C69 /* AppleScriptCmds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppleScriptCmds.plist; sourceTree = "<group>"; };
-		9462482A186C38F000810C69 /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
-		9462482B186C38F000810C69 /* AppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppData.m; sourceTree = "<group>"; };
-		9462482E186C393400810C69 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		94624830186C394500810C69 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
-		94624833186C395A00810C69 /* Spotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
-		94624834186C396600810C69 /* SpotifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyController.h; sourceTree = "<group>"; };
-		94624835186C396600810C69 /* SpotifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyController.m; sourceTree = "<group>"; };
-		94624837186C397200810C69 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
-		94624838186C397200810C69 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
-		94624844186C3A4E00810C69 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		946D9AD41AAD04650042704B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		9400F6891C32E93B00A5D61A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		9400F68B1C32EF1500A5D61A /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		9400F68D1C32EF4800A5D61A /* AppleScriptCmds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppleScriptCmds.plist; sourceTree = "<group>"; };
+		943B7B3B1C34148600B87F53 /* Patches.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Patches.plist; sourceTree = "<group>"; };
+		943B7B3D1C34159000B87F53 /* HashExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashExtensions.swift; sourceTree = "<group>"; };
+		943B7B411C34172A00B87F53 /* Spotifree-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotifree-Bridging-Header.h"; sourceTree = "<group>"; };
+		944D3A361C32028D00FC3324 /* Spotifree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotifree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		944D3A391C32028D00FC3324 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		944D3A3D1C32028D00FC3324 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		944D3A421C32028D00FC3324 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		944D3A491C32039000FC3324 /* Spotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spotify.swift; sourceTree = "<group>"; };
+		944D3A4B1C3203A600FC3324 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		944D3A4E1C32061900FC3324 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		945871D91C32E1B1000335B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		946F4C741C321A6D00E784DA /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
+		94CA85E71C34031A00173312 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		943164D2186C3724005277EA /* Frameworks */ = {
+		944D3A331C32028D00FC3324 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94624845186C3A4E00810C69 /* ScriptingBridge.framework in Frameworks */,
-				946D9AD51AAD04650042704B /* Sparkle.framework in Frameworks */,
-				943164D9186C3724005277EA /* Cocoa.framework in Frameworks */,
+				944D3A4C1C3203A600FC3324 /* ScriptingBridge.framework in Frameworks */,
+				94CA85E81C34031A00173312 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		15908822193B83CF009F2C99 /* SVG Icons */ = {
+		9400F6841C32E5F900A5D61A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				15908823193B83CF009F2C99 /* README.md */,
-				15908824193B83CF009F2C99 /* SpotiFree_Black.ai */,
-				15908825193B83CF009F2C99 /* SpotiFree_Black.svg */,
-				15908826193B83CF009F2C99 /* SpotiFree_Color.ai */,
-				15908827193B83CF009F2C99 /* SpotiFree_Color.svg */,
+				9400F68D1C32EF4800A5D61A /* AppleScriptCmds.plist */,
+				9400F6891C32E93B00A5D61A /* dsa_pub.pem */,
+				944D3A3D1C32028D00FC3324 /* Assets.xcassets */,
+				944D3A421C32028D00FC3324 /* Info.plist */,
+				946F4C741C321A6D00E784DA /* Credits.rtf */,
+				943B7B3B1C34148600B87F53 /* Patches.plist */,
 			);
-			path = "SVG Icons";
-			sourceTree = SOURCE_ROOT;
+			name = Resources;
+			sourceTree = "<group>";
 		};
-		943164CC186C3724005277EA = {
+		944D3A2D1C32028D00FC3324 = {
 			isa = PBXGroup;
 			children = (
-				94611BF6186C479900378530 /* README.md */,
-				943164DE186C3724005277EA /* Spotifree */,
-				943164D7186C3724005277EA /* Frameworks */,
-				943164D6186C3724005277EA /* Products */,
+				944D3A381C32028D00FC3324 /* Spotifree */,
+				944D3A4D1C3203B600FC3324 /* Frameworks */,
+				944D3A371C32028D00FC3324 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		943164D6186C3724005277EA /* Products */ = {
+		944D3A371C32028D00FC3324 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				943164D5186C3724005277EA /* Spotifree.app */,
+				944D3A361C32028D00FC3324 /* Spotifree.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		943164D7186C3724005277EA /* Frameworks */ = {
+		944D3A381C32028D00FC3324 /* Spotifree */ = {
 			isa = PBXGroup;
 			children = (
-				946D9AD41AAD04650042704B /* Sparkle.framework */,
-				94624844186C3A4E00810C69 /* ScriptingBridge.framework */,
-				943164D8186C3724005277EA /* Cocoa.framework */,
-				943164DA186C3724005277EA /* Other Frameworks */,
+				944D3A391C32028D00FC3324 /* AppDelegate.swift */,
+				9400F68B1C32EF1500A5D61A /* DataManager.swift */,
+				944D3A491C32039000FC3324 /* Spotify.swift */,
+				949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */,
+				944D3A4E1C32061900FC3324 /* MenuController.swift */,
+				943B7B3D1C34159000B87F53 /* HashExtensions.swift */,
+				943B7B411C34172A00B87F53 /* Spotifree-Bridging-Header.h */,
+				945871D81C32E1B1000335B2 /* Main.storyboard */,
+				9400F6841C32E5F900A5D61A /* Resources */,
+			);
+			path = Spotifree;
+			sourceTree = "<group>";
+		};
+		944D3A4D1C3203B600FC3324 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94CA85E71C34031A00173312 /* Sparkle.framework */,
+				944D3A4B1C3203A600FC3324 /* ScriptingBridge.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		943164DA186C3724005277EA /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				943164DB186C3724005277EA /* AppKit.framework */,
-				943164DC186C3724005277EA /* CoreData.framework */,
-				943164DD186C3724005277EA /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		943164DE186C3724005277EA /* Spotifree */ = {
-			isa = PBXGroup;
-			children = (
-				94624832186C394D00810C69 /* Header */,
-				94624827186C38C900810C69 /* Data */,
-				943164EA186C3724005277EA /* AppDelegate.h */,
-				943164EB186C3724005277EA /* AppDelegate.m */,
-				94624834186C396600810C69 /* SpotifyController.h */,
-				94624835186C396600810C69 /* SpotifyController.m */,
-				94624837186C397200810C69 /* MenuController.h */,
-				94624838186C397200810C69 /* MenuController.m */,
-				943164ED186C3724005277EA /* MainMenu.xib */,
-				943164F0186C3724005277EA /* Images.xcassets */,
-				943164DF186C3724005277EA /* Supporting Files */,
-			);
-			name = Spotifree;
-			path = SpotiFree;
-			sourceTree = "<group>";
-		};
-		943164DF186C3724005277EA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				15908822193B83CF009F2C99 /* SVG Icons */,
-				9462482D186C392100810C69 /* Sparkle Key */,
-				943164E0186C3724005277EA /* Spotifree-Info.plist */,
-				943164E1186C3724005277EA /* InfoPlist.strings */,
-				943164E4186C3724005277EA /* main.m */,
-				943164E6186C3724005277EA /* Spotifree-Prefix.pch */,
-				943164E7186C3724005277EA /* Credits.rtf */,
-				94624830186C394500810C69 /* License.txt */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		94624827186C38C900810C69 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				9462482A186C38F000810C69 /* AppData.h */,
-				9462482B186C38F000810C69 /* AppData.m */,
-				94624828186C38E500810C69 /* AppleScriptCmds.plist */,
-			);
-			name = Data;
-			sourceTree = "<group>";
-		};
-		9462482D186C392100810C69 /* Sparkle Key */ = {
-			isa = PBXGroup;
-			children = (
-				9462482E186C393400810C69 /* dsa_pub.pem */,
-			);
-			name = "Sparkle Key";
-			sourceTree = "<group>";
-		};
-		94624832186C394D00810C69 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				94624833186C395A00810C69 /* Spotify.h */,
-			);
-			name = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		943164D4186C3724005277EA /* Spotifree */ = {
+		944D3A351C32028D00FC3324 /* Spotifree */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "Spotifree" */;
+			buildConfigurationList = 944D3A451C32028D00FC3324 /* Build configuration list for PBXNativeTarget "Spotifree" */;
 			buildPhases = (
-				943164D1186C3724005277EA /* Sources */,
-				943164D2186C3724005277EA /* Frameworks */,
-				943164D3186C3724005277EA /* Resources */,
-				9462483C186C39B200810C69 /* CopyFiles */,
+				944D3A321C32028D00FC3324 /* Sources */,
+				944D3A331C32028D00FC3324 /* Frameworks */,
+				944D3A341C32028D00FC3324 /* Resources */,
+				9400F6871C32E6C400A5D61A /* Copy Files */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Spotifree;
-			productName = SpotiFree;
-			productReference = 943164D5186C3724005277EA /* Spotifree.app */;
+			productName = Spotifree;
+			productReference = 944D3A361C32028D00FC3324 /* Spotifree.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		943164CD186C3724005277EA /* Project object */ = {
+		944D3A2E1C32028D00FC3324 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = Eneas;
+				ORGANIZATIONNAME = "Eneas Rotterdam";
+				TargetAttributes = {
+					944D3A351C32028D00FC3324 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
 			};
-			buildConfigurationList = 943164D0186C3724005277EA /* Build configuration list for PBXProject "Spotifree" */;
+			buildConfigurationList = 944D3A311C32028D00FC3324 /* Build configuration list for PBXProject "Spotifree" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
-				fr,
 			);
-			mainGroup = 943164CC186C3724005277EA;
-			productRefGroup = 943164D6186C3724005277EA /* Products */;
+			mainGroup = 944D3A2D1C32028D00FC3324;
+			productRefGroup = 944D3A371C32028D00FC3324 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				943164D4186C3724005277EA /* Spotifree */,
+				944D3A351C32028D00FC3324 /* Spotifree */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		943164D3186C3724005277EA /* Resources */ = {
+		944D3A341C32028D00FC3324 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9462482F186C393400810C69 /* dsa_pub.pem in Resources */,
-				943164E3186C3724005277EA /* InfoPlist.strings in Resources */,
-				943164F1186C3724005277EA /* Images.xcassets in Resources */,
-				943164E9186C3724005277EA /* Credits.rtf in Resources */,
-				94624831186C394500810C69 /* License.txt in Resources */,
-				94624829186C38E500810C69 /* AppleScriptCmds.plist in Resources */,
-				94611BF7186C479900378530 /* README.md in Resources */,
-				943164EF186C3724005277EA /* MainMenu.xib in Resources */,
+				9400F68A1C32E93B00A5D61A /* dsa_pub.pem in Resources */,
+				944D3A3E1C32028D00FC3324 /* Assets.xcassets in Resources */,
+				9400F68E1C32EF4800A5D61A /* AppleScriptCmds.plist in Resources */,
+				943B7B3C1C34148600B87F53 /* Patches.plist in Resources */,
+				946F4C751C321A6D00E784DA /* Credits.rtf in Resources */,
+				945871DA1C32E1B1000335B2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		943164D1186C3724005277EA /* Sources */ = {
+		944D3A321C32028D00FC3324 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94624836186C396600810C69 /* SpotifyController.m in Sources */,
-				9462482C186C38F000810C69 /* AppData.m in Sources */,
-				94624839186C397200810C69 /* MenuController.m in Sources */,
-				943164EC186C3724005277EA /* AppDelegate.m in Sources */,
-				943164E5186C3724005277EA /* main.m in Sources */,
+				949A3E9D1C32CC4400D85C57 /* SpotifyManager.swift in Sources */,
+				9400F68C1C32EF1500A5D61A /* DataManager.swift in Sources */,
+				944D3A4F1C32061900FC3324 /* MenuController.swift in Sources */,
+				944D3A4A1C32039000FC3324 /* Spotify.swift in Sources */,
+				944D3A3A1C32028D00FC3324 /* AppDelegate.swift in Sources */,
+				943B7B3E1C34159000B87F53 /* HashExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		943164E1186C3724005277EA /* InfoPlist.strings */ = {
+		945871D81C32E1B1000335B2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				943164E2186C3724005277EA /* en */,
-				04BB37991C147DE000681532 /* fr */,
+				945871D91C32E1B1000335B2 /* Base */,
 			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		943164E7186C3724005277EA /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				943164E8186C3724005277EA /* en */,
-				04BB379A1C147DE000681532 /* fr */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		943164ED186C3724005277EA /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94624826186C380500810C69 /* en */,
-				04BB37981C147DE000681532 /* fr */,
-			);
-			name = MainMenu.xib;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		94316504186C3724005277EA /* Debug */ = {
+		944D3A431C32028D00FC3324 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -329,36 +239,42 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		94316505186C3724005277EA /* Release */ = {
+		944D3A441C32028D00FC3324 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -367,86 +283,95 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
-		94316507186C3724005277EA /* Debug */ = {
+		944D3A461C32028D00FC3324 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SpotiFree/Spotifree-Prefix.pch";
-				INFOPLIST_FILE = "SpotiFree/Spotifree-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.eneas.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Spotifree;
-				WRAPPER_EXTENSION = app;
+				INFOPLIST_FILE = Spotifree/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = de.eneas.Spotifree;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spotifree/Spotifree-Bridging-Header.h";
 			};
 			name = Debug;
 		};
-		94316508186C3724005277EA /* Release */ = {
+		944D3A471C32028D00FC3324 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SpotiFree/Spotifree-Prefix.pch";
-				INFOPLIST_FILE = "SpotiFree/Spotifree-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.eneas.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Spotifree;
-				WRAPPER_EXTENSION = app;
+				INFOPLIST_FILE = Spotifree/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = de.eneas.Spotifree;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spotifree/Spotifree-Bridging-Header.h";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		943164D0186C3724005277EA /* Build configuration list for PBXProject "Spotifree" */ = {
+		944D3A311C32028D00FC3324 /* Build configuration list for PBXProject "Spotifree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94316504186C3724005277EA /* Debug */,
-				94316505186C3724005277EA /* Release */,
+				944D3A431C32028D00FC3324 /* Debug */,
+				944D3A441C32028D00FC3324 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94316506186C3724005277EA /* Build configuration list for PBXNativeTarget "Spotifree" */ = {
+		944D3A451C32028D00FC3324 /* Build configuration list for PBXNativeTarget "Spotifree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94316507186C3724005277EA /* Debug */,
-				94316508186C3724005277EA /* Release */,
+				944D3A461C32028D00FC3324 /* Debug */,
+				944D3A471C32028D00FC3324 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 943164CD186C3724005277EA /* Project object */;
+	rootObject = 944D3A2E1C32028D00FC3324 /* Project object */;
 }
