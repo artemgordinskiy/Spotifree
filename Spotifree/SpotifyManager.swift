@@ -75,6 +75,8 @@ class SpotifyManager: NSObject {
             default:
                 break
             }
+        } else {
+            checkForAd()
         }
     }
     
