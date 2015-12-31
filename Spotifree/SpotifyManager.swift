@@ -24,7 +24,7 @@ extension SpotifyManagerDelegate {
     func spotifreeStateChanged(state: SFSpotifreeState) {}
 }
 
-let kPatchFileURL = "https://raw.githubusercontent.com/ArtemGordinsky/Spotifree/swift/Spotifree/Patches.plist"
+let kPatchFileURL = "https://raw.githubusercontent.com/ArtemGordinsky/Spotifree/master/Spotifree/Patches.plist"
 
 class SpotifyManager: NSObject {
     var delegate : SpotifyManagerDelegate?
