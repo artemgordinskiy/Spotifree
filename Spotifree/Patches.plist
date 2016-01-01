@@ -9,7 +9,7 @@
 		<key>patchData</key>
 		<array>
 			<dict>
-				<key>location</key>
+				<key>offset</key>
 				<integer>1331960</integer>
 				<key>bytes</key>
 				<array>

@@ -10,10 +10,10 @@ import Cocoa
 import ScriptingBridge
 
 enum SFSpotifreeState {
-    case kSFSpotifreeStateActive
-    case kSFSpotifreeStateMuting
-    case kSFSpotifreeStatePolling
-    case kSFSpotifreeStateInactive
+    case Active
+    case Muting
+    case Polling
+    case Inactive
 }
 
 protocol SpotifyManagerDelegate {
@@ -29,59 +29,55 @@ let kPatchFileURL = "https://raw.githubusercontent.com/ArtemGordinsky/Spotifree/
 class SpotifyManager: NSObject {
     var delegate : SpotifyManagerDelegate?
     
-    private let spotify : SpotifyApplication!
-    
-    private var isMuted : Bool
-    private var oldVolume : Int
-    
-    private var pollingMode : Bool
     private var timer : NSTimer?
     
-    convenience init(delegate : SpotifyManagerDelegate) {
-        self.init()
-        
-        self.delegate = delegate
-        
-        if pollingMode {
-            if NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").count != 0 && spotify.playerState! == .Playing {
-                startPolling()
-            } else {
-                self.delegate!.spotifreeStateChanged(.kSFSpotifreeStateInactive)
-            }
+    private let spotify = SBApplication(bundleIdentifier: "com.spotify.client") as! SpotifyApplication
+    
+    private var isMuted = false
+    private var oldVolume = 75
+    
+    private var pollingMode = false
+    
+    private var state = SFSpotifreeState.Inactive {
+        didSet {
+            delegate?.spotifreeStateChanged(state)
         }
     }
     
-    override init() {
-        spotify = SBApplication(bundleIdentifier: "com.spotify.client")
-        isMuted = false;
-        oldVolume = 75;
-        
-        pollingMode = false
-        
-        super.init()
-        
+    func start() {
         updatePatchFile()
         NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "playbackStateChanged:", name: "com.spotify.client.PlaybackStateChanged", object: nil);
+        
+        if NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").count != 0 && spotify.playerState! == .Playing {
+            checkForAd()
+            if pollingMode {
+                startPolling()
+            }
+            state = pollingMode ? .Polling : .Active
+        }
     }
     
     func playbackStateChanged(notification : NSNotification) {
-        if pollingMode {
-            let state = notification.userInfo!["Player State"] as! String
-            switch state {
-            case "Paused", "Stopped":
-                stopPolling()
-            case "Playing":
-                startPolling()
-            default:
-                break
+        checkForAd()
+        
+        let playerState = notification.userInfo!["Player State"] as! String
+        switch playerState {
+        case "Paused", "Stopped":
+            if pollingMode {stopPolling()}
+            state = .Inactive
+        case "Playing":
+            if pollingMode {startPolling()}
+            if !isMuted {
+                state = pollingMode ? .Polling : .Active
+            } else {
+                state = .Muting
             }
-        } else {
-            checkForAd()
+        default: break
         }
     }
     
     func checkForAd() {
-        let isAd = spotify.currentTrack!.id!().hasPrefix("spotify:ad")
+        let isAd = spotify.currentTrack!.spotifyUrl!.hasPrefix("spotify:ad")
         isAd ? mute() : unmute()
     }
     
@@ -89,14 +85,12 @@ class SpotifyManager: NSObject {
         if (timer != nil) {return}
         timer = NSTimer.scheduledTimerWithTimeInterval(DataManager.sharedData.pollingRate(), target: self, selector: "checkForAd", userInfo: nil, repeats: true)
         timer!.fire()
-        delegate?.spotifreeStateChanged(.kSFSpotifreeStatePolling)
     }
     
     func stopPolling() {
         if let _timer = timer {
             _timer.invalidate()
             timer = nil
-            delegate?.spotifreeStateChanged(.kSFSpotifreeStateInactive)
         }
     }
     
@@ -116,7 +110,7 @@ class SpotifyManager: NSObject {
             displayNotificationWithText(String(format: NSLocalizedString("NOTIFICATION_AD_DETECTED", comment: "Notification: A Spotify ad was detected! Music will be back in about %i seconds…"), duration))
         }
         
-        delegate?.spotifreeStateChanged(.kSFSpotifreeStateMuting)
+        state = .Muting
     }
     
     func unmute() {
@@ -124,7 +118,6 @@ class SpotifyManager: NSObject {
         
         isMuted = false
         spotify.setSoundVolume!(oldVolume)
-        delegate?.spotifreeStateChanged(pollingMode ? .kSFSpotifreeStatePolling : .kSFSpotifreeStateActive)
     }
     
     func displayNotificationWithText(text : String) {
@@ -137,6 +130,11 @@ class SpotifyManager: NSObject {
     }
     
     func updatePatchFile() {
+        if DataManager.sharedData.forcePolling() {
+            pollingMode = true
+            return
+        }
+        
         fixSpotifyIfNeeded()
         let request = NSURLRequest(URL: NSURL(string: kPatchFileURL)!)
         NSURLConnection .sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
@@ -181,19 +179,15 @@ class SpotifyManager: NSObject {
                         
                         let patchData = currentPatch["patchData"] as! [NSDictionary]
                         for data in patchData {
-                            let location = data["location"] as! Int
-                            let bytes = data["bytes"] as! [Int]
-                            let length = bytes.count
-                            let range = NSRange(location: location, length: length)
+                            let offset = data["offset"] as! Int
+                            let replaceBytes = data["bytes"] as! [Int]
+                            let length = replaceBytes.count
                             
-                            let byteArray = UnsafeMutablePointer<UInt8>.alloc(length)
+                            let bytes = UnsafeMutablePointer<UInt8>(spotifyData.mutableBytes)
+                            
                             for i in 0..<length {
-                                let index = UInt8(bytes[i])
-                                byteArray[i] = index
+                                bytes[offset + i] = UInt8(replaceBytes[i])
                             }
-                            
-                            spotifyData.replaceBytesInRange(range, withBytes: byteArray)
-                            byteArray.dealloc(length)
                         }
                         
                         spotifyData.writeToFile(spotifyFolder.stringByAppendingString("Spotify"), atomically: true)

@@ -11,14 +11,14 @@ import Cocoa
 let KEY_MENU_BAR_ICON_HIDDEN = "SFMenuBarIconHidden"
 let KEY_SHOW_NOTIFICATIONS = "SFShowNotifications"
 let KEY_POLLING_RATE = "SFPollingRate"
+let KEY_FORCE_POLLING = "SFForcePolling"
 
 class DataManager : NSObject {
     static let sharedData = DataManager()
     
-    private let appleScriptCmds : NSDictionary
+    private let appleScriptCmds = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("AppleScriptCmds", ofType: "plist")!)!
     
     override init() {
-        appleScriptCmds = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("AppleScriptCmds", ofType: "plist")!)!
         super.init()
         
         if isInLoginItems() && !isLoginItemPathCorrect() {
@@ -26,7 +26,7 @@ class DataManager : NSObject {
             addLoginItem()
         }
         
-        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3]
+        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3, KEY_FORCE_POLLING : false]
         NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
         
         if !NSUserDefaults.standardUserDefaults().boolForKey("SUHasLaunchedBefore") {
@@ -36,6 +36,10 @@ class DataManager : NSObject {
     
     func pollingRate() -> Double {
         return NSUserDefaults.standardUserDefaults().doubleForKey(KEY_POLLING_RATE)
+    }
+    
+    func forcePolling() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(KEY_FORCE_POLLING)
     }
     
     func isMenuBarIconHidden() -> Bool {

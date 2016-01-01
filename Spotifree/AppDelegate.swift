@@ -11,12 +11,12 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var menuController : MenuController!
-    var spotifyManger : SpotifyManager!
+    var menuController = MenuController()
+    var spotifyManger = SpotifyManager()
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        menuController = MenuController()
-        spotifyManger = SpotifyManager(delegate: menuController)
+        spotifyManger.delegate = menuController
+        spotifyManger.start()
     }
 
     func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

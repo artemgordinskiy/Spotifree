@@ -22,7 +22,7 @@ class MenuController : NSObject, SpotifyManagerDelegate {
     
     func setUpMenu() {
         let statusMenu = NSMenu(title: "Spotifree")
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_ACTIVE", comment: "Spotify state: Active"), action: nil, keyEquivalent: "")?.tag = 1
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive"), action: nil, keyEquivalent: "")?.tag = 1
         statusMenu.addItem(NSMenuItem.separatorItem())
         
         let updateMenu = NSMenu()
@@ -45,7 +45,7 @@ class MenuController : NSObject, SpotifyManagerDelegate {
         statusMenu.addItem(NSMenuItem.separatorItem())
         
         statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
-        statusItem!.image = NSImage(named: "statusBarIconActiveTemplate")
+        statusItem!.image = NSImage(named: "statusBarIconInactiveTemplate")
         statusItem!.menu = statusMenu
         statusItem!.highlightMode = true
     }
@@ -135,16 +135,16 @@ class MenuController : NSObject, SpotifyManagerDelegate {
             var icon : NSImage?
             
             switch state {
-            case .kSFSpotifreeStateActive:
+            case .Active:
                 label = NSLocalizedString("MENU_ACTIVE", comment: "Spotify state: Active")
                 icon = NSImage(named: "statusBarIconActiveTemplate")
-            case .kSFSpotifreeStateMuting:
+            case .Muting:
                 label = NSLocalizedString("MENU_MUTING_AD", comment: "Spotify state: Muting Ad")
                 icon = NSImage(named: "statusBarIconBlockingAdTemplate")
-            case .kSFSpotifreeStatePolling:
+            case .Polling:
                 label = NSLocalizedString("MENU_POLLING", comment: "Spotify state: Polling")
                 icon = NSImage(named: "statusBarIconActiveTemplate")
-            case .kSFSpotifreeStateInactive:
+            case .Inactive:
                 label = NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive")
                 icon = NSImage(named: "statusBarIconInactiveTemplate")
             }
