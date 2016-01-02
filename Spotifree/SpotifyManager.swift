@@ -135,7 +135,6 @@ class SpotifyManager: NSObject {
             return
         }
         
-        fixSpotifyIfNeeded()
         let request = NSURLRequest(URL: NSURL(string: kPatchFileURL)!)
         NSURLConnection .sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
             if (error == nil) {
@@ -159,62 +158,64 @@ class SpotifyManager: NSObject {
     }
     
     func fixSpotifyIfNeeded() {
-        if let spotifyFolder = NSWorkspace.sharedWorkspace().absolutePathForAppBundleWithIdentifier("com.spotify.client")?.stringByAppendingString("/Contents/MacOS/") {
-            let originalFile = spotifyFolder.stringByAppendingString("Spotify")
-            
-            let patches = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Patches", ofType: "plist")!)
-            let md5hash = NSData(contentsOfFile: originalFile)!.MD5().hexString()
-            
-            if let currentPatch = patches?[md5hash] {
-                if currentPatch["patched"] as! Bool == false {
-                    do {
-                        let manager = NSFileManager.defaultManager()
-                        let backupFile = spotifyFolder.stringByAppendingString("SpotifyBackup")
-                        if manager.fileExistsAtPath(backupFile) {
-                            try manager.removeItemAtPath(backupFile)
-                        }
-                        try manager.copyItemAtPath(originalFile, toPath: backupFile)
-                        
-                        let spotifyData = NSMutableData(contentsOfFile: originalFile)!
-                        
-                        let patchData = currentPatch["patchData"] as! [NSDictionary]
-                        for data in patchData {
-                            let offset = data["offset"] as! Int
-                            let replaceBytes = data["bytes"] as! [Int]
-                            let length = replaceBytes.count
-                            
-                            let bytes = UnsafeMutablePointer<UInt8>(spotifyData.mutableBytes)
-                            
-                            for i in 0..<length {
-                                bytes[offset + i] = UInt8(replaceBytes[i])
-                            }
-                        }
-                        
-                        spotifyData.writeToFile(spotifyFolder.stringByAppendingString("Spotify"), atomically: true)
-                        
-                        if let app = NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").first {
-                            let alert = NSAlert()
-                            alert.messageText = NSLocalizedString("ALERT_SPOTIFY_RESTART", comment: "Alert: Spotify restart required")
-                            alert.informativeText = NSLocalizedString("ALERT_SPOTIFY_RESTART_INFO", comment: "Alert info: Sorry to interrupt, but your Spotify app must be restarted to work with Spotifree. You can do it now or later, manually, if you'd rather enjoy that last McDonald's ad.")
-                            alert.addButtonWithTitle(NSLocalizedString("OK", comment: "General: OK"))
-                            alert.addButtonWithTitle(NSLocalizedString("ALERT_SPOTIFY_RESTART_BY_MYSELF_BUTTON", comment: "Button: I'll do it myself"))
-                            if NSAlertFirstButtonReturn == alert.runModal() {
-                                app.terminate()
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-                                    NSWorkspace.sharedWorkspace().launchApplication("Spotify")
-                                });
-                            }
-                        }
-                    } catch let error as NSError {
-                        print(error.localizedDescription)
-                        pollingMode = true
+        guard let spotifyFolder = NSWorkspace.sharedWorkspace().absolutePathForAppBundleWithIdentifier("com.spotify.client")?.stringByAppendingString("/Contents/MacOS/") else {
+            runModalQuitAlertWithText(NSLocalizedString("ALERT_SPOTIFY_NOT_FOUND", comment: "Alert: Spotify not found") , andInformativeText: NSLocalizedString("ALERT_SPOTIFY_NOT_FOUND_INFO", comment: "Alert info: Try again after installing Spotify\n(Preferably to \"/Applications/Spotify.app\")"))
+            return
+        }
+        
+        let originalFile = spotifyFolder.stringByAppendingString("Spotify")
+        
+        let patches = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Patches", ofType: "plist")!)
+        let md5hash = NSData(contentsOfFile: originalFile)!.MD5().hexString()
+        
+        guard let currentPatch = patches?[md5hash] else {
+            pollingMode = true
+            return
+        }
+        
+        if currentPatch["patched"] as! Bool == false {
+            do {
+                let manager = NSFileManager.defaultManager()
+                let backupFile = spotifyFolder.stringByAppendingString("SpotifyBackup")
+                if manager.fileExistsAtPath(backupFile) {
+                    try manager.removeItemAtPath(backupFile)
+                }
+                try manager.copyItemAtPath(originalFile, toPath: backupFile)
+                
+                let spotifyData = NSMutableData(contentsOfFile: originalFile)!
+                
+                let patchData = currentPatch["patchData"] as! [NSDictionary]
+                for data in patchData {
+                    let offset = data["offset"] as! Int
+                    let replaceBytes = data["bytes"] as! [Int]
+                    let length = replaceBytes.count
+                    
+                    let bytes = UnsafeMutablePointer<UInt8>(spotifyData.mutableBytes)
+                    
+                    for i in 0..<length {
+                        bytes[offset + i] = UInt8(replaceBytes[i])
                     }
                 }
-            } else {
+                
+                spotifyData.writeToFile(spotifyFolder.stringByAppendingString("Spotify"), atomically: true)
+                
+                if let app = NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").first {
+                    let alert = NSAlert()
+                    alert.messageText = NSLocalizedString("ALERT_SPOTIFY_RESTART", comment: "Alert: Spotify restart required")
+                    alert.informativeText = NSLocalizedString("ALERT_SPOTIFY_RESTART_INFO", comment: "Alert info: Sorry to interrupt, but your Spotify app must be restarted to work with Spotifree. You can do it now or later, manually, if you'd rather enjoy that last McDonald's ad.")
+                    alert.addButtonWithTitle(NSLocalizedString("OK", comment: "General: OK"))
+                    alert.addButtonWithTitle(NSLocalizedString("ALERT_SPOTIFY_RESTART_BY_MYSELF_BUTTON", comment: "Button: I'll do it myself"))
+                    if NSAlertFirstButtonReturn == alert.runModal() {
+                        app.terminate()
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                            NSWorkspace.sharedWorkspace().launchApplication("Spotify")
+                        });
+                    }
+                }
+            } catch let error as NSError {
+                print(error.localizedDescription)
                 pollingMode = true
             }
-        } else {
-            runModalQuitAlertWithText(NSLocalizedString("ALERT_SPOTIFY_NOT_FOUND", comment: "Alert: Spotify not found") , andInformativeText: NSLocalizedString("ALERT_SPOTIFY_NOT_FOUND_INFO", comment: "Alert info: Try again after installing Spotify\n(Preferably to \"/Applications/Spotify.app\")"))
         }
     }
     
