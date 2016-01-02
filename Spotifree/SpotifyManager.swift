@@ -88,9 +88,9 @@ class SpotifyManager: NSObject {
     }
     
     func stopPolling() {
-        if let _timer = timer {
-            _timer.invalidate()
-            timer = nil
+        if let timer = timer {
+            timer.invalidate()
+            self.timer = nil
         }
     }
     

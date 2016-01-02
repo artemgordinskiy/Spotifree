@@ -67,8 +67,8 @@ class DataManager : NSObject {
     func isInLoginItems() -> Bool{
         var isInItems = true
         let desc = NSAppleScript(source: appleScriptCmds["isInLoginItems"] as! String)?.executeAndReturnError(nil)
-        if let _desc = desc {
-            isInItems = _desc.booleanValue
+        if let desc = desc {
+            isInItems = desc.booleanValue
         }
         return isInItems
     }
@@ -76,8 +76,8 @@ class DataManager : NSObject {
     func isLoginItemPathCorrect() -> Bool {
         var isCorrect = true
         let desc = NSAppleScript(source: String(format: appleScriptCmds["isLoginItemPathCorrect"] as! String, NSBundle.mainBundle().bundlePath))?.executeAndReturnError(nil)
-        if let _desc = desc {
-            isCorrect = _desc.booleanValue
+        if let desc = desc {
+            isCorrect = desc.booleanValue
         }
         return isCorrect
     }

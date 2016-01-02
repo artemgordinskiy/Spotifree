@@ -9,7 +9,7 @@
 import Cocoa
 import Sparkle
 
-class MenuController : NSObject, SpotifyManagerDelegate {
+class MenuController : NSObject {
     private var statusItem : NSStatusItem?
     
     override init() {
@@ -128,9 +128,11 @@ class MenuController : NSObject, SpotifyManagerDelegate {
         NSApplication.sharedApplication().activateIgnoringOtherApps(true)
         NSApplication.sharedApplication().orderFrontStandardAboutPanel(self)
     }
-    
+}
+
+extension MenuController : SpotifyManagerDelegate {
     func spotifreeStateChanged(state: SFSpotifreeState) {
-        if let _statusItem = statusItem {
+        if let statusItem = statusItem {
             var label = "Status Unknown"
             var icon : NSImage?
             
@@ -149,8 +151,8 @@ class MenuController : NSObject, SpotifyManagerDelegate {
                 icon = NSImage(named: "statusBarIconInactiveTemplate")
             }
             
-            _statusItem.image = icon
-            _statusItem.menu?.itemWithTag(1)?.title = label
+            statusItem.image = icon
+            statusItem.menu?.itemWithTag(1)?.title = label
         }
     }
 }
