@@ -100,6 +100,8 @@ class SpotifyManager: NSObject {
         isMuted = true
         oldVolume = (spotify.soundVolume)!
         
+        stopPolling()
+        
         spotify.pause!()
         spotify.setSoundVolume!(0);
         spotify.play!()
@@ -207,7 +209,7 @@ class SpotifyManager: NSObject {
                     alert.addButtonWithTitle(NSLocalizedString("ALERT_SPOTIFY_RESTART_BY_MYSELF_BUTTON", comment: "Button: I'll do it myself"))
                     if NSAlertFirstButtonReturn == alert.runModal() {
                         app.terminate()
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
                             NSWorkspace.sharedWorkspace().launchApplication("Spotify")
                         });
                     }
