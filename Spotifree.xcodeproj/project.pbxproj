@@ -10,8 +10,6 @@
 		9400F68A1C32E93B00A5D61A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 9400F6891C32E93B00A5D61A /* dsa_pub.pem */; };
 		9400F68C1C32EF1500A5D61A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9400F68B1C32EF1500A5D61A /* DataManager.swift */; };
 		9400F68E1C32EF4800A5D61A /* AppleScriptCmds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9400F68D1C32EF4800A5D61A /* AppleScriptCmds.plist */; };
-		943B7B3C1C34148600B87F53 /* Patches.plist in Resources */ = {isa = PBXBuildFile; fileRef = 943B7B3B1C34148600B87F53 /* Patches.plist */; };
-		943B7B3E1C34159000B87F53 /* HashExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B7B3D1C34159000B87F53 /* HashExtensions.swift */; };
 		944D3A3A1C32028D00FC3324 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A391C32028D00FC3324 /* AppDelegate.swift */; };
 		944D3A3E1C32028D00FC3324 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944D3A3D1C32028D00FC3324 /* Assets.xcassets */; };
 		944D3A4A1C32039000FC3324 /* Spotify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D3A491C32039000FC3324 /* Spotify.swift */; };
@@ -43,9 +41,6 @@
 		9400F6891C32E93B00A5D61A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		9400F68B1C32EF1500A5D61A /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9400F68D1C32EF4800A5D61A /* AppleScriptCmds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppleScriptCmds.plist; sourceTree = "<group>"; };
-		943B7B3B1C34148600B87F53 /* Patches.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Patches.plist; sourceTree = "<group>"; };
-		943B7B3D1C34159000B87F53 /* HashExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashExtensions.swift; sourceTree = "<group>"; };
-		943B7B411C34172A00B87F53 /* Spotifree-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotifree-Bridging-Header.h"; sourceTree = "<group>"; };
 		944D3A361C32028D00FC3324 /* Spotifree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotifree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		944D3A391C32028D00FC3324 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		944D3A3D1C32028D00FC3324 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,7 +77,6 @@
 				944D3A3D1C32028D00FC3324 /* Assets.xcassets */,
 				944D3A421C32028D00FC3324 /* Info.plist */,
 				946F4C741C321A6D00E784DA /* Credits.rtf */,
-				943B7B3B1C34148600B87F53 /* Patches.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -112,8 +106,6 @@
 				944D3A491C32039000FC3324 /* Spotify.swift */,
 				949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */,
 				944D3A4E1C32061900FC3324 /* MenuController.swift */,
-				943B7B3D1C34159000B87F53 /* HashExtensions.swift */,
-				943B7B411C34172A00B87F53 /* Spotifree-Bridging-Header.h */,
 				9475F5AC1C35514B009F1736 /* Localizable.strings */,
 				9475F5A61C35490C009F1736 /* Main.storyboard */,
 				9400F6841C32E5F900A5D61A /* Resources */,
@@ -194,7 +186,6 @@
 				944D3A3E1C32028D00FC3324 /* Assets.xcassets in Resources */,
 				9475F5AA1C35514B009F1736 /* Localizable.strings in Resources */,
 				9400F68E1C32EF4800A5D61A /* AppleScriptCmds.plist in Resources */,
-				943B7B3C1C34148600B87F53 /* Patches.plist in Resources */,
 				946F4C751C321A6D00E784DA /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,7 +202,6 @@
 				944D3A4F1C32061900FC3324 /* MenuController.swift in Sources */,
 				944D3A4A1C32039000FC3324 /* Spotify.swift in Sources */,
 				944D3A3A1C32028D00FC3324 /* AppDelegate.swift in Sources */,
-				943B7B3E1C34159000B87F53 /* HashExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +319,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = de.eneas.Spotifree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Spotifree/Spotifree-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -352,7 +342,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = de.eneas.Spotifree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Spotifree/Spotifree-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

@@ -143,9 +143,6 @@ extension MenuController : SpotifyManagerDelegate {
             case .Muting:
                 label = NSLocalizedString("MENU_MUTING_AD", comment: "Spotify state: Muting Ad")
                 icon = NSImage(named: "statusBarIconBlockingAdTemplate")
-            case .Polling:
-                label = NSLocalizedString("MENU_POLLING", comment: "Spotify state: Polling")
-                icon = NSImage(named: "statusBarIconActiveTemplate")
             case .Inactive:
                 label = NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive")
                 icon = NSImage(named: "statusBarIconInactiveTemplate")
