@@ -105,8 +105,13 @@ class SpotifyManager: NSObject {
     func unmute() {
         if !isMuted {return}
         
-        isMuted = false
-        spotify.setSoundVolume!(oldVolume)
+        // Delay 1 second to avoid tail end of the advertisement
+        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC))
+        
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.isMuted = false
+            self.spotify.setSoundVolume!(self.oldVolume)
+        }
     }
     
     func displayNotificationWithText(text : String) {
