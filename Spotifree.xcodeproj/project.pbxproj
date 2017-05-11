@@ -156,6 +156,7 @@
 				TargetAttributes = {
 					944D3A351C32028D00FC3324 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -323,6 +324,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.eneas.Spotifree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -346,6 +348,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.eneas.Spotifree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

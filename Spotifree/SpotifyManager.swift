@@ -40,7 +40,7 @@ class SpotifyManager: NSObject {
     }
     
     func start() {
-        NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "playbackStateChanged:", name: "com.spotify.client.PlaybackStateChanged", object: nil);
+        NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SpotifyManager.playbackStateChanged(_:)), name: "com.spotify.client.PlaybackStateChanged", object: nil);
         
         if NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").count != 0 && spotify.playerState! == .Playing {
             startPolling()
@@ -69,7 +69,7 @@ class SpotifyManager: NSObject {
     
     func startPolling() {
         if (timer != nil) {return}
-        timer = NSTimer.scheduledTimerWithTimeInterval(DataManager.sharedData.pollingRate(), target: self, selector: "checkForAd", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(DataManager.sharedData.pollingRate(), target: self, selector: #selector(SpotifyManager.checkForAd), userInfo: nil, repeats: true)
         timer!.fire()
         
         state = .Active
