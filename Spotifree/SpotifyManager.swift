@@ -105,8 +105,8 @@ class SpotifyManager: NSObject {
     func unmute() {
         if !isMuted {return}
         
-        // Delay 1 second to avoid tail end of the advertisement
-        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC))
+        // Delay 3/4 second to avoid tail end of the advertisement
+        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), (Int64(NSEC_PER_SEC) / 4) * 3)
         
         dispatch_after(time, dispatch_get_main_queue()) {
             self.isMuted = false
