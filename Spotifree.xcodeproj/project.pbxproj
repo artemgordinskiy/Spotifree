@@ -56,6 +56,7 @@
 		9475F5AD1C35514F009F1736 /* de */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
 		94CA85E71C34031A00173312 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		BF97E41C1D6646BF00DC71DC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +170,7 @@
 				de,
 				it,
 				hu,
+				fr,
 			);
 			mainGroup = 944D3A2D1C32028D00FC3324;
 			productRefGroup = 944D3A371C32028D00FC3324 /* Products */;
@@ -219,6 +221,7 @@
 				9475F5AD1C35514F009F1736 /* de */,
 				4467BF5C1C74A967008AD6F1 /* it */,
 				325696CE1D8BF0BE00BF4537 /* hu */,
+				BF97E41C1D6646BF00DC71DC /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
