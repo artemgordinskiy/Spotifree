@@ -38,6 +38,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		325696CE1D8BF0BE00BF4537 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4467BF5C1C74A967008AD6F1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9400F6891C32E93B00A5D61A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		9400F68B1C32EF1500A5D61A /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -168,6 +169,7 @@
 				en,
 				de,
 				it,
+				hu,
 				fr,
 			);
 			mainGroup = 944D3A2D1C32028D00FC3324;
@@ -218,6 +220,7 @@
 				9475F5AB1C35514B009F1736 /* en */,
 				9475F5AD1C35514F009F1736 /* de */,
 				4467BF5C1C74A967008AD6F1 /* it */,
+				325696CE1D8BF0BE00BF4537 /* hu */,
 				BF97E41C1D6646BF00DC71DC /* fr */,
 			);
 			name = Localizable.strings;
