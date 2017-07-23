@@ -15,7 +15,7 @@ let KEY_POLLING_RATE = "SFPollingRate"
 class DataManager : NSObject {
     static let sharedData = DataManager()
     
-    private let appleScriptCmds = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("AppleScriptCmds", ofType: "plist")!)!
+    private let appleScriptCmds = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "AppleScriptCmds", ofType: "plist")!)!
     
     override init() {
         super.init()
@@ -25,25 +25,25 @@ class DataManager : NSObject {
             addLoginItem()
         }
         
-        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3]
-        NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
+        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3] as [String : Any]
+        UserDefaults.standard.register(defaults: defaults)
         
-        if !NSUserDefaults.standardUserDefaults().boolForKey("SUHasLaunchedBefore") {
+        if !UserDefaults.standard.bool(forKey: "SUHasLaunchedBefore") {
             addLoginItem()
         }
     }
     
     func pollingRate() -> Double {
-        return NSUserDefaults.standardUserDefaults().doubleForKey(KEY_POLLING_RATE)
+        return UserDefaults.standard.double(forKey: KEY_POLLING_RATE)
     }
     
     func isMenuBarIconHidden() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(KEY_MENU_BAR_ICON_HIDDEN)
+        return UserDefaults.standard.bool(forKey: KEY_MENU_BAR_ICON_HIDDEN)
     }
     
-    func setMenuBarIconHidden(hidden : Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(hidden, forKey: KEY_MENU_BAR_ICON_HIDDEN)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func setMenuBarIconHidden(_ hidden : Bool) {
+        UserDefaults.standard.set(hidden, forKey: KEY_MENU_BAR_ICON_HIDDEN)
+        UserDefaults.standard.synchronize()
     }
     
     func toggleLoginItem() {
@@ -51,7 +51,7 @@ class DataManager : NSObject {
     }
     
     func addLoginItem() {
-        NSAppleScript(source: String(format: appleScriptCmds["addLoginItem"] as! String, NSBundle.mainBundle().bundlePath))?.executeAndReturnError(nil)
+        NSAppleScript(source: String(format: appleScriptCmds["addLoginItem"] as! String, Bundle.main.bundlePath))?.executeAndReturnError(nil)
     }
     
     func removeLoginItem() {
@@ -70,7 +70,7 @@ class DataManager : NSObject {
     
     func isLoginItemPathCorrect() -> Bool {
         var isCorrect = true
-        let desc = NSAppleScript(source: String(format: appleScriptCmds["isLoginItemPathCorrect"] as! String, NSBundle.mainBundle().bundlePath))?.executeAndReturnError(nil)
+        let desc = NSAppleScript(source: String(format: appleScriptCmds["isLoginItemPathCorrect"] as! String, Bundle.main.bundlePath))?.executeAndReturnError(nil)
         if let desc = desc {
             isCorrect = desc.booleanValue
         }
@@ -78,12 +78,12 @@ class DataManager : NSObject {
     }
     
     func toggleShowNotifications() {
-        let showNotifications = NSUserDefaults.standardUserDefaults().boolForKey(KEY_SHOW_NOTIFICATIONS)
-        NSUserDefaults.standardUserDefaults().setBool(!showNotifications, forKey: KEY_SHOW_NOTIFICATIONS)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        let showNotifications = UserDefaults.standard.bool(forKey: KEY_SHOW_NOTIFICATIONS)
+        UserDefaults.standard.set(!showNotifications, forKey: KEY_SHOW_NOTIFICATIONS)
+        UserDefaults.standard.synchronize()
     }
     
     func shouldShowNofifications() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(KEY_SHOW_NOTIFICATIONS)
+        return UserDefaults.standard.bool(forKey: KEY_SHOW_NOTIFICATIONS)
     }
 }

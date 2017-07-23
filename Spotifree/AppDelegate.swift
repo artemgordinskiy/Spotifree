@@ -14,17 +14,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var menuController = MenuController()
     var spotifyManger = SpotifyManager()
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         spotifyManger.delegate = menuController
         spotifyManger.start()
     }
 
-    func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         menuController.showMenuBarIconIfNeeded()
         return true
     }
     
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
