@@ -57,6 +57,7 @@
 		949A3E9C1C32CC4400D85C57 /* SpotifyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
 		94CA85E71C34031A00173312 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		94EF69081F25087900C5D2BD /* Spotify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spotify.swift; sourceTree = "<group>"; };
+		AE4B7C271D20488B0029D415 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BF97E41C1D6646BF00DC71DC /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F86148771DD4BA3800B44D42 /* ko-KR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "ko-KR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +177,7 @@
 				"ko-KR",
 				hu,
 				fr,
+				nl,
 			);
 			mainGroup = 944D3A2D1C32028D00FC3324;
 			productRefGroup = 944D3A371C32028D00FC3324 /* Products */;
@@ -229,6 +231,7 @@
 				F86148771DD4BA3800B44D42 /* ko-KR */,
 				325696CE1D8BF0BE00BF4537 /* hu */,
 				BF97E41C1D6646BF00DC71DC /* fr */,
+				AE4B7C271D20488B0029D415 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
