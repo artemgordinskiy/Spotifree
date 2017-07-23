@@ -1,0 +1,53 @@
+/* Alert info: To show the icon again, simply launch Spotifree from Dock or Finder */
+"ALERT_HIDE_ICON_INFO" = "Aby pokazać ikonę spowrotem, po prostu otwórz Spotifree z Dock'a albo Finder'a";
+
+/* Alert info: If you want to make the app truly invisible, we suggest also allowing it to launch at login */
+"ALERT_HIDE_ICON_LAUNCH_AT_LOGIN_INFO" = "Jeśli chcesz aby aplikacja była w pełni niewidoczna, sugerujemy zezwolenie na uruchomienie przy zalogowaniu";
+
+/* General: Cancel */
+"CANCEL" = "Anuluj";
+
+/* Menu: About */
+"MENU_ABOUT" = "O Spotifree";
+
+/* Spotify state: Active */
+"MENU_ACTIVE" = "Aktywne";
+
+/* Menu: Donate */
+"MENU_DONATE" = "Wspomóż";
+
+/* Menu: Hide Icon */
+"MENU_HIDE_ICON" = "Ukryj Ikonę";
+
+/* Spotify state: Inactive */
+"MENU_INACTIVE" = "Nieaktywne";
+
+/* Spotify state: Muting Ad */
+"MENU_MUTING_AD" = "Reklama jest wyciszona";
+
+/* Menu: Notifications */
+"MENU_NOTIFICATIONS" = "Powiadomienia";
+
+/* Menu: Quit */
+"MENU_QUIT" = "Zamknij Spotifree";
+
+/* Menu: Run At Login */
+"MENU_RUN_AT_LOGIN" = "Uruchom przy zalogowaniu";
+
+/* Menu: Updates */
+"MENU_UPDATES" = "Aktualizacje";
+
+/* Menu: Check Automatically */
+"MENU_UPDATES_CHECK_AUTOMATICALLY" = "Sprawdź automatycznie";
+
+/* Menu: Check For Updates... */
+"MENU_UPDATES_CHECK_FOR_UPDATES" = "Sprawdź dostępność aktualizacji";
+
+/* Menu: Download automatically */
+"MENU_UPDATES_DOWNLOAD_AUTOMATICALLY" = "Instaluj aktualizacje automatycznie";
+
+/* Notification: A Spotify ad was detected! Music will be back in about %i seconds... */
+"NOTIFICATION_AD_DETECTED" = "Reklama Spotify została wykryta! Muzyka zostanie wznowiona w przeciągu %i sekund...";
+
+/* General: OK */
+"OK" = "OK";
