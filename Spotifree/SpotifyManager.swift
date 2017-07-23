@@ -40,7 +40,7 @@ class SpotifyManager: NSObject {
     }
     
     func start() {
-        NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "playbackStateChanged:", name: "com.spotify.client.PlaybackStateChanged", object: nil);
+        NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SpotifyManager.playbackStateChanged(_:)), name: "com.spotify.client.PlaybackStateChanged", object: nil);
         
         if NSRunningApplication.runningApplicationsWithBundleIdentifier("com.spotify.client").count != 0 && spotify.playerState! == .Playing {
             startPolling()
@@ -69,7 +69,7 @@ class SpotifyManager: NSObject {
     
     func startPolling() {
         if (timer != nil) {return}
-        timer = NSTimer.scheduledTimerWithTimeInterval(DataManager.sharedData.pollingRate(), target: self, selector: "checkForAd", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(DataManager.sharedData.pollingRate(), target: self, selector: #selector(SpotifyManager.checkForAd), userInfo: nil, repeats: true)
         timer!.fire()
         
         state = .Active
@@ -105,8 +105,13 @@ class SpotifyManager: NSObject {
     func unmute() {
         if !isMuted {return}
         
-        isMuted = false
-        spotify.setSoundVolume!(oldVolume)
+        // Delay 3/4 second to avoid tail end of the advertisement
+        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), (Int64(NSEC_PER_SEC) / 4) * 3)
+        
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.isMuted = false
+            self.spotify.setSoundVolume!(self.oldVolume)
+        }
     }
     
     func displayNotificationWithText(text : String) {

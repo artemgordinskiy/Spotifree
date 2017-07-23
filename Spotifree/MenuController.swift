@@ -22,26 +22,26 @@ class MenuController : NSObject {
     
     func setUpMenu() {
         let statusMenu = NSMenu(title: "Spotifree")
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive"), action: nil, keyEquivalent: "")?.tag = 1
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive"), action: nil, keyEquivalent: "").tag = 1
         statusMenu.addItem(NSMenuItem.separatorItem())
         
         let updateMenu = NSMenu()
-        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_CHECK_FOR_UPDATES", comment:"Menu: Check For Updates..."), action: "checkForUpdates:", keyEquivalent: "")?.target = SUUpdater.sharedUpdater()
+        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_CHECK_FOR_UPDATES", comment:"Menu: Check For Updates..."), action: #selector(SUUpdater.checkForUpdates(_:)), keyEquivalent: "").target = SUUpdater.sharedUpdater()
         updateMenu.addItem(NSMenuItem.separatorItem())
-        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_CHECK_AUTOMATICALLY", comment: "Menu: Check Automatically"), action: "toggleAutomaticallyCheckForUpdates", keyEquivalent: "")!.target = self
-        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_DOWNLOAD_AUTOMATICALLY", comment: "Menu: Download automatically"), action: "toggleAutomaticallyDownloadUpdates", keyEquivalent: "")!.target = self
+        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_CHECK_AUTOMATICALLY", comment: "Menu: Check Automatically"), action: #selector(MenuController.toggleAutomaticallyCheckForUpdates), keyEquivalent: "").target = self
+        updateMenu.addItemWithTitle(NSLocalizedString("MENU_UPDATES_DOWNLOAD_AUTOMATICALLY", comment: "Menu: Download automatically"), action: #selector(MenuController.toggleAutomaticallyDownloadUpdates), keyEquivalent: "").target = self
         let updateItem = NSMenuItem(title:NSLocalizedString("MENU_UPDATES", comment: "Menu: Updates"), action: nil, keyEquivalent: "")
         updateItem.submenu = updateMenu;
         
         statusMenu.addItem(updateItem);
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_HIDE_ICON", comment: "Menu: Hide Icon"), action: "hideIconClicked", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_HIDE_ICON", comment: "Menu: Hide Icon"), action: #selector(MenuController.hideIconClicked), keyEquivalent: "").target = self
         statusMenu.addItem(NSMenuItem.separatorItem())
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_RUN_AT_LOGIN", comment: "Menu: Run At Login"), action: "toggleLoginItem", keyEquivalent: "")!.target = self
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_NOTIFICATIONS", comment: "Menu: Notifications"), action: "toggleNotifications", keyEquivalent: "")!.target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_RUN_AT_LOGIN", comment: "Menu: Run At Login"), action: #selector(MenuController.toggleLoginItem), keyEquivalent: "").target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_NOTIFICATIONS", comment: "Menu: Notifications"), action: #selector(MenuController.toggleNotifications), keyEquivalent: "").target = self
         statusMenu.addItem(NSMenuItem.separatorItem())
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_DONATE", comment: "Menu: Donate"), action: "donateLinkClicked", keyEquivalent: "")!.target = self
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_ABOUT", comment: "Menu: About"), action: "aboutItemClicked", keyEquivalent: "")!.target = self
-        statusMenu.addItemWithTitle(NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"), action: "terminate:", keyEquivalent: "q")!.keyEquivalentModifierMask = Int(NSEventModifierFlags.CommandKeyMask.rawValue);
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_DONATE", comment: "Menu: Donate"), action: #selector(MenuController.donateLinkClicked), keyEquivalent: "").target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_ABOUT", comment: "Menu: About"), action: #selector(MenuController.aboutItemClicked), keyEquivalent: "").target = self
+        statusMenu.addItemWithTitle(NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"), action: "terminate:", keyEquivalent: "q");
         statusMenu.addItem(NSMenuItem.separatorItem())
         
         statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
@@ -51,16 +51,16 @@ class MenuController : NSObject {
     }
     
     override func validateMenuItem(menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == "toggleNotifications" {
+        if menuItem.action == #selector(MenuController.toggleNotifications) {
             menuItem.state = Int(DataManager.sharedData.shouldShowNofifications())
         }
-        if menuItem.action == "toggleLoginItem" {
+        if menuItem.action == #selector(MenuController.toggleLoginItem) {
             menuItem.state = Int(DataManager.sharedData.isInLoginItems())
         }
-        if menuItem.action == "toggleAutomaticallyCheckForUpdates" {
+        if menuItem.action == #selector(MenuController.toggleAutomaticallyCheckForUpdates) {
             menuItem.state = Int(SUUpdater.sharedUpdater().automaticallyChecksForUpdates)
         }
-        if menuItem.action == "toggleAutomaticallyDownloadUpdates" {
+        if menuItem.action == #selector(MenuController.toggleAutomaticallyDownloadUpdates) {
             menuItem.state = Int(SUUpdater.sharedUpdater().automaticallyDownloadsUpdates)
             return SUUpdater.sharedUpdater().automaticallyChecksForUpdates
         }
