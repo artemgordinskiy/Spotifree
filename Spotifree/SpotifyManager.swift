@@ -40,7 +40,7 @@ class SpotifyManager: NSObject {
     private var isMuted = false
     private var oldVolume = 75
     
-    private var mode = SFSpotifreeMode.quitting
+    private var mode = SFSpotifreeMethod.quitting
     private var state = SFSpotifreeState.inactive {
         didSet {
             delegate?.spotifreeStateChanged(state)
@@ -49,13 +49,13 @@ class SpotifyManager: NSObject {
     
     private var spotifyRunningApp : NSRunningApplication?
     private var lastSpotifyURL : URL?
+    private var locked = false
     
     func start() {
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(SpotifyManager.playbackStateChanged(_:)), name: NSNotification.Name(rawValue: "com.spotify.client.PlaybackStateChanged"), object: nil);
         
         if NSRunningApplication.runningApplications(withBundleIdentifier: "com.spotify.client").count != 0 && spotify.playerState! == .playing {
             startPolling()
-            restartSpotifyAndPlay()
         }
     }
     
@@ -69,18 +69,18 @@ class SpotifyManager: NSObject {
             stopPolling()
         case "Playing":
             startPolling()
-        case _: break
+        default: break
         }
     }
     
     func checkForAd() {
         let currentTrack = spotify.currentTrack!
-        let isAd = fakeAds ?  currentTrack.spotifyUrl!.hasPrefix("spotify:local") : currentTrack.trackNumber! == 0 && !currentTrack.spotifyUrl!.hasPrefix("spotify:local") && spotify.playerState == .playing
+        let isAd = fakeAds ?  currentTrack.spotifyUrl!.hasPrefix("spotify:local") : currentTrack.trackNumber! == 0 && !currentTrack.spotifyUrl!.hasPrefix("spotify:local")
         switch mode {
         case .polling:
             isAd ? mute() : unmute()
         case .quitting:
-            if isAd {
+            if !locked && isAd {
                 displayNotificationWithText("Restarting Spotify because of an ad!")
                 restartSpotifyAndPlay()
             }
@@ -136,6 +136,7 @@ class SpotifyManager: NSObject {
             if let id = app.bundleIdentifier {
                 if id == "com.spotify.client" {
                     spotify.pause!()
+                    locked = true
                     lastSpotifyURL = app.bundleURL
                     
                     spotifyRunningApp = app;
@@ -154,9 +155,11 @@ class SpotifyManager: NSObject {
             spotifyRunningApp?.addObserver(self, forKeyPath: "isFinishedLaunching", options: [], context: nil)
         }
         if keyPath == "isFinishedLaunching" {
-            NSLog("Finished launching")
             delay(0.5) {
                 self.spotify.play!()
+                self.delay(5) {
+                    self.locked = false
+                }
             }
             spotifyRunningApp?.removeObserver(self, forKeyPath: "isFinishedLaunching")
             spotifyRunningApp = nil
