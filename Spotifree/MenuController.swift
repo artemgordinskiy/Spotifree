@@ -26,6 +26,7 @@ class MenuController : NSObject {
         statusMenu.addItem(NSMenuItem.separator())
         
         statusMenu.addItem(withTitle: "", action: #selector(MenuController.toggleMethod), keyEquivalent: "").target = self
+        statusMenu.addItem(withTitle: "Don't Relaunch When In Front", action: #selector(MenuController.toggleMethodAutomatically), keyEquivalent: "").target = self
         statusMenu.addItem(NSMenuItem.separator())
         
         let updateMenu = NSMenu()
@@ -35,13 +36,13 @@ class MenuController : NSObject {
         updateMenu.addItem(withTitle: NSLocalizedString("MENU_UPDATES_DOWNLOAD_AUTOMATICALLY", comment: "Menu: Download automatically"), action: #selector(MenuController.toggleAutomaticallyDownloadUpdates), keyEquivalent: "").target = self
         let updateItem = NSMenuItem(title:NSLocalizedString("MENU_UPDATES", comment: "Menu: Updates"), action: nil, keyEquivalent: "")
         updateItem.submenu = updateMenu;
-        
         statusMenu.addItem(updateItem);
+        
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_HIDE_ICON", comment: "Menu: Hide Icon"), action: #selector(MenuController.hideIconClicked), keyEquivalent: "").target = self
-        statusMenu.addItem(NSMenuItem.separator())
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_RUN_AT_LOGIN", comment: "Menu: Run At Login"), action: #selector(MenuController.toggleLoginItem), keyEquivalent: "").target = self
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_NOTIFICATIONS", comment: "Menu: Notifications"), action: #selector(MenuController.toggleNotifications), keyEquivalent: "").target = self
         statusMenu.addItem(NSMenuItem.separator())
+        
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_DONATE", comment: "Menu: Donate"), action: #selector(MenuController.donateLinkClicked), keyEquivalent: "").target = self
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_ABOUT", comment: "Menu: About"), action: #selector(MenuController.aboutItemClicked), keyEquivalent: "").target = self
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"), action: #selector(NSApplication.shared().terminate(_:)), keyEquivalent: "q").keyEquivalentModifierMask = NSEventModifierFlags.command;
@@ -61,6 +62,11 @@ class MenuController : NSObject {
             case .relaunching:
                 menuItem.title = NSLocalizedString("MENU_METHOD_RELAUNCHING", comment: "Menu: Method: Relaunching")
             }
+        }
+        if menuItem.action == #selector(MenuController.toggleMethodAutomatically) {
+            let isMethodRelaunching = (DataManager.sharedData.getMethod() == .relaunching)
+            menuItem.state = isMethodRelaunching ? Int(DataManager.sharedData.isMethodAutomatically()) : 0
+            return isMethodRelaunching
         }
         if menuItem.action == #selector(MenuController.toggleNotifications) {
             menuItem.state = Int(DataManager.sharedData.shouldShowNofifications())
@@ -114,6 +120,10 @@ class MenuController : NSObject {
     
     func toggleMethod() {
         DataManager.sharedData.toggleMethod()
+    }
+    
+    func toggleMethodAutomatically() {
+        DataManager.sharedData.toggleMethodAutomatically()
     }
     
     func toggleNotifications() {

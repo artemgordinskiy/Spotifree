@@ -79,21 +79,16 @@ class SpotifyManager: NSObject {
         case .muting:
             isAd ? mute() : unmute()
         case .relaunching:
-            if isAd && !locked {
-                if DataManager.sharedData.shouldShowNofifications() {
-                    displayNotificationWithText(NSLocalizedString("NOTIFICATION_AD_DETECTED_RESTART", comment: "Notification: A Spotify ad was detected! Restarting Spotify..."))
-                }
-                restartSpotifyAndPlay()
-            }
+            isAd && !locked ? restartSpotifyAndPlay() : unmute()
         }
     }
     
     func startPolling() {
         if (timer != nil) {return}
+        state = .active
+        
         timer = Timer.scheduledTimer(timeInterval: DataManager.sharedData.pollingRate(), target: self, selector: #selector(SpotifyManager.checkForAd), userInfo: nil, repeats: true)
         timer!.fire()
-        
-        state = .active
     }
     
     func stopPolling() {
@@ -105,12 +100,12 @@ class SpotifyManager: NSObject {
     }
     
     func mute() {
+        stopPolling()
+        
         if isMuted {return}
         
         isMuted = true
         oldVolume = (spotify.soundVolume)!
-        
-        stopPolling()
         
         spotify.pause!()
         spotify.setSoundVolume!(0);
@@ -136,6 +131,15 @@ class SpotifyManager: NSObject {
         
         guard let app = NSRunningApplication.runningApplications(withBundleIdentifier: "com.spotify.client").first else {
             return
+        }
+        
+        if app.isActive && DataManager.sharedData.isMethodAutomatically() {
+            mute()
+            return
+        }
+        
+        if DataManager.sharedData.shouldShowNofifications() {
+            displayNotificationWithText(NSLocalizedString("NOTIFICATION_AD_DETECTED_RESTART", comment: "Notification: A Spotify ad was detected! Restarting Spotify..."))
         }
 
         spotify.pause!()
