@@ -44,7 +44,7 @@ class MenuController : NSObject {
         statusMenu.addItem(NSMenuItem.separator())
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_DONATE", comment: "Menu: Donate"), action: #selector(MenuController.donateLinkClicked), keyEquivalent: "").target = self
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_ABOUT", comment: "Menu: About"), action: #selector(MenuController.aboutItemClicked), keyEquivalent: "").target = self
-        statusMenu.addItem(withTitle: NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"), action: #selector(NSApplication.shared().terminate(_:)), keyEquivalent: "q").keyEquivalentModifierMask = NSEventModifierFlags(rawValue: UInt(Int(NSEventModifierFlags.command.rawValue)));
+        statusMenu.addItem(withTitle: NSLocalizedString("MENU_QUIT", comment: "Menu: Quit"), action: #selector(NSApplication.shared().terminate(_:)), keyEquivalent: "q").keyEquivalentModifierMask = NSEventModifierFlags.command;
         statusMenu.addItem(NSMenuItem.separator())
         
         statusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)

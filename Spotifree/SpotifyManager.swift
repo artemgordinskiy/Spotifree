@@ -79,7 +79,7 @@ class SpotifyManager: NSObject {
         case .muting:
             isAd ? mute() : unmute()
         case .relaunching:
-            if !locked && isAd {
+            if isAd && !locked {
                 if DataManager.sharedData.shouldShowNofifications() {
                     displayNotificationWithText(NSLocalizedString("NOTIFICATION_AD_DETECTED_RESTART", comment: "Notification: A Spotify ad was detected! Restarting Spotify..."))
                 }
@@ -150,7 +150,7 @@ class SpotifyManager: NSObject {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "isTerminated" {
             self.spotifyRunningApp?.removeObserver(self, forKeyPath: "isTerminated")
-            let launchOptions : NSWorkspaceLaunchOptions = quitSpotifyData!["frontmost"] as! Bool ? [] : [.withoutActivation]
+            let launchOptions : NSWorkspaceLaunchOptions = quitSpotifyData!["frontmost"] as! Bool ? [] : [.withoutActivation, .andHide]
             spotifyRunningApp = try? NSWorkspace.shared().launchApplication(at: quitSpotifyData!["url"] as! URL, options: launchOptions, configuration: [:])
             spotifyRunningApp?.addObserver(self, forKeyPath: "isFinishedLaunching", options: [], context: nil)
         }
