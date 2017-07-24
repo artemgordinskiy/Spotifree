@@ -11,6 +11,7 @@ import Cocoa
 let KEY_MENU_BAR_ICON_HIDDEN = "SFMenuBarIconHidden"
 let KEY_SHOW_NOTIFICATIONS = "SFShowNotifications"
 let KEY_POLLING_RATE = "SFPollingRate"
+let KEY_METHOD = "SFMethod"
 
 class DataManager : NSObject {
     static let sharedData = DataManager()
@@ -25,7 +26,7 @@ class DataManager : NSObject {
             addLoginItem()
         }
         
-        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3] as [String : Any]
+        let defaults = [KEY_MENU_BAR_ICON_HIDDEN : false, KEY_SHOW_NOTIFICATIONS : false, KEY_POLLING_RATE : 0.3, KEY_METHOD : 0] as [String : Any]
         UserDefaults.standard.register(defaults: defaults)
         
         if !UserDefaults.standard.bool(forKey: "SUHasLaunchedBefore") {
@@ -75,6 +76,16 @@ class DataManager : NSObject {
             isCorrect = desc.booleanValue
         }
         return isCorrect
+    }
+    
+    func toggleMethod() {
+        let method = UserDefaults.standard.bool(forKey: KEY_METHOD)
+        UserDefaults.standard.set(!method, forKey: KEY_METHOD)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func getMethod() -> SFMethod {
+        return UserDefaults.standard.bool(forKey: KEY_METHOD) ? .relaunching : .muting
     }
     
     func toggleShowNotifications() {

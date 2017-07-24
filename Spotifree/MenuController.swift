@@ -25,6 +25,9 @@ class MenuController : NSObject {
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_INACTIVE", comment: "Spotify state: Inactive"), action: nil, keyEquivalent: "").tag = 1
         statusMenu.addItem(NSMenuItem.separator())
         
+        statusMenu.addItem(withTitle: "", action: #selector(MenuController.toggleMethod), keyEquivalent: "").target = self
+        statusMenu.addItem(NSMenuItem.separator())
+        
         let updateMenu = NSMenu()
         updateMenu.addItem(withTitle: NSLocalizedString("MENU_UPDATES_CHECK_FOR_UPDATES", comment:"Menu: Check For Updates..."), action: #selector(SUUpdater.checkForUpdates(_:)), keyEquivalent: "").target = SUUpdater.shared()
         updateMenu.addItem(NSMenuItem.separator())
@@ -51,6 +54,14 @@ class MenuController : NSObject {
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(MenuController.toggleMethod) {
+            switch DataManager.sharedData.getMethod() {
+            case .muting:
+                menuItem.title = NSLocalizedString("MENU_METHOD_MUTING", comment: "Menu: Method: Muting")
+            case .relaunching:
+                menuItem.title = NSLocalizedString("MENU_METHOD_RELAUNCHING", comment: "Menu: Method: Relaunching")
+            }
+        }
         if menuItem.action == #selector(MenuController.toggleNotifications) {
             menuItem.state = Int(DataManager.sharedData.shouldShowNofifications())
         }
@@ -101,6 +112,10 @@ class MenuController : NSObject {
         setUpMenu()
     }
     
+    func toggleMethod() {
+        DataManager.sharedData.toggleMethod()
+    }
+    
     func toggleNotifications() {
         DataManager.sharedData.toggleShowNotifications()
     }
@@ -131,7 +146,7 @@ class MenuController : NSObject {
 }
 
 extension MenuController : SpotifyManagerDelegate {
-    func spotifreeStateChanged(_ state: SFSpotifreeState) {
+    func spotifreeStateChanged(_ state: SFState) {
         if let statusItem = statusItem {
             var label = "Status Unknown"
             var icon : NSImage?

@@ -11,23 +11,23 @@ import ScriptingBridge
 
 let fakeAds = false
 
-enum SFSpotifreeMethod {
-    case polling
-    case quitting
+enum SFMethod {
+    case muting
+    case relaunching
 }
 
-enum SFSpotifreeState {
+enum SFState {
     case active
     case muting
     case inactive
 }
 
 protocol SpotifyManagerDelegate {
-    func spotifreeStateChanged(_ state: SFSpotifreeState)
+    func spotifreeStateChanged(_ state: SFState)
 }
 // Optional Functions
 extension SpotifyManagerDelegate {
-    func spotifreeStateChanged(_ state: SFSpotifreeState) {}
+    func spotifreeStateChanged(_ state: SFState) {}
 }
 
 class SpotifyManager: NSObject {
@@ -40,15 +40,14 @@ class SpotifyManager: NSObject {
     private var isMuted = false
     private var oldVolume = 75
     
-    private var mode = SFSpotifreeMethod.quitting
-    private var state = SFSpotifreeState.inactive {
+    private var state = SFState.inactive {
         didSet {
             delegate?.spotifreeStateChanged(state)
         }
     }
     
     private var spotifyRunningApp : NSRunningApplication?
-    private var lastSpotifyURL : URL?
+    private var quitSpotifyData : [String : Any]?
     private var locked = false
     
     func start() {
@@ -76,12 +75,14 @@ class SpotifyManager: NSObject {
     func checkForAd() {
         let currentTrack = spotify.currentTrack!
         let isAd = fakeAds ?  currentTrack.spotifyUrl!.hasPrefix("spotify:local") : currentTrack.trackNumber! == 0 && !currentTrack.spotifyUrl!.hasPrefix("spotify:local")
-        switch mode {
-        case .polling:
+        switch DataManager.sharedData.getMethod() {
+        case .muting:
             isAd ? mute() : unmute()
-        case .quitting:
+        case .relaunching:
             if !locked && isAd {
-                displayNotificationWithText("Restarting Spotify because of an ad!")
+                if DataManager.sharedData.shouldShowNofifications() {
+                    displayNotificationWithText(NSLocalizedString("NOTIFICATION_AD_DETECTED_RESTART", comment: "Notification: A Spotify ad was detected! Restarting Spotify..."))
+                }
                 restartSpotifyAndPlay()
             }
         }
@@ -132,26 +133,25 @@ class SpotifyManager: NSObject {
     }
     
     func restartSpotifyAndPlay() {
-        for app in NSWorkspace.shared().runningApplications {
-            if let id = app.bundleIdentifier {
-                if id == "com.spotify.client" {
-                    spotify.pause!()
-                    locked = true
-                    lastSpotifyURL = app.bundleURL
-                    
-                    spotifyRunningApp = app;
-                    spotifyRunningApp!.addObserver(self, forKeyPath: "isTerminated", options: .new, context: nil)
-                    spotifyRunningApp!.terminate()
-                    break
-                }
-            }
+        
+        guard let app = NSRunningApplication.runningApplications(withBundleIdentifier: "com.spotify.client").first else {
+            return
         }
+
+        spotify.pause!()
+        locked = true
+        quitSpotifyData = ["url" : app.bundleURL!, "frontmost" : app.isActive]
+        
+        spotifyRunningApp = app;
+        spotifyRunningApp!.addObserver(self, forKeyPath: "isTerminated", options: [], context: nil)
+        spotifyRunningApp!.terminate()
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "isTerminated" {
             self.spotifyRunningApp?.removeObserver(self, forKeyPath: "isTerminated")
-            spotifyRunningApp = try? NSWorkspace.shared().launchApplication(at: lastSpotifyURL!, options: [.withoutActivation], configuration: [:])
+            let launchOptions : NSWorkspaceLaunchOptions = quitSpotifyData!["frontmost"] as! Bool ? [] : [.withoutActivation]
+            spotifyRunningApp = try? NSWorkspace.shared().launchApplication(at: quitSpotifyData!["url"] as! URL, options: launchOptions, configuration: [:])
             spotifyRunningApp?.addObserver(self, forKeyPath: "isFinishedLaunching", options: [], context: nil)
         }
         if keyPath == "isFinishedLaunching" {
