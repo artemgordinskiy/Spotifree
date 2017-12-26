@@ -35,6 +35,8 @@ class SpotifyManager: NSObject {
     private var isMuted = false
     private var oldVolume = 75
     
+    private var lastTrackId = ""
+
     private var state = SFSpotifreeState.inactive {
         didSet {
             delegate?.spotifreeStateChanged(state)
@@ -63,15 +65,40 @@ class SpotifyManager: NSObject {
         }
     }
     
+    func checkCurrentTrack() {
+        checkForAd()
+        checkForExplicit()
+    }
+
     func checkForAd() {
         let currentTrack = spotify.currentTrack!
         let isAd = fakeAds ?  currentTrack.spotifyUrl!.hasPrefix("spotify:local") : currentTrack.trackNumber! == 0 && !currentTrack.spotifyUrl!.hasPrefix("spotify:local")
         isAd ? mute() : unmute()
     }
+
+    func checkForExplicit() {
+        if DataManager.sharedData.shouldSkipExplicit() {
+            let currentTrackId = spotify.currentTrack!.id!()
+            if (currentTrackId != lastTrackId) { // Only check song once
+                let spotifyId = currentTrackId.components(separatedBy: ":")[2]
+                do {
+                    let spotifyTrackURL = URL(string: "https://open.spotify.com/track/" + spotifyId)!
+                    let webContent = try String(contentsOf: spotifyTrackURL, encoding: .utf8)
+                    if webContent.contains("\"explicit\":true") { // Match part of Spotify.Entity
+                        lastTrackId = ""
+                        spotify.nextTrack!()
+                        displayNotificationWithText(String(format: NSLocalizedString("NOTIFICATION_SKIP_EXPLICIT", comment: "Notification: Skipped explicit song")))
+                    } else {
+                        lastTrackId = currentTrackId
+                    }
+                } catch _ {}
+            }
+        }
+    }
     
     func startPolling() {
         if (timer != nil) {return}
-        timer = Timer.scheduledTimer(timeInterval: DataManager.sharedData.pollingRate(), target: self, selector: #selector(SpotifyManager.checkForAd), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: DataManager.sharedData.pollingRate(), target: self, selector: #selector(SpotifyManager.checkCurrentTrack), userInfo: nil, repeats: true)
         timer!.fire()
         
         state = .active

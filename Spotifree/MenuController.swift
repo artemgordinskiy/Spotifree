@@ -38,6 +38,7 @@ class MenuController : NSObject {
         statusMenu.addItem(NSMenuItem.separator())
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_RUN_AT_LOGIN", comment: "Menu: Run At Login"), action: #selector(MenuController.toggleLoginItem), keyEquivalent: "").target = self
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_NOTIFICATIONS", comment: "Menu: Notifications"), action: #selector(MenuController.toggleNotifications), keyEquivalent: "").target = self
+        statusMenu.addItem(withTitle: NSLocalizedString("MENU_SKIP_EXPLICIT", comment: "Menu: Skip Explicit Songs"), action: #selector(MenuController.toggleSkipExplicit), keyEquivalent: "").target = self
         statusMenu.addItem(NSMenuItem.separator())
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_DONATE", comment: "Menu: Donate"), action: #selector(MenuController.donateLinkClicked), keyEquivalent: "").target = self
         statusMenu.addItem(withTitle: NSLocalizedString("MENU_ABOUT", comment: "Menu: About"), action: #selector(MenuController.aboutItemClicked), keyEquivalent: "").target = self
@@ -53,6 +54,9 @@ class MenuController : NSObject {
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if menuItem.action == #selector(MenuController.toggleNotifications) {
             menuItem.state = Int(DataManager.sharedData.shouldShowNofifications())
+        }
+        if menuItem.action == #selector(MenuController.toggleSkipExplicit) {
+            menuItem.state = Int(DataManager.sharedData.shouldSkipExplicit())
         }
         if menuItem.action == #selector(MenuController.toggleLoginItem) {
             menuItem.state = Int(DataManager.sharedData.isInLoginItems())
@@ -101,6 +105,10 @@ class MenuController : NSObject {
         setUpMenu()
     }
     
+    func toggleSkipExplicit() {
+        DataManager.sharedData.toggleSkipExplicitSetting()
+    }
+
     func toggleNotifications() {
         DataManager.sharedData.toggleShowNotifications()
     }

@@ -28,6 +28,9 @@
 /* Menu: Notifications */
 "MENU_NOTIFICATIONS" = "Értesítések";
 
+/* Menu: Skip Explicit Songs */
+"MENU_SKIP_EXPLICIT" = "Skip Explicit Songs";
+
 /* Menu: Quit */
 "MENU_QUIT" = "Spotifree bezárása";
 
@@ -48,6 +51,9 @@
 
 /* Notification: A Spotify ad was detected! Music will be back in about %i seconds... */
 "NOTIFICATION_AD_DETECTED" = "Spotify reklám észlelve! A zene folytatódik körülbelül %i másodperc múlva...";
+
+/* Notification: Skipped explicit song */
+"NOTIFICATION_SKIP_EXPLICIT" = "Skipped explicit song";
 
 /* General: OK */
 "OK" = "Rendben";

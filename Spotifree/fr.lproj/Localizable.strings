@@ -28,6 +28,9 @@
 /* Menu: Notifications */
 "MENU_NOTIFICATIONS" = "Notifications";
 
+/* Menu: Skip Explicit Songs */
+"MENU_SKIP_EXPLICIT" = "Skip Explicit Songs";
+
 /* Menu: Quit */
 "MENU_QUIT" = "Quitter Spotifree";
 
@@ -48,6 +51,9 @@
 
 /* Notification: A Spotify ad was detected! Music will be back in about %i seconds... */
 "NOTIFICATION_AD_DETECTED" = "Une pub Spotify a été détectée! La musique va revenir dans %i secondes";
+
+/* Notification: Skipped explicit song */
+"NOTIFICATION_SKIP_EXPLICIT" = "Skipped explicit song";
 
 /* General: OK */
 "OK" = "OK";

@@ -10,6 +10,7 @@ import Cocoa
 
 let KEY_MENU_BAR_ICON_HIDDEN = "SFMenuBarIconHidden"
 let KEY_SHOW_NOTIFICATIONS = "SFShowNotifications"
+let KEY_SKIP_EXPLICIT = "SFSkipExplicit"
 let KEY_POLLING_RATE = "SFPollingRate"
 
 class DataManager : NSObject {
@@ -85,5 +86,15 @@ class DataManager : NSObject {
     
     func shouldShowNofifications() -> Bool {
         return UserDefaults.standard.bool(forKey: KEY_SHOW_NOTIFICATIONS)
+    }
+
+    func toggleSkipExplicitSetting() {
+        let skipExplicit = UserDefaults.standard.bool(forKey: KEY_SKIP_EXPLICIT)
+        UserDefaults.standard.set(!skipExplicit, forKey: KEY_SKIP_EXPLICIT)
+        UserDefaults.standard.synchronize()
+    }
+
+    func shouldSkipExplicit() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_SKIP_EXPLICIT)
     }
 }
