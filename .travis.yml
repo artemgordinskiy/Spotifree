@@ -1,0 +1,17 @@
+---
+os: osx
+osx_image: xcode10.1
+
+script:
+  - xcodebuild -project Spotifree.xcodeproj -alltargets -configuration Release
+
+before_deploy: hdiutil create -volname Spotifree -srcfolder build/Release/Spotifree.app -ov -format UDZO Spotifree-$TRAVIS_TAG.dmg
+deploy:
+  provider: releases
+  api_key:
+    secure: sHnP2QICRtS4dPwMWBFsftCG3ldPS4jkhUs4S3Biq+w7rDyiaPsMDQL2pBxT7moYOs27O4uOItlpCKwsTOaqrBnnOGzT/u5TbsCbyrHdy94Pb9bjcIOPOZWH8aXWxxX1n07OARVHSrScJl0WGtd6MiEJP6umrmsIdU10FXWbdMfoXvsUcs5aUxRAuaJbkA8T/Kbhy7lpWzKmP74Gfm2l3ez+4QE0xxMJIy6mXhHtw0aQN9folhJ3K5hg2bcpMsr4OmmVng3diSSKLBnjkZ7yQSSpCTXHzotSqHYfs86vBrwKNPhngMDWx/eX2al9T1tBhXjepe/B540FRrWb8Yed0sgi+e8xMGQnk4yKoHFlXOT/kvLqREeAmwf2zr4JzY3rvohMOmFIjEqlfhrgqtgnnPlWpuIioE8cJlfT6lsYGscWL2R9unOIGbxxl/nswJiJ97XB0KegYrmf5Is4jEWL0mZTvE0qGkEAlMht0mqRgmunh2UE2Q3TK0GIEXR3IlotcbSIa/MrAMgHUfLbQiL32xo4rD/k61EvDd/2NKFrOiYmwTW6XnY4v/HvIb6K6ZOH3YRxDkj0hXknM5oxe+dlx5GN3UIAaEEH8IsoDB6Sp3ftipmGzkpqC5+waEm1yiR77bnGDn9gnStn1bJ2QxT6P5IpNXv4CcItGHQbe6Wo058=
+  skip_cleanup: true
+  file: Spotifree-$TRAVIS_TAG.dmg
+  on:
+    repo: bemehiser/Spotifree
+    tags: true
