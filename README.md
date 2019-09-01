@@ -11,7 +11,8 @@ On the first run, **Spotifree** will be added to the login items. From this mome
 **Spotifree** is polling Spotify every **.3** seconds to see whether the current track number is 0 (as in all ads). If it is, Spotify is muted for a duration of an ad. When an ad is over, the volume is set to the way it was before.
 
 #### Alternatives
-[MuteSpotifyAds](https://github.com/simonmeusel/MuteSpotifyAds) by [Simon Meusel](https://github.com/simonmeusel)
+[MuteSpotifyAds](https://github.com/simonmeusel/MuteSpotifyAds) by [Simon Meusel](https://github.com/simonmeusel) is a good alternative if Spotifree does not work for you.
+
 
 #### Thanks
 Thanks Chris Ferrara from MacRumors forums, for the original idea and the proof-of-concept script.  
