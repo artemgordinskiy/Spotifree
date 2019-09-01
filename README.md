@@ -13,6 +13,4 @@ On the first run, **Spotifree** will be added to the login items. From this mome
 #### Thanks
 Thanks Chris Ferrara from MacRumors forums, for the original idea and the proof-of-concept script.  
 Thanks [Eneas](https://github.com/E-n-e-a-s), for turning that brittle AppleScript into a robust native application.  
-Thanks to all contributors for putting their time and effort into Spotifree.  
-Thanks to everyone who took the time to express their gratitude in numerous heartfelt letters. That means a lot.  
-Thanks [BrowserStack](https://www.browserstack.com), for generously providing me with a free "Open Source" unlimited plan, that enables me to test any website (even local one) on any device in just a couple of clicks.
+Thanks to all other contributors for helping make Spotifree better.
