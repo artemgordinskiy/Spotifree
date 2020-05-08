@@ -1,4 +1,4 @@
-# Spotifree
+# Spotifree (DISCONTINUED)
 Spotifree is a free OS X app that automatically detects and mutes Spotify audio ads.
 
 ## Installing
